@@ -37,6 +37,9 @@ class SectionController extends Controller
       $sectionTrans->description = $request->input('secdesc');
       $sectionTrans->lang = $request->input('seclang');
       $sectionTrans->save();
+      return back()
+        ->with('status', 'success')
+        ->with('message', 'Хадгалагдлаа');
 
     }
 

@@ -13,6 +13,7 @@
 
   <!-- Main content -->
   <section class="content">
+    @include('status')
     <div class="row">
       <form method="post" action="{{ url('/home/section/action') }}" class="form-horizontal">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
