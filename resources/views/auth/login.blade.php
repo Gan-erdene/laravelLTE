@@ -2,12 +2,8 @@
 
 @section('content')
 
-
-
-
-
 <div class="login-logo">
-  <a href="../admin/index2.html"><b>Админ хуудас</a>
+  <a href="#"><b>Админ хуудас</a>
 </div>
 
 <div class="login-box-body">
