@@ -15,8 +15,9 @@
   <section class="content">
     <div class="row">
       <form method="post" action="{{ url('/home/section/action') }}" class="form-horizontal">
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
       <div class="col-md-6 ">
-        <input type="hidden" name="action" value="action">
+        <input type="hidden" name="action" value="create">
         <div class="box box-info">
           <div class="box-body">
             <div class="box-header with-border">
@@ -71,7 +72,9 @@
 
               <div class="col-sm-3">
                 <select name="sectype" id="sectype" class="form-control">
-                    <option></option>
+                  @foreach($sectiontypes as $item)
+                    <option value="{{$item->id}}">{{$item->name}}</option>
+                  @endforeach
                 </select>
               </div>
             </div>

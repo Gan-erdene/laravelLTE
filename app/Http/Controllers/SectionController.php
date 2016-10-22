@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
-
+use App\sectiontype;
 class SectionController extends Controller
 {
     public function index(){
-      return view('section.add');
+      $sections = sectiontype::all();
+      return view('section.add')
+        ->with('sectiontypes',$sections);
     }
 
     public function action(){
