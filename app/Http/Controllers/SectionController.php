@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\sectiontype;
+use App\Section;
+use App\SectionTranslation;
 class SectionController extends Controller
 {
     public function index(){
@@ -22,12 +24,20 @@ class SectionController extends Controller
     }
 
     public function createSection($request){
-      $section = new sectiontype;
+      $section = new Section;
+      $section->published = 1;//$request->input('published');
+      $section->type_id = $request->input('sectype');
+      $section->order_id = $request->input('secorder');
+      $section->created_by = \Auth::user()->id;
+      $section->save();
 
-        $flight->name = $request->name;
+      $sectionTrans = new SectionTranslation;
+      $sectionTrans->id = $section->id;
+      $sectionTrans->name = $request->input('secname');
+      $sectionTrans->description = $request->input('secdesc');
+      $sectionTrans->lang = $request->input('seclang');
+      $sectionTrans->save();
 
-        $flight->save();
-        echo $request->input('secname');
     }
 
     public function editSection(){

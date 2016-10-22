@@ -14,7 +14,7 @@
   <!-- Main content -->
   <section class="content">
     <div class="row">
-      <form method="post" action="{{ url('/home/create/action') }}" class="form-horizontal">
+      <form method="post" action="{{ url('/home/section/action') }}" class="form-horizontal">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
       <div class="col-md-6 ">
         <input type="hidden" name="action" value="create">
@@ -35,32 +35,17 @@
 
               <div class="col-sm-9">
                 <input type="text" class="form-control" id="secdesc" name="secdesc">
+                <input type="hidden" class="form-control" id="seclang" name="seclang" value="mn">
               </div>
             </div>
-            <div class="box-header with-border">
-              <h3 class="box-title">Секци англи хэл дээр</h3>
-            </div>
-            <div class="form-group">
-              <label for="secname1" class="col-sm-3 control-label">Секци</label>
 
-              <div class="col-sm-9">
-                <input type="text" class="form-control" id="secname1" name="secname1">
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="secdesc1" class="col-sm-3 control-label">Тайлбар</label>
-
-              <div class="col-sm-9">
-                <input type="text" class="form-control" id="secdesc1" name="secdesc1">
-              </div>
-            </div>
             <div class="form-group">
               <label for="published" class="col-sm-3 control-label"></label>
 
               <div class="col-sm-9">
                 <div class="checkbox">
                 <label>
-                  <input type="checkbox" name="published" id="published">
+                  <input type="checkbox" value="1" name="published" id="published">
                   Харуулах
                 </label>
               </div>
