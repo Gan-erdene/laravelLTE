@@ -13,16 +13,21 @@ class SectionController extends Controller
         ->with('sectiontypes',$sections);
     }
 
-    public function action(){
-      switch (Input::get('action')) {
-        case 'create': return $this->createSection();
+    public function action(Request $request){
+      switch ($request->input('action')) {
+        case 'create': return $this->createSection($request);
         case 'edit': return $this->editSection();
         default: break;
       }
     }
 
-    public function createSection(){
-        echo Input::get('secname');
+    public function createSection($request){
+      $section = new sectiontype;
+
+        $flight->name = $request->name;
+
+        $flight->save();
+        echo $request->input('secname');
     }
 
     public function editSection(){
