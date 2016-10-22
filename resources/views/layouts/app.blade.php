@@ -360,8 +360,8 @@
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-plus-circle"></i> Нэмэх</a></li>
-                <li><a href="#"><i class="fa fa-list"></i> Жагсаалт</a></li>
+                <li><a href="/home/category/add"><i class="fa fa-plus-circle"></i> Нэмэх</a></li>
+                <li><a href="/home/category/list"><i class="fa fa-list"></i> Жагсаалт</a></li>
               </ul>
             </li>
             <li>
@@ -371,8 +371,8 @@
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-plus-circle"></i> Нэмэх</a></li>
-                <li><a href="#"><i class="fa fa-list"></i> Жагсаалт</a></li>
+                <li><a href="/home/section/add"><i class="fa fa-plus-circle"></i> Нэмэх</a></li>
+                <li><a href="/home/section/list"><i class="fa fa-list"></i> Жагсаалт</a></li>
               </ul>
             </li>
           </ul>
