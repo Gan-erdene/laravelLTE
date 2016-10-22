@@ -14,7 +14,7 @@
   <!-- Main content -->
   <section class="content">
     <div class="row">
-      <form class="form-horizontal">
+      <form method="post" action="{{ url('/home/section/action') }}" class="form-horizontal">
       <div class="col-md-6 ">
         <input type="hidden" name="action" value="action">
         <div class="box box-info">
@@ -54,7 +54,7 @@
               </div>
             </div>
             <div class="form-group">
-              <label for="inputEmail3" class="col-sm-3 control-label"></label>
+              <label for="published" class="col-sm-3 control-label"></label>
 
               <div class="col-sm-9">
                 <div class="checkbox">
@@ -67,10 +67,10 @@
             </div>
 
             <div class="form-group">
-              <label for="inputPassword3" class="col-sm-3 control-label">Агуулга</label>
+              <label for="sectype" class="col-sm-3 control-label">Агуулга</label>
 
               <div class="col-sm-3">
-                <select class="form-control">
+                <select name="sectype" id="sectype" class="form-control">
                     <option></option>
                 </select>
               </div>

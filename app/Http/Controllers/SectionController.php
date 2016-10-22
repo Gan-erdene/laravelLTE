@@ -21,7 +21,7 @@ class SectionController extends Controller
     }
 
     public function createSection(){
-
+        echo Input::get('secname');
     }
 
     public function editSection(){
