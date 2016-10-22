@@ -21,8 +21,8 @@ Auth::routes();
 Route::group(['prefix' => '/home'], function () {
   Route::get('/', 'HomeController@index');
   Route::get('/section/add', 'SectionController@index');
-  Route::get('/section/action', 'SectionController@action');
+  Route::post('/section/action', 'SectionController@action');
   Route::get('/category/add', 'CategoryController@index');
-  Route::get('/category/create', 'CategoryController@create');
+  Route::post('/category/create', 'CategoryController@create');
 });
 Auth::routes();
