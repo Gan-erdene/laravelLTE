@@ -4,49 +4,117 @@
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
-    <h1>
-      Fixed Layout
-      <small>Blank example to the fixed layout</small>
-    </h1>
     <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li><a href="#">Layout</a></li>
-      <li class="active">Fixed</li>
+      <li><a href="#"><i class="fa fa-newspaper-o"></i> Мэдээлэл</a></li>
+      <li><a href="#">Секци</a></li>
+      <li class="active">Нэмэх</li>
     </ol>
   </section>
 
   <!-- Main content -->
   <section class="content">
-    <div class="callout callout-info">
-      <h4>Myy add view!</h4>
+    <div class="row">
+      <div class="box box-info">
+          <div class="box-header with-border">
+            <h3 class="box-title">Секци монгол хэл дээр</h3>
+          </div>
+          <!-- /.box-header -->
+          <!-- form start -->
+          <div class="form-horizontal">
+            <div class="box-body">
+              <div class="form-group">
+                <label for="secname" class="col-sm-2 control-label">Секци</label>
 
-      <p>Add the fixed class to the body tag to get this layout. The fixed layout is your best option if your sidebar
-        is bigger than your content because it prevents extra unwanted scrolling.</p>
-    </div>
-    <!-- Default box -->
-    <div class="box">
-      <div class="box-header with-border">
-        <h3 class="box-title">Title</h3>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="secname" name="secname">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="secdesc" class="col-sm-2 control-label">Тайлбар</label>
 
-        <div class="box-tools pull-right">
-          <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-            <i class="fa fa-minus"></i></button>
-          <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
-            <i class="fa fa-times"></i></button>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="secdesc" name="secdesc">
+                </div>
+              </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="box-body">
-        Start creating your amazing application!
-      </div>
-      <!-- /.box-body -->
-      <div class="box-footer">
-        Footer
-      </div>
-      <!-- /.box-footer-->
+        <div class="box box-info">
+            <div class="box-header with-border">
+              <h3 class="box-title">Секци англи хэл дээр</h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <div class="form-horizontal">
+              <div class="box-body">
+                <div class="form-group">
+                  <label for="secname1" class="col-sm-2 control-label">Секци</label>
+
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="secname1" name="secname1">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="secdesc1" class="col-sm-2 control-label">Тайлбар</label>
+
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="secdesc1" name="secdesc1">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="box box-info">
+              <!-- /.box-header -->
+              <!-- form start -->
+              <div class="form-horizontal">
+                <div class="box-body">
+                  <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Харуулах эсэх</label>
+
+                    <div class="col-sm-10">
+                      <input type="checkbox" class="flat-red" checked>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-2 control-label">Тайлбар</label>
+
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="inputPassword3" placeholder="Password">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-2 control-label">Агуулга</label>
+
+                    <div class="col-sm-3">
+                      <select class="form-control">
+                          <option></option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer">
+                  <button type="submit" class="btn btn-default">Cancel</button>
+                  <button type="submit" class="btn btn-info pull-right">Sign in</button>
+                </div>
+                <!-- /.box-footer -->
+              </div>
+            </div>
     </div>
-    <!-- /.box -->
 
   </section>
   <!-- /.content -->
 </div>
+
+@endsection
+@section('javascript')
+<script>
+//Flat red color scheme for iCheck
+ $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+   checkboxClass: 'icheckbox_flat-green',
+   radioClass: 'iradio_flat-green'
+ });
+</script>
 @endsection

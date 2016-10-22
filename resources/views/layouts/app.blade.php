@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
   <link rel="stylesheet" href="/admin/dist/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="/admin/plugins/iCheck/all.css">
   <link rel="stylesheet" href="/admin/dist/css/skins/_all-skins.min.css">
   <script>
         window.Laravel = <?php echo json_encode([
@@ -609,5 +610,6 @@
 <script src="/admin/dist/js/app.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="/admin/dist/js/demo.js"></script>
+@yield('javascript')
 </body>
 </html>
