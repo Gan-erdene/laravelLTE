@@ -18,9 +18,9 @@ Route::get('/', function () {
 
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index');
-
+Route::group(['prefix' => '/home'], function () {
+  Route::get('/', 'HomeController@index');
+  Route::get('/section/add', 'SectionController@index');
+  Route::get('/category/add', 'CategoryController@index');
+});
 Auth::routes();
-
-Route::get('/home', 'HomeController@index');
