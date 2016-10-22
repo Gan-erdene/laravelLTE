@@ -15,9 +15,9 @@
   <section class="content">
     @include('status')
     <div class="row">
-      <form method="post" action="{{ url('/home/section/action') }}" class="form-horizontal">
-        <input type="hidden" name="_token" value="{{ csrf_token() }}">
       <div class="col-md-6 ">
+        <form method="post" action="{{ url('/home/section/action') }}" class="form-horizontal">
+          <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <input type="hidden" name="action" value="create">
         <div class="box box-info">
           <div class="box-body">
@@ -80,8 +80,9 @@
                   <button type="submit" class="btn btn-info pull-right"> Бүртгэх</button>
                 </div>
                 <!-- /.box-footer -->
+                </form>
               </div>
-      </form>
+    </div>
   </section>
   <!-- /.content -->
 </div>
