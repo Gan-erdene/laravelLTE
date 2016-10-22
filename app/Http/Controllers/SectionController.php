@@ -11,4 +11,20 @@ class SectionController extends Controller
     public function index(){
       return view('section.add');
     }
+
+    public function action(){
+      switch (Input::get('action')) {
+        case 'create': return $this->createSection();
+        case 'edit': return $this->editSection();
+        default: break;
+      }
+    }
+
+    public function createSection(){
+
+    }
+
+    public function editSection(){
+
+    }
 }

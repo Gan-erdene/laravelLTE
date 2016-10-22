@@ -14,102 +14,92 @@
   <!-- Main content -->
   <section class="content">
     <div class="row">
-      <div class="box box-info">
-          <div class="box-header with-border">
-            <h3 class="box-title">Секци монгол хэл дээр</h3>
-          </div>
-          <!-- /.box-header -->
-          <!-- form start -->
-          <div class="form-horizontal">
-            <div class="box-body">
-              <div class="form-group">
-                <label for="secname" class="col-sm-2 control-label">Секци</label>
+      <form class="form-horizontal">
+      <div class="col-md-6 ">
+        <input type="hidden" name="action" value="action">
+        <div class="box box-info">
+          <div class="box-body">
+            <div class="box-header with-border">
+              <h3 class="box-title">Секци монгол хэл дээр</h3>
+            </div>
+            <div class="form-group">
+              <label for="secname" class="col-sm-3 control-label">Секци</label>
 
-                <div class="col-sm-10">
-                  <input type="text" class="form-control" id="secname" name="secname">
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="secdesc" class="col-sm-2 control-label">Тайлбар</label>
-
-                <div class="col-sm-10">
-                  <input type="text" class="form-control" id="secdesc" name="secdesc">
-                </div>
-              </div>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" id="secname" name="secname">
               </div>
             </div>
-          </div>
-        </div>
-        <div class="box box-info">
+            <div class="form-group">
+              <label for="secdesc" class="col-sm-3 control-label">Тайлбар</label>
+
+              <div class="col-sm-9">
+                <input type="text" class="form-control" id="secdesc" name="secdesc">
+              </div>
+            </div>
             <div class="box-header with-border">
               <h3 class="box-title">Секци англи хэл дээр</h3>
             </div>
-            <!-- /.box-header -->
-            <!-- form start -->
-            <div class="form-horizontal">
-              <div class="box-body">
-                <div class="form-group">
-                  <label for="secname1" class="col-sm-2 control-label">Секци</label>
+            <div class="form-group">
+              <label for="secname1" class="col-sm-3 control-label">Секци</label>
 
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" id="secname1" name="secname1">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label for="secdesc1" class="col-sm-2 control-label">Тайлбар</label>
-
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" id="secdesc1" name="secdesc1">
-                  </div>
-                </div>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" id="secname1" name="secname1">
               </div>
             </div>
-          </div>
-          <div class="box box-info">
-              <!-- /.box-header -->
-              <!-- form start -->
-              <div class="form-horizontal">
-                <div class="box-body">
-                  <div class="form-group">
-                    <label for="inputEmail3" class="col-sm-2 control-label">Харуулах эсэх</label>
+            <div class="form-group">
+              <label for="secdesc1" class="col-sm-3 control-label">Тайлбар</label>
 
-                    <div class="col-sm-10">
-                      <input type="checkbox" class="flat-red" checked>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="inputPassword3" class="col-sm-2 control-label">Тайлбар</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" id="secdesc1" name="secdesc1">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inputEmail3" class="col-sm-3 control-label"></label>
 
-                    <div class="col-sm-10">
-                      <input type="text" class="form-control" id="inputPassword3" placeholder="Password">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="inputPassword3" class="col-sm-2 control-label">Агуулга</label>
+              <div class="col-sm-9">
+                <div class="checkbox">
+                <label>
+                  <input type="checkbox" name="published" id="published">
+                  Харуулах
+                </label>
+              </div>
+              </div>
+            </div>
 
-                    <div class="col-sm-3">
-                      <select class="form-control">
-                          <option></option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
+            <div class="form-group">
+              <label for="inputPassword3" class="col-sm-3 control-label">Агуулга</label>
+
+              <div class="col-sm-3">
+                <select class="form-control">
+                    <option></option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="secorder" class="col-sm-3 control-label">Дараалал</label>
+
+              <div class="col-sm-3">
+                <input min="0" type="number" class="form-control" id="secorder" name="secorder">
+              </div>
+            </div>
+                </div><!-- /.box-info -->
+              </div>
                 <!-- /.box-body -->
                 <div class="box-footer">
                   <button type="submit" class="btn btn-default">Cancel</button>
-                  <button type="submit" class="btn btn-info pull-right">Sign in</button>
+                  <button type="submit" class="btn btn-info pull-right"> Бүртгэх</button>
                 </div>
                 <!-- /.box-footer -->
               </div>
-            </div>
-    </div>
-
+      </form>
   </section>
   <!-- /.content -->
 </div>
 
 @endsection
 @section('javascript')
+<script src="/admin/plugins/iCheck/icheck.min.js"></script>
 <script>
 //Flat red color scheme for iCheck
  $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
