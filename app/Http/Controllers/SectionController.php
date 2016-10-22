@@ -25,7 +25,7 @@ class SectionController extends Controller
 
     public function createSection($request){
       $section = new Section;
-      $section->published = 1;//$request->input('published');
+      $section->published = 1;
       $section->type_id = $request->input('sectype');
       $section->order_id = $request->input('secorder');
       $section->created_by = \Auth::user()->id;
