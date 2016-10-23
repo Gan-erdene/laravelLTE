@@ -96,4 +96,11 @@
    radioClass: 'iradio_flat-green'
  });
 </script>
+<script>
+$(function(){
+  $("#_info").addClass("open active");
+  $("#_section").addClass("active");
+  $("#sectionadd").addClass("active");
+});
+</script>
 @endsection
