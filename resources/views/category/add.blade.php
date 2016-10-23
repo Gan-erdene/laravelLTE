@@ -76,3 +76,12 @@
 
 </div>
 @endsection
+@section("javascript")
+<script>
+$(function(){
+  $("#_info").addClass("open active");
+  $("#_category").addClass("active");
+  $("#category_add").addClass("active");
+});
+</script>
+@endsection
