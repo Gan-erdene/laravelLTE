@@ -11,7 +11,7 @@ class SectionController extends Controller
 {
     public function index(){
       $sections = sectiontype::all();
-      return view('section.add')
+      return view('section.sectionAdd')
         ->with('sectiontypes',$sections);
     }
 
