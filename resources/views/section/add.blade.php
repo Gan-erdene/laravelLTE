@@ -14,7 +14,7 @@
   <!-- Main content -->
   <section class="content">
     <div class="row">
-      <form method="post" action="{{ url('/home/section/action') }}" class="form-horizontal">
+      <form method="post" action="{{ url('/home/create/action') }}" class="form-horizontal">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
       <div class="col-md-6 ">
         <input type="hidden" name="action" value="create">

@@ -27,8 +27,8 @@
 
 
           <div class="box-body">
-            <form role="form" method="POST" action="{{ url('/login') }}">
-
+            <form role="form" method="POST" action="{{ url('/home/category/create') }}">
+                  {{ csrf_field() }}
               <div class="form-group">
                 <label>Нэр</label>
                 <input type="text" id="name" name="name" class="form-control" placeholder="Нэр ...">
@@ -41,23 +41,14 @@
 
               <div class="form-group">
                 <label>Секци</label>
-                <select class="form-control">
-                  <option>option 1</option>
-                  <option>option 2</option>
-                  <option>option 3</option>
-                  <option>option 4</option>
-                  <option>option 5</option>
+                <select class="form-control" id="section_id" name="section_id">
                 </select>
               </div>
               <!-- select -->
               <div class="form-group">
                 <label>Access</label>
-                <select class="form-control">
-                  <option>option 1</option>
-                  <option>option 2</option>
-                  <option>option 3</option>
-                  <option>option 4</option>
-                  <option>option 5</option>
+                <select class="form-control" id="access" name="access">
+
                 </select>
               </div>
 
