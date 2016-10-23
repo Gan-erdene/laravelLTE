@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\SectionTranslation;
 use App\Category;
+use App\CategoryTranslation;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -10,28 +11,31 @@ use App\Http\Requests;
 class CategoryController extends Controller
 {
     public function index(){
-        return view('category.add');
+        $section = SectionTranslation::where('lang','mn')->get();
+        return view('category.add')
+        ->with('section',$section);;
+
     }
     public function create(Request $request){
-       $name = $request->input('name');
-       $description = $request->input('description');
-       $section_id = $request->input('section_id');
-       $access = $request->input('access');
-       $checkbox = $request->input('checkbox');
-       $order_id = $request->input('order_id');
 
-       if ($request->isMethod('post')) {
-         $Category = new Category;
+        $category = new Category;
 
-        $Category->name = $name;
-        $Category->description = $description;
-        $Category->section_id = $section_id;
-        $Category->access = $access;
-        $Category->checkbox = $checkbox;
-        $Category->order_id = $order_id;
+        $category->section_id = $request->input('section_id');
+        $category->published = '1';
+        $category->order_id = $request->input('order_id');
+        $category->created_by = \Auth::user()->id;
+        $category->save();
 
-         $Category->save();
-           }
+         $sectionTranslation = new CategoryTranslation;
+         $sectionTranslation->id = $category->id;
+         $sectionTranslation->name = $request->input('name');
+         $sectionTranslation->description = $request->input('description');
+         $sectionTranslation->lang = 'mn';
+         $sectionTranslation->save();
+
+         return back()
+           ->with('status', 'success')
+           ->with('message', 'Хадгалагдлаа');
 
     }
 }

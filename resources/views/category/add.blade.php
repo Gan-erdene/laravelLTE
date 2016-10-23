@@ -28,7 +28,7 @@
 
           <div class="box-body">
             <form role="form" method="POST" action="{{ url('/home/category/create') }}">
-                  {{ csrf_field() }}
+                  <input type="hidden" name="_token" value="{{ csrf_token() }}">
               <div class="form-group">
                 <label>Нэр</label>
                 <input type="text" id="name" name="name" class="form-control" placeholder="Нэр ...">
@@ -42,20 +42,17 @@
               <div class="form-group">
                 <label>Секци</label>
                 <select class="form-control" id="section_id" name="section_id">
+                  @foreach($section as $sections)
+                    <option value="{{$sections->id}}">{{$sections->name}}</option>
+                  @endforeach
                 </select>
               </div>
               <!-- select -->
-              <div class="form-group">
-                <label>Access</label>
-                <select class="form-control" id="access" name="access">
-
-                </select>
-              </div>
 
               <div class="form-group">
                 <div class="checkbox">
                   <label>
-                    <input type="checkbox" id="checkbox" name="checkbox">
+                    <input type="checkbox" id="checkbox" name="checkbox" value="1">
                     Харуулах
                   </label>
                 </div>
