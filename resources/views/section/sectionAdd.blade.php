@@ -103,6 +103,7 @@
                   <th>Харуулах</th>
                   <th>Агуулга</th>
                   <th>Дараалал</th>
+                  <th>Үйлдэл</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -113,6 +114,14 @@
                   <td>{{$item->isPublished()}}</td>
                   <td>{{ $item->sectype->name }}</td>
                   <td>{{$item->order_id}}</td>
+                  <td>
+                    <button type="button" class="btn btn-primary btn-xs" style="margin-right: 5px;">
+                      <i class="fa fa-edit"></i> Засах
+                    </button>
+                    <button type="button" class="btn btn-primary btn-xs" style="margin-right: 5px;">
+                      <i class="fa fa-edit"></i> Засах
+                    </button>
+                  </td>
                 </tr>
                 @endforeach
                 </tbody>
