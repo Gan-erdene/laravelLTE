@@ -19,10 +19,23 @@
   <section class="content">
     @include('status')
     <div class="row">
+      @if (count($errors) > 0)
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
+    </div>
+    <div class="row">
       <div class="col-lg-6 ">
-        <form method="post" action="{{ url('/home/section/action') }}" class="form-horizontal">
+        <form id="sectionForm" method="post" action="{{ url('/home/section/action') }}" class="form-horizontal">
           <input type="hidden" name="_token" value="{{ csrf_token() }}">
-        <input type="hidden" name="action" value="create">
+        <input type="hidden" name="action" id="action" value="create">
+        <input type="hidden" name="id" id="id">
         <div class="box box-info">
           <div class="box-body">
             <div class="box-header with-border">
@@ -80,8 +93,9 @@
               </div>
                 <!-- /.box-body -->
                 <div class="box-footer">
-                  <button type="submit" class="btn btn-default">Cancel</button>
-                  <button type="submit" class="btn btn-info pull-right"> Бүртгэх</button>
+                  <button id="btnCancel"  class="btn btn-default" style="display:none"> Болих </button>
+                  <button id="btnCreate" type="submit" class="btn btn-info pull-right"> Бүртгэх</button>
+                  <button id="btnSave" type="submit" class="btn btn-success pull-right" style="display:none"> <i class="fa fa-save"></i> Хадгалах</button>
                 </div>
                 <!-- /.box-footer -->
                 </form>
@@ -111,15 +125,15 @@
                 <tr>
                   <td>{{$item->secTrans('mn')->name}}</td>
                   <td>{{$item->secTrans('mn')->description}}</td>
-                  <td>{{$item->isPublished()}}</td>
+                  <td><i class="fa {{$item->isPublished()}}"></i></td>
                   <td>{{ $item->sectype->name }}</td>
                   <td>{{$item->order_id}}</td>
                   <td>
-                    <button type="button" class="btn btn-primary btn-xs" style="margin-right: 5px;">
+                    <button id="{{$item->id}}" type="button" class="btn btn-primary btn-xs btnedit" >
                       <i class="fa fa-edit"></i> Засах
                     </button>
-                    <button type="button" class="btn btn-primary btn-xs" style="margin-right: 5px;">
-                      <i class="fa fa-edit"></i> Засах
+                    <button data-id="{{$item->id}}" data-toggle="modal" data-target="#myModal" class="btn btn-danger btn-xs announce" >
+                      <i class="fa fa-trash"></i> Устгах
                     </button>
                   </td>
                 </tr>
@@ -141,6 +155,34 @@
           <!-- /.box -->
       </div>
     </div>
+
+    <div class="example-modal">
+        <div class="modal modal-danger"  id="myModal">
+          <div class="modal-dialog">
+            <form method="post" class="modal-content" action="/home/section/action">
+              <input type="hidden" name="_token" value="{{ csrf_token() }}">
+              <input type="hidden" name="action" value="delete">
+              <input type="hidden" name="deleteid" id="deleteid">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Устгах цонх</h4>
+              </div>
+              <div class="modal-body">
+                <p>Та устгахдаа итгэлтэй байна уу ?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal"> Болих </button>
+                <button type="submit" class="btn btn-outline"> Устгах </button>
+              </div>
+            </form>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+      </div>
+
   </section>
   <!-- /.content -->
 </div>
@@ -157,11 +199,41 @@
 </script>
 <script>
 $(function(){
-  $("#_info").addClass("open active");
-  $("#_section").addClass("active");
-  $("#sectionadd").addClass("active");
+    $("#_info").addClass("open active");
+    $("#_section").addClass("active");
+    $("#sectionadd").addClass("active");
 
-  $('#example1').DataTable();
+    $('#example1').DataTable();
+
+    $('.btnedit').click(function(){
+      $.post('/home/section/action', {'_token':"{{ csrf_token() }}", 'action':'section', 'id':$(this).attr("id")}, function(data){
+          $('#secname').val(data.translation.name);
+          $('#secdesc').val(data.translation.description);
+          $('#published').prop('checked', data.section.published == 1 ? true : false);
+          $('#sectype').val(data.section.type_id);
+          $('#secorder').val(data.section.order_id);
+          $("#action").val("edit");
+          $("#id").val(data.section.id);
+
+          $('#btnCancel').show();
+          $('#btnSave').show();
+          $('#btnCreate').hide();
+
+      });
+    });
+
+    $("#btnCancel").on('click', function(e){
+      e.preventDefault();
+      $('#btnCancel').hide();
+      $('#btnSave').hide();
+      $('#btnCreate').show();
+      $("#action").val("create");
+      $('#sectionForm')[0].reset();
+    });
+
+    $(".announce").click(function(){ // Click to only happen on announce links
+       $("#deleteid").val($(this).data('id'));
+     });
 });
 </script>
 @endsection
