@@ -11,8 +11,11 @@ class SectionController extends Controller
 {
     public function index(){
       $sections = sectiontype::all();
+      $sectionList = Section::all();
+
       return view('section.sectionAdd')
-        ->with('sectiontypes',$sections);
+        ->with('sectiontypes',$sections)
+        ->with('sectionlist', $sectionList);
     }
 
     public function action(Request $request){
