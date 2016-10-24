@@ -16,6 +16,7 @@
 
   <!-- Main content -->
   <section class="content">
+      @include('status')
     <div class="row">
       <!-- left column -->
 
@@ -37,6 +38,7 @@
               <div class="form-group">
                 <label>Тайлбар</label>
                 <textarea class="form-control" id="descripion" name="description" rows="3" placeholder="Тайлбар ..."></textarea>
+                <input type="hidden" class="form-control" id="catlang" name="catlang" value="mn">
               </div>
 
               <div class="form-group">
@@ -71,17 +73,72 @@
           </div>
         </div>
       </div>
+      <div class="col-lg-6">
+        <!-- /.box -->
+
+          <div class="box">
+            <div class="box-header">
+              <h3 class="box-title">Жагсаалт</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th>Нэр</th>
+                  <th>Секци</th>
+                  <th>Харуулах</th>
+                  <th>Үйлдэл</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                  @foreach($category as $categories)
+                <tr>
+                  <td>{{$categories->CategoryTranslationJoin->name}} </td>
+                  <td>
+                    {{ $categories->SectionTranslationJoin->secTrans('mn')->name}}
+                  </td>
+                  <td>{{$categories->published}}</td>
+                  <td>
+                    <button type="button" class="btn btn-primary btn-xs" style="margin-right: 5px;">
+                      <i class="fa fa-edit"></i> Засах
+                    </button>
+                    <button type="button" class="btn btn-primary btn-xs" style="margin-right: 5px;">
+                      <i class="fa fa-edit"></i> Устгах
+                    </button>
+                  </td>
+                </tr>
+                @endforeach
+              </tbody>
+
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+      </div>
     </div>
   </section>
 
 </div>
+
 @endsection
 @section("javascript")
+<script src="/admin/plugins/iCheck/icheck.min.js"></script>
+<script>
+//Flat red color scheme for iCheck
+ $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+   checkboxClass: 'icheckbox_flat-green',
+   radioClass: 'iradio_flat-green'
+ });
+</script>
 <script>
 $(function(){
   $("#_info").addClass("open active");
   $("#_category").addClass("active");
   $("#category_add").addClass("active");
+    $('#example1').DataTable();
 });
 </script>
 @endsection
