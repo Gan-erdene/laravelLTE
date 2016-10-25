@@ -18,6 +18,6 @@ class Section extends Model
   }
 
   public function isPublished(){
-    return $this->published == 1 ? 'Харуулна' : 'Харуулахгүй';
+    return $this->published == 1 ? ' fa-eye' : 'fa-eye-slash';
   }
 }
