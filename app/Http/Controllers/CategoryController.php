@@ -12,11 +12,15 @@ class CategoryController extends Controller
 {
     public function index(){
         $section = SectionTranslation::where('lang','mn')->get();
-        return view('category.add')
-        ->with('section',$section);;
+        $category = Category::all();
+        return view('category.categoryAdd')
+        ->with('category',$category)
+        ->with('section',$section);
 
     }
     public function create(Request $request){
+
+
 
         $category = new Category;
 
@@ -32,6 +36,8 @@ class CategoryController extends Controller
          $sectionTranslation->description = $request->input('description');
          $sectionTranslation->lang = 'mn';
          $sectionTranslation->save();
+
+
 
          return back()
            ->with('status', 'success')
