@@ -27,5 +27,7 @@ Route::group(['prefix' => '/home'], function () {
 
   Route::get('/category/add', 'CategoryController@index');
   Route::post('/category/create', 'CategoryController@create');
+
+  Route::get('/content/add','contentController@index');
 });
 Auth::routes();

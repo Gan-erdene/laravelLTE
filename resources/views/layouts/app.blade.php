@@ -222,6 +222,11 @@
             </span>
           </a>
           <ul class="treeview-menu">
+            <li>
+              <a href="/home/content/add"><i class="fa  fa-plus-circle"></i> Мэдээлэл нэмэх</a>
+            </li>
+          </ul>
+          <ul class="treeview-menu">
             <li id="_category">
               <a href="#"><i class="fa  fa-plus-circle"></i> Ангилал
                 <span class="pull-right-container">
