@@ -34,7 +34,7 @@ class CategoryController extends Controller
          $sectionTranslation->id = $category->id;
          $sectionTranslation->name = $request->input('name');
          $sectionTranslation->description = $request->input('description');
-         $sectionTranslation->lang = 'mn';
+         $sectionTranslation->lang = $request->input('catlang');
          $sectionTranslation->save();
 
 
