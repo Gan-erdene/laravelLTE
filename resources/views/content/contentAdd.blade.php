@@ -44,11 +44,11 @@
                 <label for="secdesc" class="col-sm-3 control-label">Ангилал</label>
 
                 <div class="col-sm-9">
-                <div class="checkbox">
+                <div class="checkbox" id="catlist">
                   @foreach($category as $categories)
                   <label>
-                    <input type="checkbox" id="checkbox" name="checkbox" value="1">
-                    {{ $categories->name}}
+                    <input type="checkbox" id="checkbox" name="checkbox" value="{{ $categories->id}}">
+                    {{ $categories->CategoryTranslationJoin()->where('lang','mn')->first()->name}}
                   </label>
                   @endforeach
                 </div>
@@ -126,7 +126,18 @@ $(function(){
   $("#_info").addClass("open active");
   $("#_category").addClass("active");
   $("#category_add").addClass("active");
-    $('#example1').DataTable();
+  $('#example1').DataTable();
+
+  $('#section_id').on('change', function(){
+      $.post("/home/category/action", {'_token':"{{ csrf_token() }}", action:'cat', section_id:this.value}, function(data){
+        var chekcboxlist = "";
+          $.each(data, function(index, item){
+              chekcboxlist +='<label> '+
+                    ' <input type="checkbox" id="checkbox" name="checkbox" value="'+item.id+'">'+item.name+'</label>';
+          });
+          $("#catlist").html(chekcboxlist);
+      }, 'json');
+  });
 });
 </script>
 @endsection

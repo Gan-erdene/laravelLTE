@@ -27,6 +27,7 @@ Route::group(['prefix' => '/home'], function () {
 
   Route::get('/category/add', 'CategoryController@index');
   Route::post('/category/create', 'CategoryController@create');
+  Route::post('/category/action', 'CategoryController@action');
 
   Route::get('/content/add','contentController@index');
 });

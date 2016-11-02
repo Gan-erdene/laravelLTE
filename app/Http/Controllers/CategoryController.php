@@ -5,6 +5,7 @@ use App\SectionTranslation;
 use App\Category;
 use App\CategoryTranslation;
 use Illuminate\Http\Request;
+use DB;
 
 use App\Http\Requests;
 
@@ -43,5 +44,18 @@ class CategoryController extends Controller
            ->with('status', 'success')
            ->with('message', 'Хадгалагдлаа');
 
+    }
+
+    public function action(Request $request){
+        switch ($request->input('action')) {
+            case 'cat': return $this->getCatBySection($request->input('section_id')); 
+        default: break;
+      }
+    }
+
+    public function getCatBySection($sectionid){
+        $sql = "select c.*, t.name from amin.category c left join amin.category_translation t on c.id = t.id where t.lang='mn' and c.section_id=".$sectionid;
+        $list = DB::select($sql);
+        return $list;
     }
 }
