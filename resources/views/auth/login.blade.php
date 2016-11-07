@@ -25,7 +25,7 @@
     <a href="../admin/index2.html"><b>Админ хуудас</a>
   </div>
 <div class="login-box-body">
-  <p class="login-box-msg">Нэвттэрч орох</p>
+  <p class="login-box-msg">Нэвтэрч орох</p>
 
   <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
       {{ csrf_field() }}

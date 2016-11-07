@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 
 
-Auth::routes();
+
 Route::group(['prefix' => '/home'], function () {
   Route::get('/', 'HomeController@index');
 
@@ -31,4 +31,4 @@ Route::group(['prefix' => '/home'], function () {
 
   Route::get('/content/add','contentController@index');
 });
-Auth::routes();
+Route::post('/login','LoginController@login');
