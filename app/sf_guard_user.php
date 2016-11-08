@@ -16,7 +16,7 @@ class sf_guard_user extends Authenticatable
    * @var array
    */
   protected $fillable = [
-      'name', 'email_address', 'password',
+      'email_address', 'password', 'last_name', 'first_name'
   ];
 
   /**

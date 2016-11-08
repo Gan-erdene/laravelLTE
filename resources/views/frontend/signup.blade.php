@@ -5,6 +5,7 @@
   </h4>
   <p class="text-muted">{{ trans('strings.signup_user') }}</p>
   <form id="signupForm" action="/frontend/signup" method="post" role="form">
+    {{ csrf_field() }}
     <div class="form-group">
       <input type="text" name="firstname" class="form-control" placeholder="{{trans('strings.first_name')}}">
     </div>
