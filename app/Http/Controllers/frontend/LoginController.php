@@ -24,15 +24,19 @@ class LoginController extends Controller
       $email = $request->input('email');
       $password = $request->input('password');
 
-     if(Auth::attempt(['email_address' => $email, 'password' => $password]))
+     if(Auth::attempt(['email_address' => $email, 'password' => $password,'is_active' => 1]))
      {
        return redirect('/frontend/home');
+     }
+     else{
+       return redirect('frontend/index');
      }
     }
     public function logout(Request $request){
           Auth::logout();
-          
+
           return redirect('/frontend/index');
     }
+
 
 }
