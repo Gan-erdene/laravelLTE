@@ -32,4 +32,13 @@ Route::group(['prefix' => '/home'], function () {
   Route::get('/content/add','contentController@index');
 });
 Route::post('/login','LoginController@login');
-Route::get('/frontend/login','frontend\LoginController@index');
+
+Route::group(['middleware' => 'checkuser'], function(){
+  Route::get('/frontend/home','frontend\LoginController@home');
+}
+
+);
+Route::get('/frontend/index','frontend\LoginController@index');
+Route::post('/frontend/login','frontend\LoginController@login');
+
+Route::get('/frontend/logout','frontend\LoginController@logout');

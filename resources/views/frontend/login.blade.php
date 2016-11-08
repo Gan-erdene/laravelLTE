@@ -21,7 +21,11 @@
     <script src="/frontend/assets/js/jquery.1.11.1.min.js"></script>
     <script src="/frontend/bootstrap.3.3.6/js/bootstrap.min.js"></script>
     <script src="/frontend/assets/js/custom.js"></script>
-
+    <script>
+          window.Laravel = <?php echo json_encode([
+              'csrfToken' => csrf_token(),
+          ]); ?>
+    </script>
   </head>
 
   <body>
@@ -51,21 +55,22 @@
                       <h4 class="m-b-0"><span class="icon-text">Нэвтрэх</span></h4>
                       <p class="text-muted">Нэвтэрч орох хэсэг</p>
                     </div>
-                    <form action="{{ url('/login') }}" method="get">
-                      <div class="form-group">
-                        <input type="email" class="form-control" placeholder="Имэйл хаяг">
+                    <form method="POST" action="{{ url('/frontend/login') }}">
+                      {{ csrf_field() }}
+                        <div class="form-group">
+                        <input type="email" id="email" name="email" class="form-control" placeholder="Имэйл хаяг">
                       </div>
                       <div class="form-group">
-                        <input type="password" class="form-control" placeholder="Нууц үг">
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Нууц үг">
                         <a href="#" class="pull-xs-right">
                           <small>Нууц үгээ мартсан?</small>
                         </a>
                         <div class="clearfix"></div>
                       </div>
                       <div class="center">
-                        <a href="profile.html" class="btn  btn-azure">
-                          Нэвтрэх
-                        </a>
+                        <button type="submit" class="btn  btn-azure">Нэвтрэх</button>
+
+
                       </div>
                     </form>
                   </div>
@@ -84,5 +89,6 @@
         </div>
       </footer>
     </div>
+
   </body>
 </html>
