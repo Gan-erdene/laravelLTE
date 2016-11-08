@@ -11,9 +11,17 @@ class RegisterController extends Controller
 {
     public function createUser(Request $request){
       if($this->isExistUser($request)){
-          return null;
+          return back();
       }
 
+      sf_guard_user::create([
+          'first_name' => $request->input('firstname'),
+          'last_name' => $request->input('lastname'),
+          'email_address' => $request->input('email'),
+          'password' => bcrypt($request->input('password')),
+      ]);
+
+      return view('frontend.signedup')->with('status','success')->with('message', 'Suc');
 
     }
 

@@ -40,5 +40,6 @@ Route::group(['middleware' => 'checkuser'], function(){
 );
 Route::get('/frontend/index','frontend\LoginController@index');
 Route::post('/frontend/login','frontend\LoginController@login');
+Route::post('/frontend/signup','frontend\RegisterController@createUser');
 
 Route::get('/frontend/logout','frontend\LoginController@logout');
