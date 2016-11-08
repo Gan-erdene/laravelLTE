@@ -32,3 +32,4 @@ Route::group(['prefix' => '/home'], function () {
   Route::get('/content/add','contentController@index');
 });
 Route::post('/login','LoginController@login');
+Route::get('/frontend/login','frontend\LoginController@index');
