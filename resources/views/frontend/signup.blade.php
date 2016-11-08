@@ -1,6 +1,4 @@
-@extends('frontend.login')
 
-@section('signup')
 <div class="card-block center">
   <h4 class="m-b-0">
     <span class="icon-text">Sign Up</span>
@@ -22,4 +20,3 @@
     <button type="submit" class="btn btn-azure">Register</button>
   </form>
 </div>
-@endsection
