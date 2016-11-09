@@ -5,13 +5,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="keywords" content="">
     <meta name="author" content="">
     <link rel="icon" href="/frontend/img/favicon.png">
     <title>Day-Day</title>
-    <!-- Bootstrap core CSS -->
     <link href="/frontend/bootstrap.3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <link href="/frontend/font-awesome.4.6.1/css/font-awesome.min.css" rel="stylesheet">
     <link href="/frontend/assets/css/animate.min.css" rel="stylesheet">
@@ -22,7 +20,7 @@
     <script src="/frontend/assets/js/jquery.1.11.1.min.js"></script>
     <script src="/frontend/bootstrap.3.3.6/js/bootstrap.min.js"></script>
     <script src="/frontend/assets/js/custom.js"></script>
-  
+
   </head>
 
   <body class="animated fadeIn">
@@ -48,34 +46,7 @@
                 Pages <span class="caret"></span>
               </a>
               <ul class="dropdown-menu">
-                <li><a href="profile2.html">Profile 2</a></li>
-                <li><a href="profile3.html">Profile 3</a></li>
-                <li><a href="profile4.html">Profile 4</a></li>
-                <li><a href="sidebar_profile.html">Sidebar profile</a></li>
-                <li><a href="user_detail.html">User detail</a></li>
-                <li><a href="edit_profile.html">Edit profile</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="friends.html">Friends</a></li>
-                <li><a href="friends2.html">Friends 2</a></li>
-                <li><a href="profile_wall.html">Profile wall</a></li>
-                <li><a href="photos1.html">Photos 1</a></li>
-                <li><a href="photos2.html">Photos 2</a></li>
-                <li><a href="view_photo.html">View photo</a></li>
-                <li><a href="messages1.html">Messages 1</a></li>
-                <li><a href="messages2.html">Messages 2</a></li>
-                <li><a href="group.html">Group</a></li>
-                <li><a href="list_users.html">List users</a></li>
-                <li><a href="file_manager.html">File manager</a></li>
-                <li><a href="people_directory.html">People directory</a></li>
-                <li><a href="list_posts.html">List posts</a></li>
-                <li><a href="grid_posts.html">Grid posts</a></li>
-                <li><a href="forms.html">Forms</a></li>
-                <li><a href="buttons.html">Buttons</a></li>
-                <li><a href="error404.html">Error 404</a></li>
-                <li><a href="error500.html">Error 500</a></li>
-                <li><a href="recover_password.html">Recover password</a></li>
-                <li><a href="registration_mail.html">Registration mail</a></li>
-                <li><a href="{{ url('/frontend/logout') }}">Logout</a></li>
+                <li><a href="{{ url('/frontend/logout') }}">Гарах</a></li>
 
               </ul>
             </li>
@@ -85,7 +56,6 @@
       </div>
     </nav>
 
-    <!-- Begin page content -->
     <div class="row page-content">
     <div class="col-md-8 col-md-offset-2">
       <div class="row">
@@ -143,7 +113,7 @@
               <div class="avatar">
                 <img src="/frontend/img/Friends/guy-3.jpg" alt="people">
               </div>
-              <div class="name"><a href="#">John Breakgrow jr.</a></div>
+              <div class="name"><a href="#">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</a></div>
               <ul class="cover-nav">
                 <li class="active"><a href="profile.html"><i class="fa fa-fw fa-bars"></i> Timeline</a></li>
                 <li><a href="about.html"><i class="fa fa-fw fa-user"></i> About</a></li>

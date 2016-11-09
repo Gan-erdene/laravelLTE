@@ -13,9 +13,7 @@ class login extends FormRequest
      */
     public function authorize()
     {
-      if(Auth::user()->can('manage-user')){
-        return true;
-      }
+
         return false;
     }
 
@@ -31,5 +29,16 @@ class login extends FormRequest
             'password' => 'required|password',
             'is_active' => 'required|1',
         ];
+    }
+    public function messages()
+    {
+      return [
+        'email.required' => 'мэйл хаягаа оруулна уу',
+        'email.email' => 'мэйл хаяг буруу байна',
+        'password.required' => 'нууц үгээ оруулна уу',
+        'password.password' => 'нууц үгээ оруулна',
+        'is_active.0' => 'Тань эрх идэвхжээгүй байна. Менежерт хандана уу.' 
+
+      ];
     }
 }

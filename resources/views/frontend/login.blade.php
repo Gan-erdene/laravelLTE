@@ -55,6 +55,7 @@
                       <h4 class="m-b-0"><span class="icon-text">Нэвтрэх</span></h4>
                       <p class="text-muted">Нэвтэрч орох хэсэг</p>
                     </div>
+                      @include('status')
                     <form method="POST" action="{{ url('/frontend/login') }}">
                       {{ csrf_field() }}
                         <div class="form-group">

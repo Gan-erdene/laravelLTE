@@ -14,6 +14,7 @@ class LoginController extends Controller
     public function index(Request $request)
     {
       return view('frontend.login');
+
     }
     public function home(Request $request)
     {
@@ -29,7 +30,9 @@ class LoginController extends Controller
        return redirect('/frontend/home');
      }
      else{
-       return redirect('frontend/index');
+       return back()
+         ->with('status', 'success')
+         ->with('message', 'Тань эрх идэвхгүй төлөвт байна. Менежер идэвхжүүлсний дараа нэвтэрч орно уу');
      }
     }
     public function logout(Request $request){
@@ -37,6 +40,7 @@ class LoginController extends Controller
 
           return redirect('/frontend/index');
     }
+
 
 
 }
