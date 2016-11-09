@@ -22,4 +22,5 @@ return [
     'inactive'=>'Идэвхигүй',
     'confirm'=>'Баталгаажуулах',
     'find_friend'=>'Найз хайх',
+    'add_friend'=>'Найзаар нэмэх',
 ];
