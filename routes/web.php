@@ -34,10 +34,13 @@ Route::group(['prefix' => '/home'], function () {
 Route::post('/login','LoginController@login');
 
 Route::group(['middleware' => 'checkuser'], function(){
-  Route::get('/frontend/home','frontend\LoginController@home');
+
   Route::get('/backend/user/list','backend\UserController@index');
   Route::post('/backend/user/action','backend\UserController@action');
+
+  Route::get('/frontend/home','frontend\HomeController@home')->name('frontendHome');
   Route::get('/frontend/profile','frontend\ProfileController@index');
+  Route::get('/frontend/user/find','frontend\FindUserController@index')->name('frontendFindUser');
   Route::post('/frontend/profile/edit','frontend\ProfileController@action');
 }
 

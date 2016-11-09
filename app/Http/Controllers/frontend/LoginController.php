@@ -16,10 +16,7 @@ class LoginController extends Controller
       return view('frontend.login');
 
     }
-    public function home(Request $request)
-    {
-      return view('frontend.home');
-    }
+    
     public function login(Request $request)
     {
       $email = $request->input('email');
