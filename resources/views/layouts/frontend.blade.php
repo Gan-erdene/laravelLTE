@@ -16,6 +16,7 @@
     <link href="/frontend/assets/css/timeline.css" rel="stylesheet">
     <link href="/frontend/assets/css/cover.css" rel="stylesheet">
     <link href="/frontend/assets/css/forms.css" rel="stylesheet">
+    <link href="/frontend/assets/css/edit_profile.css" rel="stylesheet">
     <link href="/frontend/assets/css/buttons.css" rel="stylesheet">
     <script src="/frontend/assets/js/jquery.1.11.1.min.js"></script>
     <script src="/frontend/bootstrap.3.3.6/js/bootstrap.min.js"></script>

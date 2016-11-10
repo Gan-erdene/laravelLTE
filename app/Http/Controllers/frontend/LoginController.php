@@ -16,9 +16,11 @@ class LoginController extends Controller
       return view('frontend.login');
 
     }
-    
+
     public function login(Request $request)
     {
+    
+
       $email = $request->input('email');
       $password = $request->input('password');
 

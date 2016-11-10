@@ -56,13 +56,14 @@
                       <p class="text-muted">Нэвтэрч орох хэсэг</p>
                     </div>
                       @include('status')
+                      
                     <form method="POST" action="{{ url('/frontend/login') }}">
                       {{ csrf_field() }}
                         <div class="form-group">
-                        <input type="email" id="email" name="email" class="form-control" placeholder="Имэйл хаяг">
+                        <input type="email" id="email" name="email" class="form-control" placeholder="Имэйл хаяг">{{ $errors->first('email_address') }}
                       </div>
                       <div class="form-group">
-                        <input type="password" id="password" name="password" class="form-control" placeholder="Нууц үг">
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Нууц үг">{{ $errors->first('password') }}
                         <a href="#" class="pull-xs-right">
                           <small>Нууц үгээ мартсан?</small>
                         </a>
