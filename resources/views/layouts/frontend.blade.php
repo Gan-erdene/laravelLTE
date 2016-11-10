@@ -36,11 +36,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="index.html"><b>DayDay</b></a>
+          <a class="navbar-brand" href="{{route('frontendHome')}}"><b>DayDay</b></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li class="actives"><a href="profile.html">Profile</a></li>
+            <li class="actives"><a href="{{route('frontendHome')}}">{{trans('strings.profile')}}</a></li>
             <li class="actives"><a href="{{route('frontendFindUser')}}">{{trans('strings.find_friend')}}</a></li>
             <li><a href="home.html">Home</a></li>
             <li class="dropdown">

@@ -23,4 +23,9 @@ return [
     'confirm'=>'Баталгаажуулах',
     'find_friend'=>'Найз хайх',
     'add_friend'=>'Найзаар нэмэх',
+    'cancel_friend'=>'Хүсэлт цуцлах',
+    'accept_friend'=>'Зөвшөөрөх',
+    'decline_friend'=>'Татгалзах',
+    'profile'=>'Өөрийн хуудас',
+    'friend'=>'Найз'
 ];
