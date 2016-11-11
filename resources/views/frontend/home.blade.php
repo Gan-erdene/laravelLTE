@@ -6,9 +6,16 @@
         <div class="col-md-12">
           <div class="cover profile">
             <div class="wrapper">
-              <div class="image">
-                <img src="/frontend/img/Cover/profile-cover.jpg" class="show-in-modal" alt="people">
-              </div>
+                @if ($user->coverName)
+                <div class="image">
+                  <img src="\uploads\coverimage\{{$user->coverName}}" class="show-in-modal" alt="people">
+                </div>
+                  @else
+                   <div class="image">
+                     <img src="/frontend/img/Cover/profile-cover.jpg" class="show-in-modal" alt="people">
+                   </div>
+                  @endif
+
               <ul class="friends">
                 <li>
                   <a href="#">
@@ -54,9 +61,15 @@
               </ul>
             </div>
             <div class="cover-info">
+              @if($user->profile_image)
               <div class="avatar">
-                <img src="/frontend/img/Friends/guy-3.jpg" alt="people">
+                  <img src="\uploads\profileimage\{{$user->profile_image}}" alt="people">
               </div>
+              @else
+              <div class="avatar">
+                  <img src="/frontend/img/Friends/guy-3.jpg" alt="people">
+              </div>
+              @endif
               <div class="name"><a href="#">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</a></div>
               <ul class="cover-nav">
                 <li class="active"><a href="profile.html"><i class="fa fa-fw fa-bars"></i> Timeline</a></li>

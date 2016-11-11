@@ -8,7 +8,23 @@
     $('#datepicker').datepicker({
          autoclose: true
        });
+       @if(isset($user))
 
+        $('#register').val("{{$user->register}}");
+        $('#phone').val("{{$user->phone}}");
+        $('#gender').val("{{$user->gender}}").attr('checked', true);
+        $('#ndd').val("{{$user->ndd}}");
+        $('#emdd').val("{{$user->emdd}}");
+        $('#datepicker').val("{{$user->birthday}}");
+        $('#address').val("{{$user->address}}");
+        $('#profileimage').attr("src","/uploads/profileimage/{{$user->profile_image}}");
+        $('#coverName').attr("src", "/uploads/coverimage/{{$user->coverName}}");
+        $('#irgenii').attr("src", "/uploads/irgenii/{{$user->irgenii}}");
+        $('#khoroo').attr("src", "/uploads/khoroo/{{$user->khoroo}}");
+        $('#tsagdaa').attr("src", "/uploads/tsagdaa/{{$user->tsagdaa}}");
+
+
+       @endif
  });
 </script>
 @endsection
@@ -43,26 +59,26 @@
   		</div>
   		<img src="/images/{{ Session::get('path') }}">
   		@endif
-            <form action="{{ url('/frontend/profile/edit/1') }}"  enctype="multipart/form-data" method="POST">
+            <form action="{{ url('/frontend/profile/edit') }}"  enctype="multipart/form-data" method="POST">
               {{ csrf_field() }}
               <input type="hidden" name="id" id="{{ Auth::user()->id}}">
               <div class="tab-pane profile active" id="profile-tab">
                 <div class="row">
                   <div class="col-md-3">
                     <div class="user-info-left">
-                      <img src="/frontend/img/Profile/default-avatar.png" alt="Profile Picture">
+                      <img src="\uploads\profileimage\{{$user->profile_image}}" alt="Profile Picture">
                       <h2>{{ Auth::user()->first_name}} {{ Auth::user()->last_name}}</h2>
                       <div class="contact">
                         <p>
 
                           <span class="file-input btn btn-azure btn-file">
-                            Профайл зураг <input type="file" name="profileimage">
+                            Профайл зураг <input type="file" id="profileimage" name="profileimage">
                           </span>
 
                         </p>
                         <p>
                           <span class="file-input btn btn-azure btn-file">
-                            Cover Зураг <input type="file" name="coverimage">
+                            Cover Зураг <input type="file" id="coverName" name="coverName">
                           </span>
                         </p>
                         <ul class="list-inline social">
@@ -80,18 +96,18 @@
                         <div class="form-group row">
                           <label class="col-sm-1">Регистр</label>
                           <div class="col-md-7">
-                            <input type="text" class="form-control" id="register" name="register" placeholder="Регистр дугаар">
+                            <input id="register" type="text" class="form-control"  name="register" placeholder="Регистр дугаар">
                           </div>
                         </div>
                         <div class="form-group row">
                           <label class="col-sm-1">Хүйс</label>
                           <div class="col-md-7">
                             <label>
-                              <input type="checkbox" name="gender" value="1">
+                              <input type="checkbox" id="gender" name="gender" value="1">
                               <span class="text">эрэгтэй</span>
                             </label>&nbsp;&nbsp;
                             <label>
-                              <input type="checkbox" name="gender" value="2">
+                              <input type="checkbox" id="gender" name="gender" value="2">
                               <span class="text">эмэгтэй</span>
                             </label>
                           </div>
@@ -99,19 +115,19 @@
                         <div class="form-group row">
                           <label class="col-sm-1">НДД</label>
                           <div class="col-md-7">
-                            <input type="text" class="form-control" name="ndd" placeholder="Нийгмийн даатгалын дэвтрийн дугаар">
+                            <input type="text" class="form-control" id="ndd" name="ndd" placeholder="Нийгмийн даатгалын дэвтрийн дугаар">
                           </div>
                         </div>
                         <div class="form-group row">
                           <label class="col-sm-1">ЭМДД</label>
                           <div class="col-md-7">
-                            <input type="text" class="form-control" name="emdd" placeholder="Эрүүл мэндийн даатгалын дэвтрийн дугаар">
+                            <input type="text" class="form-control" id="emdd" name="emdd" placeholder="Эрүүл мэндийн даатгалын дэвтрийн дугаар">
                           </div>
                         </div>
                         <div class="form-group row">
                           <label class="col-sm-1">Утас</label>
                           <div class="col-md-7">
-                            <input type="text" class="form-control" name="phone" placeholder="Утас">
+                            <input id="phone" type="text" class="form-control" name="phone" placeholder="Утас">
                           </div>
                         </div>
                         <div class="form-group row">
@@ -121,14 +137,14 @@
                               <div class="input-group-addon">
                                 <i class="fa fa-calendar"></i>
                               </div>
-                              <input type="text" class="form-control pull-right" id="datepicker" name="date" placeholder="Төрсөн Он, Сар, Өдөр">
+                              <input type="text" class="form-control pull-right" id="datepicker" name="birthday" placeholder="Төрсөн Он, Сар, Өдөр">
                             </div>
                           </div>
                         </div>
                         <div class="form-group row">
                           <label class="col-sm-1">Хаяг</label>
                           <div class="col-md-7">
-                            <textarea type="textarea" class="form-control" name="address" placeholder="Оршин суугаа хаяг оруулна уу"></textarea>
+                            <textarea type="textarea" class="form-control" id="address" name="address" placeholder="Оршин суугаа хаяг оруулна уу"></textarea>
                           </div>
                         </div>
                         <div class="form-group row">
@@ -137,7 +153,7 @@
                             <div class="input-group">
                               <span class="input-group-btn">
                                   <span class="btn btn-azure btn-file">
-                                      File Uploads <input type="file" name="irgenii" multiple="">
+                                      File Uploads <input type="file" id="irgenii" name="irgenii" multiple="">
                                   </span>
                               </span>
                               <input type="text" class="form-control" readonly="">
@@ -150,7 +166,7 @@
                             <div class="input-group">
                               <span class="input-group-btn">
                                   <span class="btn btn-azure btn-file">
-                                      File Uploads <input type="file" name="khoroo" multiple="">
+                                      File Uploads <input type="file" id="khoroo" name="khoroo" multiple="">
                                   </span>
                               </span>
                               <input type="text" class="form-control" readonly="">
@@ -163,7 +179,7 @@
                             <div class="input-group">
                               <span class="input-group-btn">
                                   <span class="btn btn-azure btn-file">
-                                      File Uploads <input type="file" name="tsagdaa" multiple="">
+                                      File Uploads <input type="file" name="tsagdaa" name="tsagdaa" multiple="">
                                   </span>
                               </span>
                               <input type="text" class="form-control" readonly="">
@@ -175,7 +191,7 @@
                   </div>
                 </div>
               </div>
-            <p class="text-center"><a href="#" class="btn btn-custom-primary"><i class="fa fa-floppy-o"></i> Хадгалах</a></p>
+            <p class="text-center"><button type="submit" class="btn btn-custom-primary"><i class="fa fa-floppy-o"></i> Хадгалах</button></p>
             </form>
           </div>
         </div>
