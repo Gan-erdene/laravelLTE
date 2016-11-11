@@ -54,13 +54,13 @@ return [
 
         'mysql' => [
             'read' => [
-                'host' => '127.0.0.1'
+                'host' => '192.168.1.105'
             ],
             'write' => [
-                'host' => '127.0.0.1'
+                'host' => '192.168.1.105'
             ],
             'driver' => 'mysql',
-            'host' => env('DB_HOST', 'localhost'),
+            'host' => '192.168.1.105',
             'port' => env('DB_PORT', '3306'),
             'database' => 'amin',
             'username' => 'root',

@@ -26,6 +26,7 @@ return [
     'cancel_friend'=>'Хүсэлт цуцлах',
     'accept_friend'=>'Зөвшөөрөх',
     'decline_friend'=>'Татгалзах',
+    'declined'=>'Татгалзсан',
     'profile'=>'Өөрийн хуудас',
     'friend'=>'Найз'
 ];
