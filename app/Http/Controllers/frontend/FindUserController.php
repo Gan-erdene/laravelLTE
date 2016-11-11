@@ -156,4 +156,8 @@ class FindUserController extends Controller
       $count = DB::select($sql);
       return $count[0]->too;
     }
+
+    public function friendsView(){
+      return view('frontend.friendList');
+    }
 }

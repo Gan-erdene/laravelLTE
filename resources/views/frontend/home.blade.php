@@ -72,9 +72,9 @@
               @endif
               <div class="name"><a href="#">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</a></div>
               <ul class="cover-nav">
-                <li class="active"><a href="profile.html"><i class="fa fa-fw fa-bars"></i> Timeline</a></li>
-                <li class="active"><a href="{{route('frontendEditProfile')}}"><i class="fa fa-fw fa-user"></i> About</a></li>
-                <li><a href="friends.html"><i class="fa fa-fw fa-users"></i> Friends</a></li>
+                <li class=""><a href="profile.html"><i class="fa fa-fw fa-bars"></i> Timeline</a></li>
+                <li class=""><a href="{{route('frontendEditProfile')}}"><i class="fa fa-fw fa-user"></i> About</a></li>
+                <li id='friendView' class=""><a href="{{route('friendsView')}}"><i class="fa fa-fw fa-users"></i> Friends</a></li>
                 <li><a href="photos1.html"><i class="fa fa-fw fa-image"></i> Photos</a></li>
               </ul>
             </div>

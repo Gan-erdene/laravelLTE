@@ -40,8 +40,9 @@ Route::group(['middleware' => 'checkuser'], function(){
 
   Route::get('/frontend/home','frontend\HomeController@home')->name('frontendHome');
   Route::get('/frontend/profile','frontend\ProfileController@index')->name('frontendEditProfile');
-  Route::get('/frontend/user/find','frontend\FindUserController@index')->name('frontendFindUser');
-  Route::post('/frontend/user/find/action','frontend\FindUserController@action')->name('frontendFindUserAction');
+  Route::get('/frontend/friends','frontend\FindUserController@friendsView')->name('friendsView');
+  Route::get('/frontend/friend/find','frontend\FindUserController@index')->name('frontendFindUser');
+  Route::post('/frontend/friend/find/action','frontend\FindUserController@action')->name('frontendFindUserAction');
   Route::post('/frontend/profile/edit','frontend\ProfileController@action');
 }
 
