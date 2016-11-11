@@ -39,10 +39,10 @@ Route::group(['middleware' => 'checkuser'], function(){
   Route::post('/backend/user/action','backend\UserController@action');
 
   Route::get('/frontend/home','frontend\HomeController@home')->name('frontendHome');
-  Route::get('/frontend/profile','frontend\ProfileController@index');
+  Route::get('/frontend/profile','frontend\ProfileController@index')->name('frontendEditProfile');
   Route::get('/frontend/user/find','frontend\FindUserController@index')->name('frontendFindUser');
   Route::post('/frontend/user/find/action','frontend\FindUserController@action')->name('frontendFindUserAction');
-  Route::post('/frontend/profile/edit','frontend\ProfileController@action');
+  Route::post('/frontend/profile/edit/{id}','frontend\ProfileController@action');
 }
 
 );

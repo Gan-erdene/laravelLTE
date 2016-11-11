@@ -9,7 +9,7 @@
     <meta name="keywords" content="">
     <meta name="author" content="">
     <link rel="icon" href="/frontend/img/favicon.png">
-    <title>Day-Day</title>
+    <title>Mongolian first freelancer web site</title>
     <link href="/frontend/bootstrap.3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <link href="/frontend/font-awesome.4.6.1/css/font-awesome.min.css" rel="stylesheet">
     <link href="/frontend/assets/css/animate.min.css" rel="stylesheet">
