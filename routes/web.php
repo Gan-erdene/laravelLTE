@@ -44,6 +44,8 @@ Route::group(['middleware' => 'checkuser'], function(){
   Route::get('/frontend/friend/find','frontend\FindUserController@index')->name('frontendFindUser');
   Route::post('/frontend/friend/find/action','frontend\FindUserController@action')->name('frontendFindUserAction');
   Route::post('/frontend/profile/edit','frontend\ProfileController@action');
+
+  Route::get('/frontend/work/add','frontend\WorkController@addWork')->name('addWork');
 }
 
 );

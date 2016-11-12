@@ -1,6 +1,6 @@
 @extends('layouts.frontend')
 @section('javascripts')
-<link href="/frontend/assets/css/friends.css" rel="stylesheet">
+<link href="/frontend/assets/css/profile2.css" rel="stylesheet">
 <script>
   $(document).on('click', '.finduser', function(){
       var  btn = $(this);
@@ -24,25 +24,26 @@
 @section('content')
 <div class="row page-content">
   <div class="col-md-8 col-md-offset-2">
-      <div class="row">
+      <ul class=" widget-users row">
       @foreach($friends as $item)
-          <div class="col-md-3">
-              <div class="contact-box center-version">
-                <a href="#">
-                  <img alt="image" class="img-circle" src="img/Friends/guy-1.jpg">
-                  <h4 class="m-b-xs">{{$item->first_name}}<br/>{{$item->last_name}}</h4>
-
-                  <div class="font-bold">Graphics designer</div>
-                </a>
-                <div class="contact-box-footer">
-                  <div class="m-t-xs btn-group">
-                    <button data-id="rem_{{$item->listid}}" class="btn btn-xs btn-white finduser"> {{trans('strings.remove_friend')}} </button>
-                  </div>
+            <li class="col-md-4">
+              <div class="img">
+                <img src="img/Friends/woman-6.jpg" alt="">
+              </div>
+              <div class="details">
+                <div class="name">
+                  <a href="#">{{$item->first_name}} {{$item->last_name}}</a>
+                </div>
+                <div class="time">
+                  <i class="fa fa-clock-o"></i> Last online: 5 minutes ago
+                </div>
+                <div class="m-t-xs btn-group">
+                  <button data-id="rem_{{$item->listid}}" class="btn btn-xs btn-white finduser"> {{trans('strings.remove_friend')}} </button>
                 </div>
               </div>
-          </div>
+            </li>
       @endforeach
-        </div>
+    </ul>
     </div>
 </div>
 @endsection
