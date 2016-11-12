@@ -28,5 +28,10 @@ return [
     'decline_friend'=>'Татгалзах',
     'declined'=>'Татгалзсан',
     'profile'=>'Өөрийн хуудас',
-    'friend'=>'Найз'
+    'remove_friend'=>'Найзаас хасах',
+    'friend'=>'Найз',
+    'mess_friend'=>'Та энэ хүнтэй найз байна.',
+    'mess_sent_request'=>'Та найзын хүсэлт илгээсэн байна.',
+    'mess_not_friend' =>'Та найз биш байна.',
+    'add_work'=>'Ажил нэмэх',
 ];

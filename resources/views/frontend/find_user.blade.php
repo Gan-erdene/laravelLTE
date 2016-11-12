@@ -10,11 +10,9 @@
         action:btn.data('id'), '_token':"{{ csrf_token() }}"
       },function(data){
         if(data.status){
-          console.log(data);
           btn.data('id', data.dataid);
           btn.html(data.btntext);
           btn.prop('disabled', '');
-          console.log(btn.data('id'));
         }else{
           btn.prop('disabled', '');
           alert(data.message);

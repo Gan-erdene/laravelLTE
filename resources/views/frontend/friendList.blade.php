@@ -1,147 +1,49 @@
 @extends('layouts.frontend')
-@section('javascript')
-  $('#friendView').addClass('active');
+@section('javascripts')
+<link href="/frontend/assets/css/profile2.css" rel="stylesheet">
+<script>
+  $(document).on('click', '.finduser', function(){
+      var  btn = $(this);
+      btn.prop('disabled', 'disabled');
+      $.post("{{route('frontendFindUserAction')}}", {
+        action:btn.data('id'), '_token':"{{ csrf_token() }}"
+      },function(data){
+        if(data.status){
+          btn.data('id', data.dataid);
+          btn.html(data.btntext);
+          btn.prop('disabled', '');
+        }else{
+          btn.prop('disabled', '');
+          alert(data.message);
+        }
+      });
+  });
+
+</script>
 @endsection
 @section('content')
 <div class="row page-content">
-<div class="col-md-8 col-md-offset-2">
-<div class="row">
-          <div class="col-md-3">
-              <div class="contact-box center-version">
-                <a href="#">
-                  <img alt="image" class="img-circle" src="img/Friends/guy-1.jpg">
-                  <h3 class="m-b-xs"><strong>John Doe</strong></h3>
-
-                  <div class="font-bold">Graphics designer</div>
-                </a>
-                <div class="contact-box-footer">
-                  <div class="m-t-xs btn-group">
-                    <a href="messages1.html" class="btn btn-xs btn-white"><i class="fa fa-envelope"></i>Send Messages</a>
-                    <a class="btn btn-xs btn-white"><i class="fa fa-user-plus"></i> Follow</a>
-                  </div>
+  <div class="col-md-8 col-md-offset-2">
+      <ul class=" widget-users row">
+      @foreach($friends as $item)
+            <li class="col-md-4">
+              <div class="img">
+                <img src="img/Friends/woman-6.jpg" alt="">
+              </div>
+              <div class="details">
+                <div class="name">
+                  <a href="#">{{$item->first_name}} {{$item->last_name}}</a>
+                </div>
+                <div class="time">
+                  <i class="fa fa-clock-o"></i> Last online: 5 minutes ago
+                </div>
+                <div class="m-t-xs btn-group">
+                  <button data-id="rem_{{$item->listid}}" class="btn btn-xs btn-white finduser"> {{trans('strings.remove_friend')}} </button>
                 </div>
               </div>
-          </div>
-
-          <div class="col-md-3">
-              <div class="contact-box center-version">
-                <a href="#">
-                  <img alt="image" class="img-circle" src="img/Friends/guy-2.jpg">
-                  <h3 class="m-b-xs"><strong>John Doe</strong></h3>
-
-                  <div class="font-bold">Graphics designer</div>
-                </a>
-                <div class="contact-box-footer">
-                  <div class="m-t-xs btn-group">
-                    <a href="messages1.html" class="btn btn-xs btn-white"><i class="fa fa-envelope"></i>Send Messages</a>
-                    <a class="btn btn-xs btn-white"><i class="fa fa-user-plus"></i> Follow</a>
-                  </div>
-                </div>
-              </div>
-          </div>
-
-          <div class="col-md-3">
-              <div class="contact-box center-version">
-                <a href="#">
-                  <img alt="image" class="img-circle" src="img/Friends/guy-3.jpg">
-                  <h3 class="m-b-xs"><strong>John Doe</strong></h3>
-
-                  <div class="font-bold">Graphics designer</div>
-                </a>
-                <div class="contact-box-footer">
-                  <div class="m-t-xs btn-group">
-                    <a href="messages1.html" class="btn btn-xs btn-white"><i class="fa fa-envelope"></i>Send Messages</a>
-                    <a class="btn btn-xs btn-white"><i class="fa fa-user-plus"></i> Follow</a>
-                  </div>
-                </div>
-              </div>
-          </div>
-
-          <div class="col-md-3">
-              <div class="contact-box center-version">
-                <a href="#">
-                  <img alt="image" class="img-circle" src="img/Friends/woman-1.jpg">
-                  <h3 class="m-b-xs"><strong>John Doe</strong></h3>
-
-                  <div class="font-bold">Graphics designer</div>
-                </a>
-                <div class="contact-box-footer">
-                  <div class="m-t-xs btn-group">
-                    <a href="messages1.html" class="btn btn-xs btn-white"><i class="fa fa-envelope"></i>Send Messages</a>
-                    <a class="btn btn-xs btn-white"><i class="fa fa-user-plus"></i> Follow</a>
-                  </div>
-                </div>
-              </div>
-          </div>
-
-          <div class="col-md-3">
-              <div class="contact-box center-version">
-                <a href="#">
-                  <img alt="image" class="img-circle" src="img/Friends/woman-2.jpg">
-                  <h3 class="m-b-xs"><strong>John Doe</strong></h3>
-
-                  <div class="font-bold">Graphics designer</div>
-                </a>
-                <div class="contact-box-footer">
-                  <div class="m-t-xs btn-group">
-                    <a href="messages1.html" class="btn btn-xs btn-white"><i class="fa fa-envelope"></i>Send Messages</a>
-                    <a class="btn btn-xs btn-white"><i class="fa fa-user-plus"></i> Follow</a>
-                  </div>
-                </div>
-              </div>
-          </div>
-
-          <div class="col-md-3">
-              <div class="contact-box center-version">
-                <a href="#">
-                  <img alt="image" class="img-circle" src="img/Friends/woman-3.jpg">
-                  <h3 class="m-b-xs"><strong>John Doe</strong></h3>
-
-                  <div class="font-bold">Graphics designer</div>
-                </a>
-                <div class="contact-box-footer">
-                  <div class="m-t-xs btn-group">
-                    <a href="messages1.html" class="btn btn-xs btn-white"><i class="fa fa-envelope"></i>Send Messages</a>
-                    <a class="btn btn-xs btn-white"><i class="fa fa-user-plus"></i> Follow</a>
-                  </div>
-                </div>
-              </div>
-          </div>
-
-          <div class="col-md-3">
-              <div class="contact-box center-version">
-                <a href="#">
-                  <img alt="image" class="img-circle" src="img/Friends/guy-5.jpg">
-                  <h3 class="m-b-xs"><strong>John Doe</strong></h3>
-
-                  <div class="font-bold">Graphics designer</div>
-                </a>
-                <div class="contact-box-footer">
-                  <div class="m-t-xs btn-group">
-                    <a href="messages1.html" class="btn btn-xs btn-white"><i class="fa fa-envelope"></i>Send Messages</a>
-                    <a class="btn btn-xs btn-white"><i class="fa fa-user-plus"></i> Follow</a>
-                  </div>
-                </div>
-              </div>
-          </div>
-
-          <div class="col-md-3">
-              <div class="contact-box center-version">
-                <a href="#">
-                  <img alt="image" class="img-circle" src="img/Friends/woman-1.jpg">
-                  <h3 class="m-b-xs"><strong>John Doe</strong></h3>
-
-                  <div class="font-bold">Graphics designer</div>
-                </a>
-                <div class="contact-box-footer">
-                  <div class="m-t-xs btn-group">
-                    <a href="messages1.html" class="btn btn-xs btn-white"><i class="fa fa-envelope"></i>Send Messages</a>
-                    <a class="btn btn-xs btn-white"><i class="fa fa-user-plus"></i> Follow</a>
-                  </div>
-                </div>
-              </div>
-          </div>
-        </div>
-      </div>
+            </li>
+      @endforeach
+    </ul>
     </div>
+</div>
 @endsection

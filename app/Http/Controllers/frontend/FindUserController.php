@@ -13,6 +13,15 @@ use Illuminate\Http\Response;
 
 class FindUserController extends Controller
 {
+
+    /**
+    * friend status
+    * 0 - sent request
+    * 1 - friends
+    * 2 - decline friends
+    * 3 - remove friends
+    * 4 - cancel request
+    */
     public function index(){
       $users = $this->getUnfriendList();
       return view('frontend.find_user')
@@ -36,9 +45,35 @@ class FindUserController extends Controller
         case 'acc': return $this->acceptRequest($action[1]);
         case 'can': return $this->cancelRequest($action[1]);
         case 'dec': return $this->declineRequst($action[1]);
+        case 'rem': return $this->removeFriend($action[1]);
         case 'friend_list' : return friendList();
         default:break;
       }
+    }
+
+    public function removeFriend($friendlistid){
+      $friend = Friends::find($friendlistid);
+      if(!$friend and $friend->status !== 1){
+        return response()->json([
+            'status'=>false, 'message'=>trans('strings.mess_not_friend')
+        ]);
+      }
+      $user = Friends::find($friendlistid);
+      $user->status = 3;
+      $status = $user->update();
+
+      if($status){
+        $fupdate = new FriendUpdates();
+        $fupdate->friend_id = $user->id;
+        $fupdate->created_at = new \DateTime();
+        $fupdate->status = $user->status;
+        $fupdate->user_id = \Auth::user()->id;
+        $fupdate->save();
+      }
+      $sendid = $friend->user_id === \Auth::user()->id ? \Auth::user()->id : $friend->friend_user_id;
+      return response()->json(['dataid'=>'add_'.$sendid,
+          'status'=>$status, 'btntext'=>trans('strings.add_friend')
+      ]);
     }
 
     public function declineRequst($userid){
@@ -50,7 +85,7 @@ class FindUserController extends Controller
       }
       $user = Friends::find($checkeduser[0]->id);
       $user->status = 2;
-      $status = $user->save();
+      $status = $user->update();
 
       if($status){
         $fupdate = new FriendUpdates();
@@ -67,7 +102,11 @@ class FindUserController extends Controller
     }
 
     public function friendList(){
-
+      $userid = \Auth::user()->id;
+      $sql = "select u.last_name, h.listid, u.first_name, u.id, h.uid from sf_guard_user u
+                  left join (select case when s.user_id = $userid then s.friend_user_id else s.user_id end uid, s.id as listid from friends s where s.user_id=$userid or s.friend_user_id = $userid and s.status = 1) h on u.id = h.uid where h.uid is not null";
+      $list = DB::select($sql);
+      return $list;
     }
 
     public function canCancel($userid, $friendid){
@@ -78,21 +117,31 @@ class FindUserController extends Controller
     }
 
     public function cancelRequest($userid){
-        $user = $this->canCancel(\Auth::user()->id,$userid);
-        if(!$user){
+        $friendtable = $this->canCancel(\Auth::user()->id,$userid);
+        if(!$friendtable or ($friendtable[0]->status === 2 or $friendtable[0]->status === 3)){
           return response()->json([
               'status'=>false, 'message'=>'Энэ хэрэглэгчтэй та найз болоогүй байна.'
           ]);
         }
 
-        if($user[0]->status !== 0){
+        if($friendtable[0]->status === 1){
           return response()->json([
               'status'=>false, 'message'=>'Таны хүсэлтийг найзаар бүртгэсэн тул цуцлах боломжгүй байна.'
           ]);
         }
 
-        FriendUpdates::where('friend_id', $user[0]->id)->delete();
-        $status = Friends::find($user[0]->id)->delete();
+        $ffriend = Friends::find($friendtable[0]->id);
+        $ffriend->status = 4;
+        $status = $ffriend->update();
+        if($status){
+          $fupdate = new FriendUpdates();
+          $fupdate->friend_id = $friendtable[0]->id;
+          $fupdate->created_at = new \DateTime();
+          $fupdate->status = $ffriend->status;
+          $fupdate->user_id = \Auth::user()->id;
+          $fupdate->save();
+        }
+
         return response()->json(['dataid'=>"add_".$userid,
             'status'=>$status, 'btntext'=>trans('strings.add_friend')
         ]);
@@ -124,9 +173,29 @@ class FindUserController extends Controller
     }
 
     public function friendRequest($userid){
-        if($this->canRequest(\Auth::user()->id, $userid) > 0){
+        $oldhist = $this->canRequest(\Auth::user()->id, $userid);
+        if(isset($oldhist[0]) and $oldhist[0]->status === 1){
           return response()->json([
-              'status'=>false, 'message'=>'Хүсэлт явуулах боломжгүй байна'
+              'status'=>false, 'message'=>trans('strings.mess_friend')
+          ]);
+        }elseif( isset($oldhist[0]) and $oldhist[0]->status === 0 ){
+          return response()->json([
+              'status'=>false, 'message'=>trans('strings.mess_sent_request')
+          ]);
+        }elseif( isset($oldhist[0]) ){
+          $friend = Friends::find($oldhist[0]->id);
+          $friend->status = 0;
+          $status = $friend->update();
+          if($status){
+            $fupdate = new FriendUpdates();
+            $fupdate->friend_id = $friend->id;
+            $fupdate->created_at = new \DateTime();
+            $fupdate->status = $friend->status;
+            $fupdate->user_id = \Auth::user()->id;
+            $fupdate->save();
+          }
+          return response()->json(['dataid'=>'can_'.$userid,
+              'status'=>$status, 'btntext'=>trans('strings.cancel_friend')
           ]);
         }
 
@@ -151,13 +220,15 @@ class FindUserController extends Controller
     }
 
     public function canRequest($userid, $friendid){
-      $sql = "select count(*) too from friends s
+      $sql = "select * from friends s
 	       where (s.friend_user_id = $userid and user_id = $friendid) or (s.friend_user_id = $friendid and user_id = $userid)";
       $count = DB::select($sql);
-      return $count[0]->too;
+      return $count;
     }
 
     public function friendsView(){
-      return view('frontend.friendList');
+      $list = $this->friendList();
+      return view('frontend.friendList')
+        ->with('friends', $list);
     }
 }

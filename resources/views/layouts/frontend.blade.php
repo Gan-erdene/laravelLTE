@@ -42,6 +42,7 @@
           <ul class="nav navbar-nav navbar-right">
             <li class="actives"><a href="{{route('frontendHome')}}">{{trans('strings.profile')}}</a></li>
             <li class="actives"><a href="{{route('frontendFindUser')}}">{{trans('strings.find_friend')}}</a></li>
+            <li class="actives"><a href="{{route('addWork')}}">{{trans('strings.add_work')}}</a></li>
             <li><a href="home.html">Home</a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
