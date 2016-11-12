@@ -9,20 +9,16 @@
          autoclose: true
        });
        @if(isset($user))
-
+        $('#lastname').val("{{$user->last_name}}");
+        $('#firstname').val("{{$user->first_name}}");
+        $('#email').val("{{$user->email_address}}");
         $('#register').val("{{$user->register}}");
         $('#phone').val("{{$user->phone}}");
-        $('#gender').val("{{$user->gender}}").attr('checked', true);
+        $('#gender_{{$user->gender}}').attr('checked', true);
         $('#ndd').val("{{$user->ndd}}");
         $('#emdd').val("{{$user->emdd}}");
         $('#datepicker').val("{{$user->birthday}}");
         $('#address').val("{{$user->address}}");
-        $('#profileimage').attr("src","/uploads/profileimage/{{$user->profile_image}}");
-        $('#coverName').attr("src", "/uploads/coverimage/{{$user->coverName}}");
-        $('#irgenii').attr("src", "/uploads/irgenii/{{$user->irgenii}}");
-        $('#khoroo').attr("src", "/uploads/khoroo/{{$user->khoroo}}");
-        $('#tsagdaa').attr("src", "/uploads/tsagdaa/{{$user->tsagdaa}}");
-
 
        @endif
  });
@@ -57,7 +53,7 @@
   			<button type="button" class="close" data-dismiss="alert">×</button>
   		        <strong>{{ $message }}</strong>
   		</div>
-  		<img src="/images/{{ Session::get('path') }}">
+
   		@endif
             <form action="{{ url('/frontend/profile/edit') }}"  enctype="multipart/form-data" method="POST">
               {{ csrf_field() }}
@@ -66,21 +62,10 @@
                 <div class="row">
                   <div class="col-md-3">
                     <div class="user-info-left">
-                      <img src="\uploads\profileimage\{{$user->profile_image}}" alt="Profile Picture">
+                      <img src="/uploads/profileimage/{{$user->profile_image}}" alt="Profile Picture">
                       <h2>{{ Auth::user()->first_name}} {{ Auth::user()->last_name}}</h2>
                       <div class="contact">
-                        <p>
 
-                          <span class="file-input btn btn-azure btn-file">
-                            Профайл зураг <input type="file" id="profileimage" name="profileimage">
-                          </span>
-
-                        </p>
-                        <p>
-                          <span class="file-input btn btn-azure btn-file">
-                            Cover Зураг <input type="file" id="coverName" name="coverName">
-                          </span>
-                        </p>
                         <ul class="list-inline social">
                           <li><a href="#" title="Facebook"><i class="fa fa-facebook-square"></i></a></li>
                           <li><a href="#" title="Twitter"><i class="fa fa-twitter-square"></i></a></li>
@@ -94,6 +79,24 @@
                       <div class="basic-info">
                         <h3><i class="fa fa-square"></i> Үндсэн мэдээлэл</h3>
                         <div class="form-group row">
+                          <label class="col-sm-1">Овог</label>
+                          <div class="col-md-7">
+                            <input id="lastname" type="text" class="form-control"  name="lastname" placeholder="Овог">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-sm-1">Нэр</label>
+                          <div class="col-md-7">
+                            <input id="firstname" type="text" class="form-control"  name="firstname" placeholder="Нэр">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-sm-1">Мэйл</label>
+                          <div class="col-md-7">
+                            <input id="email" type="text" class="form-control"  name="email" placeholder="Мэйл">
+                          </div>
+                        </div>
+                        <div class="form-group row">
                           <label class="col-sm-1">Регистр</label>
                           <div class="col-md-7">
                             <input id="register" type="text" class="form-control"  name="register" placeholder="Регистр дугаар">
@@ -102,13 +105,16 @@
                         <div class="form-group row">
                           <label class="col-sm-1">Хүйс</label>
                           <div class="col-md-7">
+
                             <label>
-                              <input type="checkbox" id="gender" name="gender" value="1">
+                              <input type="radio" id="gender_1" name="gender" value="1">
                               <span class="text">эрэгтэй</span>
+
                             </label>&nbsp;&nbsp;
                             <label>
-                              <input type="checkbox" id="gender" name="gender" value="2">
+                              <input type="radio" id="gender_2" name="gender" value="2">
                               <span class="text">эмэгтэй</span>
+
                             </label>
                           </div>
                         </div>
@@ -147,45 +153,7 @@
                             <textarea type="textarea" class="form-control" id="address" name="address" placeholder="Оршин суугаа хаяг оруулна уу"></textarea>
                           </div>
                         </div>
-                        <div class="form-group row">
-                          <label class="col-sm-1">Иргэний үнэмлэх</label>
-                          <div class="col-md-7">
-                            <div class="input-group">
-                              <span class="input-group-btn">
-                                  <span class="btn btn-azure btn-file">
-                                      File Uploads <input type="file" id="irgenii" name="irgenii" multiple="">
-                                  </span>
-                              </span>
-                              <input type="text" class="form-control" readonly="">
-                          </div>
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label class="col-sm-1">Хорооны тодорхойлолт</label>
-                          <div class="col-md-7">
-                            <div class="input-group">
-                              <span class="input-group-btn">
-                                  <span class="btn btn-azure btn-file">
-                                      File Uploads <input type="file" id="khoroo" name="khoroo" multiple="">
-                                  </span>
-                              </span>
-                              <input type="text" class="form-control" readonly="">
-                          </div>
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label class="col-sm-1">Цагдаагийн тодорхойлолт</label>
-                          <div class="col-md-7">
-                            <div class="input-group">
-                              <span class="input-group-btn">
-                                  <span class="btn btn-azure btn-file">
-                                      File Uploads <input type="file" name="tsagdaa" name="tsagdaa" multiple="">
-                                  </span>
-                              </span>
-                              <input type="text" class="form-control" readonly="">
-                          </div>
-                          </div>
-                        </div>
+
                       </div>
                     </div>
                   </div>
