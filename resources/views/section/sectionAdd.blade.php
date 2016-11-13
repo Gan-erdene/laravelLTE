@@ -129,7 +129,7 @@
                   <td>{{ $item->sectype->name }}</td>
                   <td>{{$item->order_id}}</td>
                   <td>
-                    <button id="{{$item->id}}" type="button" class="btn btn-primary btn-xs btnedit" >
+                    <button data-id="{{$item->id}}" type="button" class="btn btn-primary btn-xs btnedit" >
                       <i class="fa fa-edit"></i> Засах
                     </button>
                     <button data-id="{{$item->id}}" data-toggle="modal" data-target="#myModal" class="btn btn-danger btn-xs announce" >
@@ -203,10 +203,8 @@ $(function(){
     $("#_section").addClass("active");
     $("#sectionadd").addClass("active");
 
-    $('#example1').DataTable();
-
-    $('.btnedit').click(function(){
-      $.post('/home/section/action', {'_token':"{{ csrf_token() }}", 'action':'section', 'id':$(this).attr("id")}, function(data){
+    $('.btnedit').on('click',function(){
+      $.post('/home/section/action', {'_token':"{{ csrf_token() }}", 'action':'section', 'id':$(this).data('id')}, function(data){
           $('#secname').val(data.translation.name);
           $('#secdesc').val(data.translation.description);
           $('#published').prop('checked', data.section.published == 1 ? true : false);
@@ -221,6 +219,8 @@ $(function(){
 
       });
     });
+
+    $('#example1').DataTable();
 
     $("#btnCancel").on('click', function(e){
       e.preventDefault();

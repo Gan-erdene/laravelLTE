@@ -28,8 +28,10 @@
 
 
           <div class="box-body">
-            <form role="form" method="POST" action="{{ url('/home/category/create') }}">
+            <form role="form" method="POST" action="{{ url('/home/category/action') }}">
                   <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                  <input type="hidden" name="action" id="action" value="create">
+                  <input type="hidden" name="id" id="id">
               <div class="form-group">
                 <label>Нэр</label>
                 <input type="text" id="name" name="name" class="form-control" placeholder="Нэр ...">
@@ -37,7 +39,7 @@
 
               <div class="form-group">
                 <label>Тайлбар</label>
-                <textarea class="form-control" id="descripion" name="description" rows="3" placeholder="Тайлбар ..."></textarea>
+                <textarea class="form-control" id="description" name="description" rows="3" placeholder="Тайлбар ..."></textarea>
                 <input type="hidden" class="form-control" id="catlang" name="catlang" value="mn">
               </div>
 
@@ -62,7 +64,7 @@
               </div>
               <div class="form-group">
                 <label>Дэс дугаар</label>
-                <input type="text" name="order_id" class="form-control" placeholder="Дэс дугаар ...">
+                <input type="text" name="order_id" id="order_id" class="form-control" placeholder="Дэс дугаар ...">
               </div>
 
               <div class="box-footer">
@@ -101,11 +103,11 @@
                   </td>
                   <td>{{$categories->published}}</td>
                   <td>
-                    <button type="button" class="btn btn-primary btn-xs" style="margin-right: 5px;">
+                    <button data-id="{{$categories->id}}" type="button" class="btn btn-primary btn-xs btnedit" >
                       <i class="fa fa-edit"></i> Засах
                     </button>
-                    <button type="button" class="btn btn-primary btn-xs" style="margin-right: 5px;">
-                      <i class="fa fa-edit"></i> Устгах
+                    <button data-id="{{$categories->id}}" data-toggle="modal" data-target="#myModal" class="btn btn-danger btn-xs announce" >
+                      <i class="fa fa-trash"></i> Устгах
                     </button>
                   </td>
                 </tr>
@@ -138,6 +140,23 @@ $(function(){
   $("#_info").addClass("open active");
   $("#_category").addClass("active");
   $("#category_add").addClass("active");
+
+  $('.btnedit').on('click',function(){
+  $.post('/home/category/action', {'_token':"{{ csrf_token() }}", 'action':'category', 'id':$(this).data('id')}, function(data){
+      $('#name').val(data.translation.name);
+      $('#description').val(data.translation.description);
+      $('#checkbox').prop('checked', data.category.published == 1 ? true : false);
+      $('#order_id').val(data.category.order_id);
+      $("#action").val("edit");
+      $("#section_id").val(data.category.section_id);
+      $("#id").val(data.category.id);
+
+      $('#btnCancel').show();
+      $('#btnSave').show();
+      $('#btnCreate').hide();
+
+  });
+});
     $('#example1').DataTable();
 });
 </script>

@@ -6,6 +6,7 @@ use App\Category;
 use App\CategoryTranslation;
 use Illuminate\Http\Request;
 use DB;
+use Validator;
 
 use App\Http\Requests;
 
@@ -19,7 +20,7 @@ class CategoryController extends Controller
         ->with('section',$section);
 
     }
-    public function create(Request $request){
+    public function create($request){
 
 
 
@@ -48,9 +49,52 @@ class CategoryController extends Controller
 
     public function action(Request $request){
         switch ($request->input('action')) {
-            case 'cat': return $this->getCatBySection($request->input('section_id')); 
+            case 'cat': return $this->getCatBySection($request->input('section_id'));
+            case 'create' : return $this->create($request);
+            case 'category' : return \Response::json(array('category'=>Category::find($request->id), 'translation'=>Category::find($request->id)->CategoryTranslationJoin()->first()));
+            case 'edit': return $this->editCategory($request);
         default: break;
       }
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Ангилал хоосон байж болохгүй!',
+            'description.required'  => 'Тайлбар хоосон байж болохгүй!',
+            'order_id.required'  => 'Дараалал хоосон байж болохгүй!',
+        ];
+    }
+
+    public function editCategory($request){
+      $validator = Validator::make($request->all(), [
+          'name' => 'required',
+          'description' => 'required',
+          'order_id' => 'required',
+      ], $this->messages());
+
+      if ($validator->fails()) {
+          return back()
+                      ->withErrors($validator)
+                      ->withInput();
+      }
+
+      $category = Category::find($request->input('id'));
+
+      $category->section_id = $request->input('section_id');
+      $category->published = '1';
+      $category->order_id = $request->input('order_id');
+      $category->updated_by = \Auth::user()->id;
+      $category->update();
+
+       $sectionTranslation = CategoryTranslation::find($request->input('id'));
+       $sectionTranslation->name = $request->input('name');
+       $sectionTranslation->description = $request->input('description');
+       $sectionTranslation->lang = $request->input('catlang');
+       $sectionTranslation->update();
+      return back()
+        ->with('status', 'success')
+        ->with('message', 'Хадгалагдлаа');
     }
 
     public function getCatBySection($sectionid){
