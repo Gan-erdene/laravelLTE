@@ -63,7 +63,7 @@
             <div class="cover-info">
               @if($user->profile_image)
               <div class="avatar">
-                  <img src="\uploads\profileimage\{{$user->profile_image}}" alt="people">
+                  <img src="/uploads/profileimage/{{$user->profile_image}}" alt="people">
               </div>
               @else
               <div class="avatar">
@@ -72,10 +72,10 @@
               @endif
               <div class="name"><a href="#">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</a></div>
               <ul class="cover-nav">
-                <li class=""><a href="profile.html"><i class="fa fa-fw fa-bars"></i> Timeline</a></li>
-                <li class=""><a href="{{route('frontendEditProfile')}}"><i class="fa fa-fw fa-user"></i> About</a></li>
-                <li id='friendView' class=""><a href="{{route('friendsView')}}"><i class="fa fa-fw fa-users"></i> Friends</a></li>
-                <li><a href="photos1.html"><i class="fa fa-fw fa-image"></i> Photos</a></li>
+                <li class="active"><a href="profile.html"><i class="fa fa-fw fa-bars"></i> Timeline</a></li>
+                <li class="active"><a href="{{route('frontendEditProfile')}}"><i class="fa fa-fw fa-user"></i> About</a></li>
+                <li id='friendView' class="active"><a href="{{route('friendsView')}}"><i class="fa fa-fw fa-users"></i> Friends</a></li>
+                <li class="active"><a href="photos1.html"><i class="fa fa-fw fa-image"></i> Photos</a></li>
               </ul>
             </div>
           </div>
@@ -91,32 +91,36 @@
               <ul class="list-unstyled profile-about margin-none">
                 <li class="padding-v-5">
                   <div class="row">
-                    <div class="col-sm-4"><span class="text-muted">Date of Birth</span></div>
-                    <div class="col-sm-8">12 January 1990</div>
+                    <div class="col-sm-4"><span class="text-muted">Төрсөн өдөр</span></div>
+                    <div class="col-sm-8">{{$user->birthday}}</div>
                   </div>
                 </li>
                 <li class="padding-v-5">
                   <div class="row">
-                    <div class="col-sm-4"><span class="text-muted">Job</span></div>
-                    <div class="col-sm-8">Ninja developer</div>
+                    <div class="col-sm-4"><span class="text-muted">Ажил</span></div>
+                    <div class="col-sm-8">{{$user->work}}</div>
                   </div>
                 </li>
                 <li class="padding-v-5">
                   <div class="row">
-                    <div class="col-sm-4"><span class="text-muted">Gender</span></div>
-                    <div class="col-sm-8">Male</div>
+                    <div class="col-sm-4"><span class="text-muted">Хүйс</span></div>
+                    @if($user->gender  === 1)
+                    <div class="col-sm-8">Эрэгтэй</div>
+                    @else
+                      <div class="col-sm-8">Эмэгтэй</div>
+                    @endif
                   </div>
                 </li>
                 <li class="padding-v-5">
                   <div class="row">
-                    <div class="col-sm-4"><span class="text-muted">Lives in</span></div>
-                    <div class="col-sm-8">Miami, FL, USA</div>
+                    <div class="col-sm-4"><span class="text-muted">Имэйл</span></div>
+                    <div class="col-sm-8">{{$user->email_address}}</div>
                   </div>
                 </li>
                 <li class="padding-v-5">
                   <div class="row">
-                    <div class="col-sm-4"><span class="text-muted">Credits</span></div>
-                    <div class="col-sm-8">249</div>
+                    <div class="col-sm-4"><span class="text-muted">Утас</span></div>
+                    <div class="col-sm-8">99046274</div>
                   </div>
                 </li>
               </ul>

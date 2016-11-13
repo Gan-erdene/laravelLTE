@@ -49,6 +49,7 @@
                 Pages <span class="caret"></span>
               </a>
               <ul class="dropdown-menu">
+                <li><a href="{{ url('/frontend/file') }}">Файлууд</a></li>
                 <li><a href="{{ url('/frontend/logout') }}">Гарах</a></li>
 
               </ul>

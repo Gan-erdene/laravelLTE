@@ -6,13 +6,14 @@
 <script>
   $(function () {
     $('#datepicker').datepicker({
-         autoclose: true
+         format: 'yyyy-mm-dd'
        });
        @if(isset($user))
         $('#lastname').val("{{$user->last_name}}");
         $('#firstname').val("{{$user->first_name}}");
         $('#email').val("{{$user->email_address}}");
         $('#register').val("{{$user->register}}");
+        $('#work').val("{{$user->work}}");
         $('#phone').val("{{$user->phone}}");
         $('#gender_{{$user->gender}}').attr('checked', true);
         $('#ndd').val("{{$user->ndd}}");
@@ -116,6 +117,12 @@
                               <span class="text">эмэгтэй</span>
 
                             </label>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-sm-1">Ажил</label>
+                          <div class="col-md-7">
+                            <input type="text" class="form-control" id="work" name="work" placeholder="Ажил ">
                           </div>
                         </div>
                         <div class="form-group row">
