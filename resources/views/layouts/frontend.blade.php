@@ -21,6 +21,13 @@
     <script src="/frontend/assets/js/jquery.1.11.1.min.js"></script>
     <script src="/frontend/bootstrap.3.3.6/js/bootstrap.min.js"></script>
     <script src="/frontend/assets/js/custom.js"></script>
+    <script>
+      $.post("{{route('frontendFindUserAction')}}", {
+        '_token':"{{ csrf_token() }}", action:'flist_1'
+      }, function(data){
+        $('#friendList').html(data.html);
+      });
+    </script>
     @yield('javascripts')
   </head>
 
@@ -64,16 +71,8 @@
       <div class="list-group text-left">
         <p class="text-center visible-xs"><a href="#" class="hide-chat btn btn-success">Hide</a></p>
         <p class="text-center chat-title">Online users</p>
-        <a href="messages1.html" class="list-group-item">
-          <i class="fa fa-check-circle connected-status"></i>
-          <img src="/frontend/img/Friends/guy-2.jpg" class="img-chat img-thumbnail">
-          <span class="chat-user-name">Jeferh Smith</span>
-        </a>
-        <a href="messages1.html" class="list-group-item">
-          <i class="fa fa-times-circle absent-status"></i>
-          <img src="/frontend/img/Friends/woman-1.jpg" class="img-chat img-thumbnail">
-          <span class="chat-user-name">Dapibus acatar</span>
-        </a>
+        <div id="friendList">
+        </div>
       </div>
     </div><!-- Online users sidebar content-->
     <!-- Modal -->

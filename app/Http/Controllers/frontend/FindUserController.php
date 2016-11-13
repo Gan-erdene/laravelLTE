@@ -46,7 +46,10 @@ class FindUserController extends Controller
         case 'can': return $this->cancelRequest($action[1]);
         case 'dec': return $this->declineRequst($action[1]);
         case 'rem': return $this->removeFriend($action[1]);
-        case 'friend_list' : return friendList();
+        case 'flist' :
+          $list = $this->friendList();
+          $html = view('frontend.chatFriend', ['list'=>$list]);
+        return response()->json(['html'=>$html->render()]);
         default:break;
       }
     }
