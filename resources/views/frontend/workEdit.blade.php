@@ -15,15 +15,22 @@
   });
 
   $(document).ready(function () {
-    $("#menu_add_work").addClass('active');
+    $('#project_name').val('{{$work->project_name}}');
+    $('#reference').val('{{$work->reference}}');
+    $('#your_skill').val('{{$work->skill}}');
+    $('#price').val('{{$work->price}}');
+    $('#duration_type').val('{{$work->duration_type}}');
+    $('#duration').val('{{$work->duration}}');
+    @if($work->is_active === 1)
+    $('#is_active').attr("checked", "checked");
+    @endif
   });
 </script>
 @endsection
 @section('content')
 <div class="container page-content">
 
-  <div class="row">
-    @include('frontend.workMenu')
+  <div class="row"><div class="col-md-3"></div>
       <div class="col-md-7 animated fadeInRight">
         @include('status')
           <div class="widget">
@@ -33,14 +40,15 @@
             <div class="widget-body bordered-top bordered-sky">
               <form action="{{route('workAction')}}" method="post" id="addForm">
               <input type="hidden" name="_token" value="{{ csrf_token() }}">
-              <input type="hidden" name="action" value="creatework">
+              <input type="hidden" name="action" value="save">
+              <input type="hidden" name="workid" value="{{$work->id}}">
               <div class="row">
                   <div class="col-md-3">
                     {{trans('strings.project_name')}}
                   </div>
                   <div class="col-md-9 @if($errors->add->first('project_name') !== "") has-error has-feedback @endif">
                     @if($errors->add->first('project_name') !== "")<label class="control-label" > {{$errors->add->first('project_name')}} </label>@endif
-                    <input type="text" class="form-control input-sm" id="prject_name" name="project_name" placeholder="{{trans('strings.project_name')}}...">
+                    <input type="text" class="form-control input-sm" id="project_name" name="project_name" placeholder="{{trans('strings.project_name')}}...">
                   </div>
               </div>
               <hr/>
@@ -63,8 +71,8 @@
                         @foreach($sections as $item)
                           <div class="col-md-6">
                             <label>
-                                <input value="{{$item->id}}"  type="checkbox" class="colored-blue selectsection">
-                                <span class="text">{{$item->secTrans('mn')->name}}</span>
+                                <input value="{{$item->id}}" @if(is_numeric($item->section_id)) checked="checked" @endif  type="checkbox" class="colored-blue selectsection">
+                                <span class="text">{{$item->section_name}}</span>
                             </label>
                           </div>
                         @endforeach
@@ -78,7 +86,14 @@
                   </div>
                   <div class="col-md-9">
                       <div class="row" id="cat_container">
-
+                        @foreach($categories as $category)
+                          <div class="col-md-6 sec_{{$category->section_id}}">
+                            <label>
+                                <input value="{{$category->id}}" @if(is_numeric($category->catid)) checked="checked" @endif name="categories[]" type="checkbox" class="colored-blue">
+                                <span class="text">{{$category->catname}}</span>
+                            </label>
+                          </div>
+                        @endforeach
                       </div>
                   </div>
               </div>
@@ -121,7 +136,7 @@
                   <div class="col-md-9">
                     <input type="text" placeholder="{{trans('strings.duration')}}..." class="form-control input-sm" id="duration" name="duration">
                     <label>
-                        <input value="1" name="is_active" type="checkbox" class="colored-blue"><br/>
+                        <input value="1" id="is_active" name="is_active" type="checkbox" class="colored-blue"><br/>
                         <span class="text">{{trans('strings.show_work')}}</span>
                     </label>
                   </div>
@@ -132,13 +147,13 @@
 
                 </div>
                 <div class="col-md-9">
-                  <button class="btn btn-default purple"><i class="fa fa-plus"></i> {{trans('strings.add_work')}}</button>
+                  <a href="{{route('listWork')}}" class="btn btn-default purple"><i class="fa fa-back"></i> {{trans('strings.back')}}</a>
+                  <button class="btn btn-success purple"><i class="fa fa-save"></i> {{trans('strings.save')}}</button>
                 </div>
               </div>
             </div>
           </form>
           </div>
-
       </div>
   </div>
 
