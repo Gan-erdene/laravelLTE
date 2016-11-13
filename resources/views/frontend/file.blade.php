@@ -10,9 +10,15 @@
             <div class="profile-nav col-md-4">
               <div class="panel">
                   <div class="user-heading round">
+                    @if($user->profile_image)
                       <a href="#">
                           <img src="/uploads/profileimage/{{\Auth::user()->profile_image}}" alt="">
                       </a>
+                      @else
+                      <a href="#">
+                          <img src="/frontend/img/Profile/deafault-avatar.png" alt="">
+                      </a>
+                      @endif
                       <h1>{{\Auth::user()->last_name}} {{\Auth::user()->first_name}}</h1>
                       <p>{{\Auth::user()->email_address}}</p>
                   </div>
