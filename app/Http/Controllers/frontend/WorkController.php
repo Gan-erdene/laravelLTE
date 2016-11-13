@@ -20,6 +20,7 @@ class WorkController extends Controller
     public function action(Request $request){
       switch ($request->input('action')) {
         case 'category': return $this->getCategoryBySetion($request);
+        case 'creatework' : return $this->createWork($request);
         default: break;
       }
     }
@@ -28,5 +29,9 @@ class WorkController extends Controller
       $categories = Category::where('section_id', $request->input('section_id'))->orderBy('order_id', 'asc')->get();
       $view = view('category.checkbox_cat',['categories'=>$categories]);
       return response()->json(['html'=>$view->render()]);
+    }
+
+    public function createWork($request){
+
     }
 }

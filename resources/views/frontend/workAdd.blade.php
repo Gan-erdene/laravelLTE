@@ -39,37 +39,40 @@
       <div class="col-md-7 animated fadeInRight">
           <div class="widget">
             <div class="widget-header">
-              <h3 class="widget-caption">Ажил оруулах</h3>
+              <h3 class="widget-caption">{{trans('strings.add_work')}}</h3>
             </div>
             <div class="widget-body bordered-top bordered-sky">
+              <form action="{{route('workAction')}}" method="post" id="addForm">
+              <input type="hidden" name="_token" value="{{ csrf_token() }}">
+              <input type="hidden" name="action" value="addwork">
               <div class="row">
                   <div class="col-md-3">
-                    Project name
+                    {{trans('strings.project_name')}}
                   </div>
                   <div class="col-md-9">
-                    <input type="text" class="form-control input-sm" id="sminput" placeholder="Project name...">
+                    <input type="text" class="form-control input-sm" id="prject_name" name="project_name" placeholder="{{trans('strings.project_name')}}...">
                   </div>
               </div>
               <hr/>
               <div class="row">
                   <div class="col-md-3">
-                    Reference
+                    {{trans('strings.reference')}}
                   </div>
                   <div class="col-md-9">
-                    <textarea class="form-control" placeholder="Reference..." rows="5" id="comment"></textarea>
+                    <textarea class="form-control" placeholder="{{trans('strings.reference')}}..." rows="5" id="reference" name="reference"></textarea>
                   </div>
               </div>
               <hr/>
               <div class="row">
                   <div class="col-md-3">
-                    section
+                    {{trans('strings.section')}}
                   </div>
                   <div class="col-md-9">
                       <div class="row">
                         @foreach($sections as $item)
                           <div class="col-md-6">
                             <label>
-                                <input value="{{$item->id}}" name="sections[]" type="checkbox" class="colored-blue selectsection">
+                                <input value="{{$item->id}}"  name="sections[]" type="checkbox" class="colored-blue selectsection">
                                 <span class="text">{{$item->secTrans('mn')->name}}</span>
                             </label>
                           </div>
@@ -80,7 +83,7 @@
               <hr/>
               <div class="row">
                   <div class="col-md-3">
-                    Category
+                    {{trans('strings.category')}}
                   </div>
                   <div class="col-md-9">
                       <div class="row" id="cat_container">
@@ -91,41 +94,41 @@
               <hr/>
               <div class="row">
                   <div class="col-md-3">
-                    Your skill
+                    {{trans('strings.your_skill')}}
                   </div>
                   <div class="col-md-9">
-                    <textarea class="form-control" placeholder="Your skill..." rows="5" id="comment"></textarea>
+                    <textarea class="form-control" placeholder="{{trans('strings.your_skill')}}..." rows="5" name="your_skill" id="your_skill"></textarea>
                   </div>
               </div>
               <hr/>
               <div class="row">
                   <div class="col-md-3">
-                    Price
+                    {{trans('strings.price')}}
                   </div>
                   <div class="col-md-9">
-                    <input type="text" placeholder="Price" class="form-control input-sm" id="sminput" placeholder="Small Input">
+                    <input type="text" placeholder="{{trans('strings.price')}}..." class="form-control input-sm" id="price" name="price">
                   </div>
               </div><br/>
               <div class="row">
                   <div class="col-md-3">
-                    duration type
+                    {{trans('strings.duration_type')}}
                   </div>
                   <div class="col-md-9">
-                    <select name="duration_type">
-                        <option value="h">Цаг</option>
-                        <option value="d">Өдөр</option>
-                        <option value="m">Сар</option>
-                        <option value="y">Жил</option>
+                    <select name="duration_type" id="duration_type">
+                        <option value="h">{{trans('strings.hour')}}</option>
+                        <option value="d">{{trans('strings.day')}}</option>
+                        <option value="m">{{trans('strings.month')}}</option>
+                        <option value="y">{{trans('strings.year')}}</option>
                     </select>
                   </div>
               </div><br/>
 
               <div class="row">
                   <div class="col-md-3">
-                    duration
+                    {{trans('strings.duration')}}
                   </div>
                   <div class="col-md-9">
-                    <input type="text" placeholder="Price" class="form-control input-sm" id="sminput" placeholder="Small Input">
+                    <input type="text" placeholder="{{trans('strings.duration')}}..." class="form-control input-sm" id="duration" name="duration">
                   </div>
               </div>
               <hr/>
@@ -134,11 +137,13 @@
 
                 </div>
                 <div class="col-md-9">
-                  <button class="btn btn-default purple"><i class="fa fa-plus"></i> Create project</button>
+                  <button class="btn btn-default purple"><i class="fa fa-plus"></i> {{trans('strings.add_work')}}</button>
                 </div>
               </div>
             </div>
+          </form>
           </div>
+
       </div>
   </div>
 
