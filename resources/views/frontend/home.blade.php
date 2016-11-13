@@ -63,11 +63,11 @@
             <div class="cover-info">
               @if($user->profile_image)
               <div class="avatar">
-                  <img src="/uploads/profileimage/{{$user->profile_image}}" alt="people">
+                  <a><img src="/uploads/profileimage/{{$user->profile_image}}" alt="people">Зураг өөрчлөх</a>
               </div>
               @else
               <div class="avatar">
-                  <img src="/frontend/img/Friends/guy-3.jpg" alt="people">
+                  <img src="/frontend/img/Profile/deafault-avatar.png" alt="people">
               </div>
               @endif
               <div class="name"><a href="#">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</a></div>
