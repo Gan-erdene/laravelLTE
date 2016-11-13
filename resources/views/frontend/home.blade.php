@@ -67,7 +67,7 @@
               </div>
               @else
               <div class="avatar">
-                  <img src="/frontend/img/Profile/deafault-avatar.png" alt="people">
+                  <img src="/frontend/img/Profile/default-avatar.png" alt="people">
               </div>
               @endif
               <div class="name"><a href="#">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</a></div>

@@ -16,7 +16,7 @@
                       </a>
                       @else
                       <a href="#">
-                          <img src="/frontend/img/Profile/deafault-avatar.png" alt="">
+                          <img src="/frontend/img/Profile/default-avatar.png" alt="">
                       </a>
                       @endif
                       <h1>{{\Auth::user()->last_name}} {{\Auth::user()->first_name}}</h1>
