@@ -103,8 +103,8 @@ class FindUserController extends Controller
 
     public function friendList(){
       $userid = \Auth::user()->id;
-      $sql = "select u.last_name, h.listid, u.first_name, u.id, h.uid from sf_guard_user u
-                  left join (select case when s.user_id = $userid then s.friend_user_id else s.user_id end uid, s.id as listid from friends s where s.user_id=$userid or s.friend_user_id = $userid and s.status = 1) h on u.id = h.uid where h.uid is not null";
+      $sql = "select u.last_name, h.listid, u.first_name, u.id, u.profile_image, h.uid from sf_guard_user u
+                  left join (select case when s.user_id = $userid then s.friend_user_id else s.user_id end uid, s.id as listid from friends s where (s.user_id=$userid or s.friend_user_id = $userid) and s.status = 1) h on u.id = h.uid where h.uid is not null";
       $list = DB::select($sql);
       return $list;
     }

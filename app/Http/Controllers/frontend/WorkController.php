@@ -44,7 +44,7 @@ class WorkController extends Controller
       }
 
       $project_name = $request->input('project_name');
-      $reference = $request->input('reference');
+      $reference =  $request->input('reference');
       $skill = $request->input('your_skill');
       $price = $request->input('price');
       $duration_type = $request->input('duration_type');

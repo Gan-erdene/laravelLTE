@@ -16,8 +16,6 @@
 
   $(document).ready(function () {
     $('#project_name').val('{{$work->project_name}}');
-    $('#reference').val('{{$work->reference}}');
-    $('#your_skill').val('{{$work->skill}}');
     $('#price').val('{{$work->price}}');
     $('#duration_type').val('{{$work->duration_type}}');
     $('#duration').val('{{$work->duration}}');
@@ -58,7 +56,7 @@
                   </div>
                   <div class="col-md-9 @if($errors->add->first('reference') !== "") has-error has-feedback @endif">
                     @if($errors->add->first('reference') !== "")<label class="control-label" > {{$errors->add->first('reference')}} </label>@endif
-                    <textarea class="form-control" placeholder="{{trans('strings.reference')}}..." rows="5" id="reference" name="reference"></textarea>
+                    <textarea class="form-control" placeholder="{{trans('strings.reference')}}..." rows="5" id="reference" name="reference">{{$work->reference}}</textarea>
                   </div>
               </div>
               <hr/>
@@ -103,7 +101,7 @@
                     {{trans('strings.your_skill')}}
                   </div>
                   <div class="col-md-9">
-                    <textarea class="form-control" placeholder="{{trans('strings.your_skill')}}..." rows="5" name="your_skill" id="your_skill"></textarea>
+                    <textarea class="form-control" placeholder="{{trans('strings.your_skill')}}..." rows="5" name="your_skill" id="your_skill">{{$work->skill}}</textarea>
                   </div>
               </div>
               <hr/>

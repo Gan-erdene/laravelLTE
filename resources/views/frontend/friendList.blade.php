@@ -28,7 +28,11 @@
       @foreach($friends as $item)
             <li class="col-md-4">
               <div class="img">
-                <img src="img/Friends/woman-6.jpg" alt="">
+                @if($item->profile_image)
+                <img src="/uploads/profileimage/{{$item->profile_image}}" alt="">
+                @else
+                <img src="/frontend/img/Profile/default-avatar.png" alt="">
+                @endif
               </div>
               <div class="details">
                 <div class="name">
