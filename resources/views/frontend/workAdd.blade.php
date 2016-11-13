@@ -17,25 +17,9 @@
 @endsection
 @section('content')
 <div class="container page-content">
+  @include('status')
   <div class="row">
-    <div class="col-md-3">
-        <div class="ibox float-e-margins">
-            <div class="ibox-content">
-                <div class="file-manager">
-                    <div class="hr-line-dashed"></div>
-                    <button class="btn btn-azure btn-block">Upload file</button>
-                    <div class="hr-line-dashed"></div>
-                    <h5>{{trans('strings.work')}}</h5>
-                    <ul class="folder-list" style="padding: 0">
-                        <li><a href=""><i class="fa fa-plus"></i> {{trans('strings.add_work')}}</a></li>
-                        <li><a href=""><i class="fa fa-bars"></i> {{trans('strings.your_list_work')}}</a></li>
-                        <li><a href=""><i class="fa fa-check"></i> {{trans('strings.your_complete_work')}}</a></li>
-                    </ul>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-        </div>
-      </div>
+    @include('frontend.workMenu')
       <div class="col-md-7 animated fadeInRight">
           <div class="widget">
             <div class="widget-header">
@@ -44,7 +28,7 @@
             <div class="widget-body bordered-top bordered-sky">
               <form action="{{route('workAction')}}" method="post" id="addForm">
               <input type="hidden" name="_token" value="{{ csrf_token() }}">
-              <input type="hidden" name="action" value="addwork">
+              <input type="hidden" name="action" value="creatework">
               <div class="row">
                   <div class="col-md-3">
                     {{trans('strings.project_name')}}
@@ -72,7 +56,7 @@
                         @foreach($sections as $item)
                           <div class="col-md-6">
                             <label>
-                                <input value="{{$item->id}}"  name="sections[]" type="checkbox" class="colored-blue selectsection">
+                                <input value="{{$item->id}}"  type="checkbox" class="colored-blue selectsection">
                                 <span class="text">{{$item->secTrans('mn')->name}}</span>
                             </label>
                           </div>
