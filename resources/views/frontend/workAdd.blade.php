@@ -13,6 +13,10 @@
       $('.sec_'+this.value).remove();
     }
   });
+
+  $(document).ready(function () {
+    $("#menu_add_work").addClass('active');
+  });
 </script>
 @endsection
 @section('content')
