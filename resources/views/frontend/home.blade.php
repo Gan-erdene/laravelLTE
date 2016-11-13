@@ -63,7 +63,7 @@
             <div class="cover-info">
               @if($user->profile_image)
               <div class="avatar">
-                  <a><img src="/uploads/profileimage/{{$user->profile_image}}" alt="people">Зураг өөрчлөх</a>
+                  <img src="/uploads/profileimage/{{$user->profile_image}}" alt="people">
               </div>
               @else
               <div class="avatar">

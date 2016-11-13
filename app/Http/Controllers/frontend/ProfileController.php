@@ -42,4 +42,26 @@ class ProfileController extends Controller
         ->with('success','Амжилттай хадгалагдлаа.')
         ;
     }
+    public function Cover(Request $request)
+    {
+
+
+        $user = sf_guard_user::find(\Auth::user()->id);
+        if(isset($request->profileimage)){
+          $profileName = time().'.'.$request->profileimage->getClientOriginalName();
+            $request->profileimage->move(public_path('uploads/profileimage'), $profileName);
+            $user->profile_image = $profileName;
+        }
+        if(isset($request->coverName)){
+            $coverName = time().'.'.$request->coverName->getClientOriginalName();
+        $request->coverName->move(public_path('uploads/coverimage'), $coverName);
+
+          $user->coverName = $coverName;
+        }
+         $user->update();
+
+
+
+          return redirect('/frontend/home');
+    }
 }

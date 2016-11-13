@@ -45,6 +45,7 @@
             <!-- NAV TABS -->
           <ul class="nav nav-tabs nav-tabs-custom-colored tabs-iconized">
             <li class="active"><a href="#profile-tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-user"></i> Бүртгэл</a></li>
+            <li class=""><a href="#avatar-tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-user"></i> Профайл зураг</a></li>
           </ul>
           <!-- END NAV TABS -->
           <div class="tab-content profile-page">
@@ -56,10 +57,11 @@
   		</div>
 
   		@endif
-            <form action="{{ url('/frontend/profile/edit') }}"  enctype="multipart/form-data" method="POST">
-              {{ csrf_field() }}
-              <input type="hidden" name="id" id="{{ Auth::user()->id}}">
+
               <div class="tab-pane profile active" id="profile-tab">
+                <form action="{{ url('/frontend/profile/edit') }}"  enctype="multipart/form-data" method="POST">
+                  {{ csrf_field() }}
+                  <input type="hidden" name="id" id="{{ Auth::user()->id}}">
                 <div class="row">
                   <div class="col-md-3">
                     <div class="user-info-left">
@@ -165,9 +167,67 @@
                     </div>
                   </div>
                 </div>
+                <p class="text-center"><button type="submit" class="btn btn-custom-primary"><i class="fa fa-floppy-o"></i> Хадгалах</button></p>
+                </form>
               </div>
-            <p class="text-center"><button type="submit" class="btn btn-custom-primary"><i class="fa fa-floppy-o"></i> Хадгалах</button></p>
-            </form>
+
+              <div class="tab-pane avatar" id="avatar-tab">
+
+                  <div class="row">
+                    <div class="profile-nav col-md-4">
+                      <div class="panel">
+                          <div class="user-heading round">
+                            @if($user->profile_image)
+                              <a href="#">
+                                  <img src="/uploads/profileimage/{{\Auth::user()->profile_image}}" alt="">
+                              </a>
+                              @else
+                              <a href="#">
+                                  <img src="/frontend/img/Profile/default-avatar.png" alt="">
+                              </a>
+                              @endif
+                              <h1>{{\Auth::user()->last_name}} {{\Auth::user()->first_name}}</h1>
+                              <p>{{\Auth::user()->email_address}}</p>
+                          </div>
+                          <form action="{{ url('/frontend/profile/cover')}}" enctype="multipart/form-data" method="POST">
+                              {{ csrf_field() }}
+                                <input type="hidden" name="id" id="{{ Auth::user()->id}}">
+                               <ul class="nav nav-pills nav-stacked">
+                              <li class="active">
+                                <a>Профайл зураг оруулах &nbsp;&nbsp;&nbsp;<span class="file-input btn btn-azure btn-file">
+                                          Upload   <input type="file" id="profileimage" name="profileimage" multiple="">
+                                  </span></a>
+                                </li>
+                                <li class="active">
+                                <a>Cover зураг оруулах &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="file-input btn btn-azure btn-file">
+                                      Upload  <input type="file" id="coverName" name="coverName" multiple="">
+                                  </span></a>
+                                </li>
+
+                                <li>
+                                <a class="text-right"><button type="submit" class="btn btn-custom-primary"><i class="fa fa-floppy-o"></i> Хадгалах</button></a>
+                              </li>
+                          </ul>
+
+                        </form>
+                      </div>
+                    </div>
+                    <div class="profile-info col-md-8">
+                      <div class="box box-widget">
+                        <div class="box-header with-border">
+                          <div class="user-block">
+                            <span class="username">Cover зураг</span>
+                          </div>
+                        </div>
+                        <img class="img-responsive pad show-in-modal" src="/uploads/coverimage/{{$user->coverName}}">
+                        <div class="box-body" style="display: block;">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+              </div>
           </div>
         </div>
       </div>
