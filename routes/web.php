@@ -46,6 +46,7 @@ Route::group(['middleware' => 'checkuser'], function(){
   Route::post('/frontend/profile/edit','frontend\ProfileController@action');
 
   Route::get('/frontend/work/add','frontend\WorkController@addWork')->name('addWork');
+  Route::post('/frontend/work/action','frontend\WorkController@action')->name('workAction');
   Route::get('/frontend/file','frontend\FileController@index');
   Route::post('/frontend/file/add','frontend\FileController@add');
 }
