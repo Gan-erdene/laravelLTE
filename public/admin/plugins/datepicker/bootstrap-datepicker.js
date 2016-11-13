@@ -1396,7 +1396,7 @@
 		daysOfWeekDisabled: [],
 		endDate: Infinity,
 		forceParse: true,
-		format: 'mm/dd/yyyy',
+		format: 'yyyy-MM-dd',
 		keyboardNavigation: true,
 		language: 'en',
 		minViewMode: 0,
@@ -1420,8 +1420,8 @@
 		en: {
 			days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
 			daysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-			daysMin: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
-			months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+			daysMin: ["Дав", "Мяг", "Лх", "Пүр", "Ба", "Бя", "Ням"],
+			months: ["Нэг сарын", "Хоё сарын", "Гурван сарын", "Дөрвөн сарын", "Таван сарыэ", "Зургаан сарын", "Долоон сарын", "Наймин сарын", "Есөн сарын", "Арван сарын", "Арван нэгэн сарын", "Арван хоёр сарын"],
 			monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
 			today: "Today",
 			clear: "Clear"

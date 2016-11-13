@@ -789,7 +789,7 @@ fieldset[disabled] .btn-sky.active {
 .btn-azure:focus {
     background-color: #2dc3e8 !important;
     border-color: #2dc3e8;
-    color: #fff
+    color: #fff;
 }
 
 .btn-azure:hover {

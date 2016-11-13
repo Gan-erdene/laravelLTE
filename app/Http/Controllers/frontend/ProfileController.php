@@ -28,13 +28,13 @@ class ProfileController extends Controller
         $user->email_address = $request->input('email');
         $user->register = $request->input('register');
         $user->gender = $request->input('gender');
+        $user->work = $request->input('work');
         $user->ndd = $request->input('ndd');
         $user->emdd = $request->input('emdd');
         $user->birthday = $request->input('birthday');
         $user->phone = $request->input('phone');
         $user->address  = $request->input('address');
-        $user->save();
-#return $user->gender;
+        $user->update();
 
 
 
