@@ -4,7 +4,9 @@
 <link href="/frontend/assets/css/photos1.css" rel="stylesheet">
 <link href="/frontend/assets/css/timeline.css" rel="stylesheet">
 <script>
-
+$(document).ready(function () {
+  $("#menu_list_work").addClass('active');
+});
 </script>
 @endsection
 @section('content')
