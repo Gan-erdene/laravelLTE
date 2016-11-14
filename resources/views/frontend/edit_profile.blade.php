@@ -9,9 +9,11 @@
       $('#cate').addClass("active");
       $('#category-tab').addClass("active");
     @elseif($s === 'p')
-        $('#prof').addClass("active");
+        $('#ava').addClass("active");
+        $('#avatar-tab').addClass("active");
     @else
       $('#prof').addClass("active");
+      $('#profile-tab').addClass("active");
     @endif
     $('#datepicker').datepicker({
          format: 'yyyy-mm-dd'
@@ -249,7 +251,8 @@
 
               </div>
               <div class="tab-pane category" id="category-tab">
-                <form>
+                <form action="/home/section/action" method="post">
+                  <input type="hidden" name="action" value="user_cat_sec">
                   <div class="row">
                     @include('section.sectionItem')
                   </div><hr/>

@@ -36,9 +36,14 @@ class SectionController extends Controller
         case 'create': return $this->createSection($request);
         case 'edit': return $this->editSection($request);
         case 'delete': return $this->deleteSection($request);
+        case 'user_cat_sec': return $this->saveUserSectionCat($request);
         case 'section' : return \Response::json(array('section'=>Section::find($request->id), 'translation'=>Section::find($request->id)->secTrans('mn')));
         default: break;
       }
+    }
+
+    public function saveUserSectionCat($request){
+
     }
 
     public function deleteSection($request){
