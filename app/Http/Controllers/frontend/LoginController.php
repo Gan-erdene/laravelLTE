@@ -13,13 +13,16 @@ class LoginController extends Controller
 {
     public function index(Request $request)
     {
+      if (Auth::check()) {
+          return redirect('/frontend/home');
+      }
       return view('frontend.login');
 
     }
 
     public function login(Request $request)
     {
-    
+
 
       $email = $request->input('email');
       $password = $request->input('password');
