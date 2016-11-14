@@ -56,6 +56,8 @@ Route::group(['middleware' => 'checkuser'], function(){
 
   Route::get('/frontend/file','frontend\FileController@index');
   Route::post('/frontend/file/add','frontend\FileController@add');
+
+  Route::post('/frontend/home/action','HomeController@action');
 }
 
 );

@@ -29,4 +29,14 @@ class HomeController extends Controller
 
         return view('home');
     }
+    public function action(Request $request)
+    {
+        $post = new post;
+        $post->body = $request->input('fulltext');
+        $post->image = $request->input('upload');
+        $post->user_id = \Auth::user()->id;
+        $post->save();
+
+        return back();
+    }
 }

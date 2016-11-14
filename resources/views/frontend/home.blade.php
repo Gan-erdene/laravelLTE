@@ -272,12 +272,12 @@ $('#myModal').on('shown.bs.modal', function () {
                   </ul>
                   <div class="tab-content">
                     <div class="tab-pane fade in active" id="tab-post">
-                      <form action="{{ url('/frontend/home/post') }}"  enctype="multipart/form-data" method="POST">
+                      <form action="{{ url('/frontend/home/action') }}"  enctype="multipart/form-data" method="POST">
                         {{ csrf_field() }}
                         <input type="hidden" name="id" id="{{ Auth::user()->id}}">
-                        <textarea class="form-control input-lg p-text-area" id="body" name="" rows="body" placeholder="Юу бодож байна?"></textarea>
+                        <textarea class="form-control input-lg p-text-area" id="fulltext" name="fulltext" rows="body" placeholder="Юу бодож байна?"></textarea>
                         <div class="box-footer box-form">
-                          <button type="button" class="btn btn-azure pull-right">Нийтлэх</button>
+                          <button type="submit" class="btn btn-azure pull-right">Нийтлэх</button>
                           <ul class="nav nav-pills">
                             <li><a href="#" onclick="document.getElementById('upload').click(); return true"><i class="fa fa-image"> </i><input type="file" id="upload" name="upload" style="visibility: hidden; width: 1px; height: 1px" multiple /></a></li>
                             <li><a href="#"><i class="fa fa-map-marker"></i></a></li>

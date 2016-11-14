@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class post extends Model
 {
-  protected $table = 'works';
+  protected $table = 'post';
   protected $primaryKey = 'id';
+
+  
 }
