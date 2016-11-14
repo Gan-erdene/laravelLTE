@@ -39,10 +39,13 @@ Route::group(['middleware' => 'checkuser'], function(){
   Route::post('/backend/user/action','backend\UserController@action');
 
   Route::get('/frontend/home','frontend\HomeController@home')->name('frontendHome');
-  Route::get('/frontend/profile','frontend\ProfileController@index')->name('frontendEditProfile');
+  Route::get('/frontend/newsfeed','frontend\NewsfeedController@index')->name('newsfeedIndex');
+
   Route::get('/frontend/friends','frontend\FindUserController@friendsView')->name('friendsView');
   Route::get('/frontend/friend/find','frontend\FindUserController@index')->name('frontendFindUser');
   Route::post('/frontend/friend/find/action','frontend\FindUserController@action')->name('frontendFindUserAction');
+
+  Route::get('/frontend/profile','frontend\ProfileController@index')->name('frontendEditProfile');
   Route::post('/frontend/profile/edit','frontend\ProfileController@action');
   Route::post('/frontend/profile/cover','frontend\ProfileController@cover');
 
@@ -50,6 +53,7 @@ Route::group(['middleware' => 'checkuser'], function(){
   Route::get('/frontend/work/edit/{workid}','frontend\WorkController@editWork')->name('editWork');
   Route::get('/frontend/work/list','frontend\WorkController@listWork')->name('listWork');
   Route::post('/frontend/work/action','frontend\WorkController@action')->name('workAction');
+
   Route::get('/frontend/file','frontend\FileController@index');
   Route::post('/frontend/file/add','frontend\FileController@add');
 }
