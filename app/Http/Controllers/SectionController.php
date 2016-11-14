@@ -9,6 +9,7 @@ use App\sectiontype;
 use App\Section;
 use App\SectionTranslation;
 use Validator;
+use DB;
 
 class SectionController extends Controller
 {
@@ -35,9 +36,20 @@ class SectionController extends Controller
         case 'create': return $this->createSection($request);
         case 'edit': return $this->editSection($request);
         case 'delete': return $this->deleteSection($request);
+        case 'list_li': return $this->selectUserSecions();
         case 'section' : return \Response::json(array('section'=>Section::find($request->id), 'translation'=>Section::find($request->id)->secTrans('mn')));
         default: break;
       }
+    }
+
+    public function selectUserSecions(){
+      $sql = "select s.*, d.section_id, t.name as section_name from section s
+          left join section_translation t on s.id = t.id and t.lang='mn'
+          left join ( select distinct c.section_id from category c left join sf_guard_user_category w on c.id =w.catid where w.user_id = ".(\Auth::user()->id)." ) d on s.id = d.section_id
+	       where s.published = 1 order by s.order_id desc";
+      $list = DB::select($sql);
+      $html = view('section.sectionItemLi',['sections'=>$list]);
+      return response()->json(['html'=>$html->render()]);
     }
 
     public function deleteSection($request){
