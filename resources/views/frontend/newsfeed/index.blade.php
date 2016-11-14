@@ -4,11 +4,6 @@
 <link href="/frontend/assets/css/file_manager.css" rel="stylesheet">
 <link href="/frontend/assets/css/user_detail.css" rel="stylesheet">
 <script>
-  $(document).on('click', '#settinSec', function(){
-    $.post('/home/section/action', {'_token':"{{ csrf_token() }}", 'action':'list_li' }, function(data){
-          $('#section_list').html(data.html);
-    });
-  })
 
 </script>
 @endsection
@@ -46,8 +41,8 @@
               <div class="ibox-content">
                   <div class="file-manager">
                       <div class="hr-line-dashed"></div>
-                      <h5>Сонирходог сэдэв <button id="settinSec" class="btn btn-default pull-right btn-xs icon-only"><i class="fa fa-cog"></i></button></h5>
-                      <ul class="folder-list" id="section_list" style="padding: 0">
+                      <h5>Сонирходог сэдэв <a href="/frontend/profile?s=c" class="btn btn-default pull-right btn-xs icon-only"><i class="fa fa-cog"></i></a></h5>
+                      <ul class="folder-list" style="padding: 0">
                         @foreach($sections as $item)
                           <li> <a href=""> {{$item->secTrans('mn')->name}}</a></li>
                         @endforeach

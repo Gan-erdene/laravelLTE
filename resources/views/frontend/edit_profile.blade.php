@@ -5,6 +5,14 @@
 <script src="/admin/plugins/datepicker/bootstrap-datepicker.js"></script>
 <script>
   $(function () {
+    @if($s === 'c')
+      $('#cate').addClass("active");
+      $('#category-tab').addClass("active");
+    @elseif($s === 'p')
+        $('#prof').addClass("active");
+    @else
+      $('#prof').addClass("active");
+    @endif
     $('#datepicker').datepicker({
          format: 'yyyy-mm-dd'
        });
@@ -22,6 +30,17 @@
         $('#address').val("{{$user->address}}");
 
        @endif
+   $(document).on('change', '.selectsection', function(){
+     if(this.checked){
+         $.post("{{route('workAction')}}", {'_token':"{{ csrf_token() }}",
+           action:'category', section_id:this.value
+         }, function(data){
+             $('#cat_container').append(data.html);
+         });
+     }else{
+       $('.sec_'+this.value).remove();
+     }
+   });
  });
 </script>
 @endsection
@@ -44,21 +63,22 @@
         <div class="col-md-10 col-md-offset-1">
             <!-- NAV TABS -->
           <ul class="nav nav-tabs nav-tabs-custom-colored tabs-iconized">
-            <li class="active"><a href="#profile-tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-user"></i> Бүртгэл</a></li>
-            <li class=""><a href="#avatar-tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-user"></i> Профайл зураг</a></li>
+            <li id="prof" class=""><a href="#profile-tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-user"></i> Бүртгэл</a></li>
+            <li id="ava" class=""><a href="#avatar-tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-user"></i> Профайл зураг</a></li>
+            <li id="cate" class=""><a href="#category-tab" data-toggle="tab" aria-expanded="true"> Сонирходог сэдэв</a></li>
           </ul>
           <!-- END NAV TABS -->
           <div class="tab-content profile-page">
             <!-- PROFILE TAB CONTENT -->
             @if ($message = Session::get('success'))
-  		<div class="alert alert-success alert-block">
-  			<button type="button" class="close" data-dismiss="alert">×</button>
-  		        <strong>{{ $message }}</strong>
-  		</div>
+        		<div class="alert alert-success alert-block">
+        			<button type="button" class="close" data-dismiss="alert">×</button>
+        		        <strong>{{ $message }}</strong>
+        		</div>
 
-  		@endif
+        		@endif
 
-              <div class="tab-pane profile active" id="profile-tab">
+              <div class="tab-pane profile" id="profile-tab">
                 <form action="{{ url('/frontend/profile/edit') }}"  enctype="multipart/form-data" method="POST">
                   {{ csrf_field() }}
                   <input type="hidden" name="id" id="{{ Auth::user()->id}}">
@@ -227,6 +247,19 @@
                   </div>
 
 
+              </div>
+              <div class="tab-pane category" id="category-tab">
+                <form>
+                  <div class="row">
+                    @include('section.sectionItem')
+                  </div><hr/>
+                  <div class="row" id="cat_container">
+                    @include('category.categoryItem')
+                  </div><hr/>
+                  <div class="row text-center">
+                      <button class="btn btn-default purple"><i class="fa fa-save"></i> {{trans('strings.save')}}</button>
+                  </div>
+                </form>
               </div>
           </div>
         </div>

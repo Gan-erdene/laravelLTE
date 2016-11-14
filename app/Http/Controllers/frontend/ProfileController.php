@@ -8,15 +8,42 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\sf_guard_user;
 use Validator;
+use DB;
 
 class ProfileController extends Controller
 {
     public function index(Request $request){
 
       $user = sf_guard_user::find(\Auth::user()->id);
-      return view('frontend.edit_profile')
-      ->with('user',$user);
+      $sections = $this->selectUserSecions();
+      $parameter = $request->input('s');
+      $categories = $this->getCategoryByUser(\Auth::user()->id);
+      return view('frontend.edit_profile', [])
+      ->with('user',$user)
+      ->with('s',$parameter)
+      ->with('categories',$categories)
+      ->with('sections',$sections);
     }
+
+    public function selectUserSecions(){
+      $sql = "select s.*, d.section_id, t.name as section_name from section s
+          left join section_translation t on s.id = t.id and t.lang='mn'
+          left join ( select distinct c.section_id from category c left join sf_guard_user_category w on c.id =w.catid where w.user_id = ".(\Auth::user()->id)." ) d on s.id = d.section_id
+	       where s.published = 1 order by s.order_id desc";
+      $list = DB::select($sql);
+      return $list;
+    }
+
+    public function getCategoryByUser($user_id){
+      $sql="select c.*, t.name catname, w.catid from category c
+          	left join category_translation t on c.id = t.id and t.lang = 'mn'
+          	left join sf_guard_user_category w on c.id = w.catid and w.user_id = $user_id
+              where c.published = 1 and c.section_id in (select distinct c.section_id from category c left join sf_guard_user_category w on c.id =w.catid where w.user_id = $user_id )
+              order by c.section_id asc, c.order_id asc";
+      $list = DB::select($sql);
+      return $list;
+    }
+
     public function action(Request $request){
 
 
