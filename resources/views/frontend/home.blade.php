@@ -1,4 +1,11 @@
 @extends('layouts.frontend')
+@section('javascripts')
+<script>
+$('#myModal').on('shown.bs.modal', function () {
+  $('#myInput').focus()
+})
+</script>
+@endsection
 @section('content')
     <div class="row page-content">
     <div class="col-md-8 col-md-offset-2">
@@ -258,20 +265,67 @@
               <div class="row">
                 <div class="col-md-12">
                 <!-- post state form -->
-                  <div class="box profile-info n-border-top">
-                    <form>
-                        <textarea class="form-control input-lg p-text-area" rows="2" placeholder="Whats in your mind today?"></textarea>
-                    </form>
-                    <div class="box-footer box-form">
-                        <button type="button" class="btn btn-azure pull-right">Post</button>
-                        <ul class="nav nav-pills">
+                <div class="box profile-info n-border-top">
+                  <ul class="nav nav-tabs">
+                    <li class="active"><a href="#tab-post" data-toggle="tab">Мэдээ</a></li>
+                    <li><a href="#tab-timeline" data-toggle="tab">Following</a></li>
+                  </ul>
+                  <div class="tab-content">
+                    <div class="tab-pane fade in active" id="tab-post">
+                      <form action="{{ url('/frontend/home/post') }}"  enctype="multipart/form-data" method="POST">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="id" id="{{ Auth::user()->id}}">
+                        <textarea class="form-control input-lg p-text-area" id="body" name="" rows="body" placeholder="Юу бодож байна?"></textarea>
+                        <div class="box-footer box-form">
+                          <button type="button" class="btn btn-azure pull-right">Нийтлэх</button>
+                          <ul class="nav nav-pills">
+                            <li><a href="#" onclick="document.getElementById('upload').click(); return true"><i class="fa fa-image"> </i><input type="file" id="upload" name="upload" style="visibility: hidden; width: 1px; height: 1px" multiple /></a></li>
+                            <li><a href="#"><i class="fa fa-map-marker"></i></a></li>
+                            <li><a href="#"><i class=" fa fa-film"></i></a></li>
+                            <li><a href="#"><i class="fa fa-microphone"></i></a></li>
+                          </ul>
+                        </div>
+                      </form>
+                    </div><!-- end post state form -->
+                    <div class="tab-pane fade" id="tab-timeline">
+                      <form>
+                        <textarea data-toggle="modal" href="#myModal" class="form-control input-lg p-text-area"  rows="2" placeholder="Whats in your mind today?">
+
+                        </textarea>
+
+                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                              </div>
+                              <div class="modal-body">
+                                ...
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="box-footer box-form">
+                          <button type="button" class="btn btn-azure pull-right">Post</button>
+                          <ul class="nav nav-pills">
                             <li><a href="#"><i class="fa fa-map-marker"></i></a></li>
                             <li><a href="#"><i class="fa fa-camera"></i></a></li>
                             <li><a href="#"><i class=" fa fa-film"></i></a></li>
                             <li><a href="#"><i class="fa fa-microphone"></i></a></li>
-                        </ul>
+                          </ul>
+                        </div>
+                      </form>
+
                     </div>
-                  </div><!-- end post state form -->
+                  </div>
+                </div>
 
                   <!--   posts -->
                   <div class="box box-widget">
