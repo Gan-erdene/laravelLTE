@@ -5,6 +5,23 @@ $('#myModal').on('shown.bs.modal', function () {
   $('#myInput').focus()
 })
 </script>
+<script>
+  $(document).on('change', '.selectsection', function(){
+    if(this.checked){
+        $.post("{{route('workAction')}}", {'_token':"{{ csrf_token() }}",
+          action:'category', section_id:this.value
+        }, function(data){
+            $('#cat_container').append(data.html);
+        });
+    }else{
+      $('.sec_'+this.value).remove();
+    }
+  });
+
+  $(document).ready(function () {
+    $("#menu_add_work").addClass('active');
+  });
+</script>
 @endsection
 @section('content')
     <div class="row page-content">
@@ -303,7 +320,72 @@ $('#myModal').on('shown.bs.modal', function () {
                                 <h4 class="modal-title" id="myModalLabel">Modal title</h4>
                               </div>
                               <div class="modal-body">
-                                ...
+                                <div class="widget">
+
+                                  <div class="widget-body bordered-top bordered-sky">
+                                    <form action="{{ url('/frontend/home/cv') }}" method="post" id="addForm">
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                        Гарчиг
+                                        </div>
+                                        <div class="col-md-9 @if($errors->add->first('project_name') !== "") has-error has-feedback @endif">
+                                          @if($errors->add->first('project_name') !== "")<label class="control-label" > {{$errors->add->first('project_name')}} </label>@endif
+                                          <input type="text" class="form-control input-sm" id="prject_name" name="project_name" placeholder="{{trans('strings.project_name')}}...">
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                          {{trans('strings.your_skill')}}
+                                        </div>
+                                        <div class="col-md-9 @if($errors->add->first('reference') !== "") has-error has-feedback @endif">
+                                          @if($errors->add->first('reference') !== "")<label class="control-label" > {{$errors->add->first('reference')}} </label>@endif
+                                          <textarea class="form-control" placeholder="{{trans('strings.reference')}}..." rows="5" id="reference" name="reference"></textarea>
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                          {{trans('strings.section')}}
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div class="row">
+                                              @foreach($sections as $section)
+                                                <div class="col-md-6">
+                                                  <label>
+                                                      <input value="{{$section->id}}"  type="checkbox" class="colored-blue selectsection">
+                                                      <span class="text">{{$section->secTrans('mn')->name}}</span>
+                                                  </label>
+                                                </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                          {{trans('strings.category')}}
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div class="row" id="cat_container">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                    <div class="row">
+                                      <div class="col-md-3">
+
+                                      </div>
+                                      <div class="col-md-9">
+                                        <button class="btn btn-default purple"><i class="fa fa-file"></i> Файл нэмэх</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </form>
+                                </div>
                               </div>
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
