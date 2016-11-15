@@ -77,10 +77,6 @@
     </div><!-- Online users sidebar content-->
     <!-- Modal -->
 
-    <footer class="footer">
-      <div class="container">
-        <p class="text-muted"> Copyright &copy; Company - All rights reserved </p>
-      </div>
-    </footer>
+    @include('layouts.frontend_footer')
   </body>
 </html>

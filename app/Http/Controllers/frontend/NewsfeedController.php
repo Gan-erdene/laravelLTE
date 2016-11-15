@@ -16,11 +16,17 @@ class NewsfeedController extends Controller
       $userSections = $this->userSections();
       $m_s = $request->input('m_s'); // menu_section
       $m_c = $request->input('m_c'); // menu_category
+      $workid = $request->input('workid');
       $userCategories = SfGuardUserCategory::where('user_id', \Auth::user()->id)->orderBy('catid', 'asc')->get();
       return view('frontend.newsfeed.index',[
         'userCategories'=>$userCategories,
         'm_s'=>$m_s, 'm_c'=>$m_c,
+        'workid'=>$workid,
         'userSections'=>$userSections]);
+    }
+
+    public function showWork(){
+      
     }
 
     public function userSections(){
@@ -32,5 +38,21 @@ class NewsfeedController extends Controller
       return $list;
     }
 
+    public function action(Request $request){
+      switch ($request->input('action')) {
+        case 'post_work': return response()->json(['html'=>$this->postWorks()]);
+
+        default: break;
+      }
+    }
+
+    public function postWorks(){
+      $sql="select u.last_name, u.profile_image, u.first_name, w.* from works w
+          	left join sf_guard_user u  on w.userid = u.id
+              where w.is_active = 1";
+      $works = DB::select($sql);
+      $html = view('frontend.newsfeed.postWork', ['works'=>$works]);
+      return $html->render();
+    }
 
 }
