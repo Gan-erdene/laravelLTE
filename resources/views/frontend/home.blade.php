@@ -1,14 +1,9 @@
 @extends('layouts.frontend')
 @section('javascripts')
 <script>
-$('#myModal').on('shown.bs.modal', function () {
-  $('#myInput').focus()
-})
-</script>
-<script>
   $(document).on('change', '.selectsection', function(){
     if(this.checked){
-        $.post("{{route('workAction')}}", {'_token':"{{ csrf_token() }}",
+        $.post("{{ url('/frontend/home/action') }}", {'_token':"{{ csrf_token() }}",
           action:'category', section_id:this.value
         }, function(data){
             $('#cat_container').append(data.html);
@@ -22,6 +17,12 @@ $('#myModal').on('shown.bs.modal', function () {
     $("#menu_add_work").addClass('active');
   });
 </script>
+<script>
+$('#myModal').on('shown.bs.modal', function () {
+  $('#myInput').focus()
+})
+</script>
+
 @endsection
 @section('content')
     <div class="row page-content">
@@ -289,9 +290,9 @@ $('#myModal').on('shown.bs.modal', function () {
                   </ul>
                   <div class="tab-content">
                     <div class="tab-pane fade in active" id="tab-post">
-                      <form action="{{ url('/frontend/home/action') }}"  enctype="multipart/form-data" method="POST">
-                        {{ csrf_field() }}
-                        <input type="hidden" name="id" id="{{ Auth::user()->id}}">
+                      <form action="{{ url('/frontend/home/post') }}"  enctype="multipart/form-data" method="POST">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
                         <textarea class="form-control input-lg p-text-area" id="fulltext" name="fulltext" rows="body" placeholder="Юу бодож байна?"></textarea>
                         <div class="box-footer box-form">
                           <button type="submit" class="btn btn-azure pull-right">Нийтлэх</button>
@@ -305,7 +306,7 @@ $('#myModal').on('shown.bs.modal', function () {
                       </form>
                     </div><!-- end post state form -->
                     <div class="tab-pane fade" id="tab-timeline">
-                      <form>
+
                         <textarea data-toggle="modal" href="#myModal" class="form-control input-lg p-text-area"  rows="2" placeholder="Whats in your mind today?">
 
                         </textarea>
@@ -319,12 +320,16 @@ $('#myModal').on('shown.bs.modal', function () {
                                 </button>
                                 <h4 class="modal-title" id="myModalLabel">Modal title</h4>
                               </div>
+                              <form action="{{ url('/frontend/home/action') }}"enctype="multipart/form-data" method="POST">
+
+                              <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                <input type="hidden" name="action" value="creatework">
                               <div class="modal-body">
+
                                 <div class="widget">
 
                                   <div class="widget-body bordered-top bordered-sky">
-                                    <form action="{{ url('/frontend/home/cv') }}" method="post" id="addForm">
-                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
 
                                     <div class="row">
                                         <div class="col-md-3">
@@ -332,7 +337,7 @@ $('#myModal').on('shown.bs.modal', function () {
                                         </div>
                                         <div class="col-md-9 @if($errors->add->first('project_name') !== "") has-error has-feedback @endif">
                                           @if($errors->add->first('project_name') !== "")<label class="control-label" > {{$errors->add->first('project_name')}} </label>@endif
-                                          <input type="text" class="form-control input-sm" id="prject_name" name="project_name" placeholder="{{trans('strings.project_name')}}...">
+                                          <input type="text" class="form-control input-sm" id="title" name="title" placeholder="гарчиг...">
                                         </div>
                                     </div>
                                     <hr/>
@@ -342,7 +347,7 @@ $('#myModal').on('shown.bs.modal', function () {
                                         </div>
                                         <div class="col-md-9 @if($errors->add->first('reference') !== "") has-error has-feedback @endif">
                                           @if($errors->add->first('reference') !== "")<label class="control-label" > {{$errors->add->first('reference')}} </label>@endif
-                                          <textarea class="form-control" placeholder="{{trans('strings.reference')}}..." rows="5" id="reference" name="reference"></textarea>
+                                          <textarea class="form-control" placeholder="Таны ур чадвар..." rows="5" id="body" name="body"></textarea>
                                         </div>
                                     </div>
                                     <hr/>
@@ -376,6 +381,14 @@ $('#myModal').on('shown.bs.modal', function () {
                                     </div>
                                     <hr/>
                                     <div class="row">
+                                        <div class="col-md-3">
+                                          {{trans('strings.price')}}
+                                        </div>
+                                        <div class="col-md-9">
+                                          <input type="text" placeholder="{{trans('strings.price')}}..." class="form-control input-sm" id="price" name="price">
+                                        </div>
+                                    </div><br/>
+                                    <div class="row">
                                       <div class="col-md-3">
 
                                       </div>
@@ -384,13 +397,15 @@ $('#myModal').on('shown.bs.modal', function () {
                                       </div>
                                     </div>
                                   </div>
-                                </form>
+                                    <button type="submit" class="btn btn-primary">Хадгалах</button>
+
                                 </div>
                               </div>
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
+                                <button type="submit" class="btn btn-primary">Хадгалах</button>
                               </div>
+</form>
                             </div>
                           </div>
                         </div>
@@ -403,7 +418,7 @@ $('#myModal').on('shown.bs.modal', function () {
                             <li><a href="#"><i class="fa fa-microphone"></i></a></li>
                           </ul>
                         </div>
-                      </form>
+
 
                     </div>
                   </div>
