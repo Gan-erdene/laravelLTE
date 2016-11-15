@@ -67,7 +67,7 @@
     </nav>
     @yield('content')
     <!-- Online users sidebar content-->
-    <div class="chat-sidebar focus">
+    <div class="chat-sidebar">
       <div class="list-group text-left">
         <p class="text-center visible-xs"><a href="#" class="hide-chat btn btn-success">Hide</a></p>
         <p class="text-center chat-title">Online users</p>

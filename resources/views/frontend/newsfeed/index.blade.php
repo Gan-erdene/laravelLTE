@@ -4,7 +4,13 @@
 <link href="/frontend/assets/css/file_manager.css" rel="stylesheet">
 <link href="/frontend/assets/css/user_detail.css" rel="stylesheet">
 <script>
-
+$(document).ready(function(){
+  @if($m_s)
+    $('#m_s_{{$m_s}}').addClass('active');
+  @elseif($m_c)
+    $('#m_c_{{$m_c}}').addClass('active');
+  @endif
+});
 </script>
 @endsection
 @section('content')
@@ -41,13 +47,18 @@
               <div class="ibox-content">
                   <div class="file-manager">
                       <div class="hr-line-dashed"></div>
-                      <h5>Сонирходог сэдэв <a href="/frontend/profile?s=c" class="btn btn-default pull-right btn-xs icon-only"><i class="fa fa-cog"></i></a></h5>
+                      <h5>{{trans('strings.section')}} <a href="/frontend/profile?s=c" class="btn btn-default pull-right btn-xs icon-only"><i class="fa fa-cog"></i></a></h5>
                       <ul class="folder-list" style="padding: 0">
-                        @foreach($sections as $item)
-                          <li> <a href=""> {{$item->secTrans('mn')->name}}</a></li>
+                        @foreach($userSections as $section)
+                          <li id="m_s_{{$section->id}}"> <a href="{{route('newsfeedIndex')}}?m_s={{$section->id}}"> {{$section->section_name}}</a></li>
                         @endforeach
                       </ul>
-                      <div class="controls"><span class="write" data-toggle="tooltip" data-placement="top" title="" data-original-title="New"></span></div>
+                      <h5>{{trans('strings.category')}}</h5>
+                      <ul class="folder-list" style="padding: 0">
+                        @foreach($userCategories as $category)
+                          <li id="m_c_{{$category->catid}}"> <a href="{{route('newsfeedIndex')}}?m_c={{$category->catid}}"> {{$category->category->CategoryTranslationJoin->name}}</a></li>
+                        @endforeach
+                      </ul>
                       <div class="clearfix"></div>
                   </div>
               </div>
