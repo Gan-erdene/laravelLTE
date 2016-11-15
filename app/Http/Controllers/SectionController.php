@@ -8,7 +8,9 @@ use App\Http\Requests;
 use App\sectiontype;
 use App\Section;
 use App\SectionTranslation;
+use App\Category;
 use Validator;
+use App\SfGuardUserCategory;
 use DB;
 
 class SectionController extends Controller
@@ -43,7 +45,21 @@ class SectionController extends Controller
     }
 
     public function saveUserSectionCat($request){
+      $user_id = \Auth::user()->id;
+      SfGuardUserCategory::where('user_id', $user_id)->delete();
+      $categories = $request->input('categories');
+      foreach($categories as $categoryID){
+        $category = Category::find($categoryID);
+        $userCategory = new SfGuardUserCategory;
+        $userCategory->user_id = $user_id;
+        $userCategory->catid = $category->id;
+        $userCategory->section_id = $category->section_id;
+        $userCategory->save();
+      }
 
+      return redirect('/frontend/profile?s=c')
+        ->with('status','success')
+        ->with('message', trans('strings.saved'));
     }
 
     public function deleteSection($request){
