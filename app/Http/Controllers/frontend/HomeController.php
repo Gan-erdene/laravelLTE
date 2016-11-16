@@ -20,9 +20,11 @@ class HomeController extends Controller
   {
     $user = sf_guard_user::find(\Auth::user()->id);
     $sections = Section::where('published', '1')->orderBy('order_id', 'asc')->get();
+    $sv_lists = sv::where('user_id',\Auth::user()->id)->orderBy('created_at','desc')->get();
     return view('frontend.home')
     ->with('user',$user)
-    ->with('sections',$sections);
+    ->with('sections',$sections)
+    ->with('sv_lists',$sv_lists);
   }
 
   public function post(Request $request)
@@ -71,14 +73,19 @@ class HomeController extends Controller
     $title = $request->input('title');
     $body = $request->input('body');
     $price = $request->input('price');
-
     $sv = new sv;
     $sv->title = $title;
     $sv->body = $body;
     if($price)
     $sv->price = $price;
-    $sv->is_active = 1;
 
+    if(isset($request->imagename)){
+        $imagename = time().'.'.$request->imagename->getClientOriginalName();
+    $request->imagename->move(public_path('uploads/svfile'), $imagename);
+
+   $sv->filename = $imagename;
+    }
+    $sv->is_active = 1;
     $sv->user_id = \Auth::user()->id;
     $status = $sv->save();
     if($status){

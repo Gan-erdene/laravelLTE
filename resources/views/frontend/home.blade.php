@@ -1,6 +1,12 @@
 @extends('layouts.frontend')
 @section('javascripts')
 <script>
+$('.like').on('click', function(event){
+//  var isLike = event.target.previousElementSibling == null ? true :false;
+    console.log(event);
+})
+</script>
+<script>
   $(document).on('change', '.selectsection', function(){
     if(this.checked){
         $.post("{{ url('/frontend/home/action') }}", {'_token':"{{ csrf_token() }}",
@@ -22,6 +28,8 @@ $('#myModal').on('shown.bs.modal', function () {
   $('#myInput').focus()
 })
 </script>
+
+
 
 @endsection
 @section('content')
@@ -393,19 +401,19 @@ $('#myModal').on('shown.bs.modal', function () {
 
                                       </div>
                                       <div class="col-md-9">
-                                        <button class="btn btn-default purple"><i class="fa fa-file"></i> Файл нэмэх</button>
+                                        <a><span class="file-input btn btn-azure btn-file"><input type="file" id="imagename" name="imagename" multiple="" /> Файл нэмэх</a>
                                       </div>
                                     </div>
                                   </div>
-                                    <button type="submit" class="btn btn-primary">Хадгалах</button>
+
 
                                 </div>
                               </div>
                               <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Хаах</button>
                                 <button type="submit" class="btn btn-primary">Хадгалах</button>
                               </div>
-</form>
+                            </form>
                             </div>
                           </div>
                         </div>
@@ -425,20 +433,24 @@ $('#myModal').on('shown.bs.modal', function () {
                 </div>
 
                   <!--   posts -->
+                  @foreach($sv_lists as $sv_list)
+                  @if($sv_list->filename)
                   <div class="box box-widget">
                     <div class="box-header with-border">
                       <div class="user-block">
-                        <img class="img-circle" src="/frontend/img/Friends/guy-3.jpg" alt="User Image">
-                        <span class="username"><a href="#">John Breakgrow jr.</a></span>
-                        <span class="description">Shared publicly - 7:30 PM Today</span>
+                        <img class="img-circle" src="/uploads/profileimage/{{Auth::user()->profile_image}}" alt="User Image">
+                        <span class="username"><a href="#">{{Auth::user()->first_name}} {{Auth::user()->last_name}}.</a></span>
+                        <span class="description">Нийтлэл - {{ date('H:m',strtotime($sv_list->created_at))}}</span>
                       </div>
                     </div>
 
                     <div class="box-body" style="display: block;">
-                      <img class="img-responsive show-in-modal" src="/frontend/img/Post/young-couple-in-love.jpg" alt="Photo">
-                      <p>I took this photo this morning. What do you guys think?</p>
+                        <p>{{$sv_list->title}}</p>
+                      <img class="img-responsive pad show-in-modal" src="/uploads/svfile/{{$sv_list->filename}}" alt="Photo">
+                        <p>{{$sv_list->body}}</p>
+                        <a href="#" class="like">Like</a>
+                        <button type="button" class="btn btn-default btn-xs"><i class="fa fa-thumbs-o-up"></i> Like</button>
                       <button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share</button>
-                      <button type="button" class="btn btn-default btn-xs"><i class="fa fa-thumbs-o-up"></i> Like</button>
                       <span class="pull-right text-muted">127 likes - 3 comments</span>
                     </div>
                     <div class="box-footer box-comments" style="display: block;">
@@ -454,202 +466,54 @@ $('#myModal').on('shown.bs.modal', function () {
                         </div>
                       </div>
 
-                      <div class="box-comment">
-                        <img class="img-circle img-sm" src="/frontend/img/Friends/guy-3.jpg" alt="User Image">
-                        <div class="comment-text">
-                          <span class="username">
-                          Luna Stark
-                          <span class="text-muted pull-right">8:03 PM Today</span>
-                          </span>
-                          It is a long established fact that a reader will be distracted
-                          by the readable content of a page when looking at its layout.
-                        </div>
-                      </div>
+
                     </div>
                     <div class="box-footer" style="display: block;">
                       <form action="#" method="post">
-                        <img class="img-responsive img-circle img-sm" src="/frontend/img/Friends/guy-3.jpg" alt="Alt Text">
+                        <img class="img-responsive img-circle img-sm" src="/uploads/profileimage/{{Auth::user()->profile_image}}" alt="Alt Text">
                         <div class="img-push">
-                          <input type="text" class="form-control input-sm" placeholder="Press enter to post comment">
+                          <input type="text" class="form-control input-sm" placeholder="Сэтгэгдэл оруулна уу...">
                         </div>
                       </form>
                     </div>
-                  </div><!--  end posts-->
+                  </div><!--  end posts -->
+                  @else
 
-
-                  <!-- post -->
                   <div class="box box-widget">
                     <div class="box-header with-border">
                       <div class="user-block">
-                        <img class="img-circle" src="/frontend/img/Friends/guy-3.jpg" alt="User Image">
-                        <span class="username"><a href="#">Jonathan Burke Jr.</a></span>
-                        <span class="description">Shared publicly - 7:30 PM Today</span>
-                      </div>
-                    </div>
-                    <div class="box-body">
-                      <p>Far far away, behind the word mountains, far from the
-                      countries Vokalia and Consonantia, there live the blind
-                      texts. Separated they live in Bookmarksgrove right at</p>
-
-                      <p>the coast of the Semantics, a large language ocean.
-                      A small river named Duden flows by their place and supplies
-                      it with the necessary regelialia. It is a paradisematic
-                      country, in which roasted parts of sentences fly into
-                      your mouth.</p>
-
-                      <div class="attachment-block clearfix">
-                        <img class="attachment-img show-in-modal" src="/frontend/img/Photos/2.jpg" alt="Attachment Image">
-                        <div class="attachment-pushed">
-                        <h4 class="attachment-heading"><a href="http://www.bootdey.com/">Lorem ipsum text generator</a></h4>
-                        <div class="attachment-text">
-                        Description about the attachment can be placed here.
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry... <a href="#">more</a>
-                        </div>
-                        </div>
-                      </div>
-                      <button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share</button>
-                      <button type="button" class="btn btn-default btn-xs"><i class="fa fa-thumbs-o-up"></i> Like</button>
-                      <span class="pull-right text-muted">45 likes - 2 comments</span>
-                    </div>
-                    <div class="box-footer box-comments">
-                      <div class="box-comment">
-                        <img class="img-circle img-sm" src="/frontend/img/Friends/guy-5.jpg" alt="User Image">
-                        <div class="comment-text">
-                          <span class="username">
-                          Maria Gonzales
-                          <span class="text-muted pull-right">8:03 PM Today</span>
-                          </span>
-                          It is a long established fact that a reader will be distracted
-                          by the readable content of a page when looking at its layout.
-                        </div>
-                      </div>
-                      <div class="box-comment">
-                        <img class="img-circle img-sm" src="/frontend/img/Friends/guy-6.jpg" alt="User Image">
-                        <div class="comment-text">
-                          <span class="username">
-                          Nora Havisham
-                          <span class="text-muted pull-right">8:03 PM Today</span>
-                          </span>
-                          The point of using Lorem Ipsum is that it has a more-or-less
-                          normal distribution of letters, as opposed to using
-                          'Content here, content here', making it look like readable English.
-                        </div>
-                      </div>
-                    </div>
-                    <div class="box-footer">
-                      <form action="#" method="post">
-                        <img class="img-responsive img-circle img-sm" src="/frontend/img/Friends/guy-3.jpg" alt="Alt Text">
-                        <div class="img-push">
-                          <input type="text" class="form-control input-sm" placeholder="Press enter to post comment">
-                        </div>
-                      </form>
-                    </div>
-                  </div><!-- end post -->
-
-                  <!--  posts -->
-                  <div class="box box-widget">
-                    <div class="box-header with-border">
-                      <div class="user-block">
-                        <img class="img-circle" src="/frontend/img/Friends/guy-3.jpg" alt="User Image">
-                        <span class="username"><a href="#">John Breakgrow jr.</a></span>
-                        <span class="description">Shared publicly - 7:30 PM Today</span>
+                        <img class="img-circle" src="/uploads/profileimage/{{Auth::user()->profile_image}}" alt="User Image">
+                        <span class="username"><a href="#">{{Auth::user()->first_name}} {{Auth::user()->last_name}}.</a></span>
+                        <span class="description">Нийтлэл - {{ date('H:m',strtotime($sv_list->created_at))}}</span>
                       </div>
                     </div>
 
                     <div class="box-body" style="display: block;">
                       <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ac iaculis ligula, eget efficitur nisi. In vel rutrum orci. Etiam ut orci volutpat, maximus quam vel, euismod orci. Nunc in urna non lectus malesuada aliquet. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam dignissim mi ac metus consequat, a pharetra neque molestie. Maecenas condimentum lorem quis vulputate volutpat. Etiam sapien diam
+                        {{$sv_list->title}}
                       </p>
+                      <p>{{$sv_list->body}}</p>
                       <button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share</button>
                       <button type="button" class="btn btn-default btn-xs"><i class="fa fa-thumbs-o-up"></i> Like</button>
                       <span class="pull-right text-muted">127 likes - 3 comments</span>
                     </div>
                     <div class="box-footer box-comments" style="display: block;">
-                      <div class="box-comment">
-                        <img class="img-circle img-sm" src="/frontend/img/Friends/guy-2.jpg" alt="User Image">
-                        <div class="comment-text">
-                          <span class="username">
-                          Maria Gonzales
-                          <span class="text-muted pull-right">8:03 PM Today</span>
-                          </span>
-                          It is a long established fact that a reader will be distracted
-                          by the readable content of a page when looking at its layout.
-                        </div>
-                      </div>
 
-                      <div class="box-comment">
-                        <img class="img-circle img-sm" src="/frontend/img/Friends/guy-3.jpg" alt="User Image">
-                        <div class="comment-text">
-                          <span class="username">
-                          Luna Stark
-                          <span class="text-muted pull-right">8:03 PM Today</span>
-                          </span>
-                          It is a long established fact that a reader will be distracted
-                          by the readable content of a page when looking at its layout.
-                        </div>
-                      </div>
                     </div>
                     <div class="box-footer" style="display: block;">
                       <form action="#" method="post">
-                        <img class="img-responsive img-circle img-sm" src="/frontend/img/Friends/guy-3.jpg" alt="Alt Text">
+                        <img class="img-responsive img-circle img-sm" src="/uploads/profileimage/{{Auth::user()->profile_image}}" alt="Alt Text">
                         <div class="img-push">
                           <input type="text" class="form-control input-sm" placeholder="Press enter to post comment">
                         </div>
                       </form>
                     </div>
                   </div><!--  end posts -->
+                  @endif
+                  @endforeach
 
-                  <!--   posts -->
-                  <div class="box box-widget">
-                    <div class="box-header with-border">
-                      <div class="user-block">
-                        <img class="img-circle" src="/frontend/img/Friends/guy-3.jpg" alt="User Image">
-                        <span class="username"><a href="#">John Breakgrow jr.</a></span>
-                        <span class="description">Shared publicly - 7:30 PM Today</span>
-                      </div>
-                    </div>
 
-                    <div class="box-body" style="display: block;">
-                      <img class="img-responsive pad show-in-modal" src="/frontend/img/Photos/3.jpg" alt="Photo">
-                      <p>I took this photo this morning. What do you guys think?</p>
-                      <button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share</button>
-                      <button type="button" class="btn btn-default btn-xs"><i class="fa fa-thumbs-o-up"></i> Like</button>
-                      <span class="pull-right text-muted">127 likes - 3 comments</span>
-                    </div>
-                    <div class="box-footer box-comments" style="display: block;">
-                      <div class="box-comment">
-                        <img class="img-circle img-sm" src="/frontend/img/Friends/guy-2.jpg" alt="User Image">
-                        <div class="comment-text">
-                          <span class="username">
-                          Maria Gonzales
-                          <span class="text-muted pull-right">8:03 PM Today</span>
-                          </span>
-                          It is a long established fact that a reader will be distracted
-                          by the readable content of a page when looking at its layout.
-                        </div>
-                      </div>
 
-                      <div class="box-comment">
-                        <img class="img-circle img-sm" src="/frontend/img/Friends/guy-3.jpg" alt="User Image">
-                        <div class="comment-text">
-                          <span class="username">
-                          Luna Stark
-                          <span class="text-muted pull-right">8:03 PM Today</span>
-                          </span>
-                          It is a long established fact that a reader will be distracted
-                          by the readable content of a page when looking at its layout.
-                        </div>
-                      </div>
-                    </div>
-                    <div class="box-footer" style="display: block;">
-                      <form action="#" method="post">
-                        <img class="img-responsive img-circle img-sm" src="/frontend/img/Friends/guy-3.jpg" alt="Alt Text">
-                        <div class="img-push">
-                          <input type="text" class="form-control input-sm" placeholder="Press enter to post comment">
-                        </div>
-                      </form>
-                    </div>
-                  </div><!--  end posts -->
                 </div>
               </div>
             </div><!-- end left posts-->

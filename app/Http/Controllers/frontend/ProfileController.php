@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\sf_guard_user;
 use Validator;
 use DB;
+use Image;
 
 class ProfileController extends Controller
 {
@@ -75,15 +76,39 @@ class ProfileController extends Controller
 
         $user = sf_guard_user::find(\Auth::user()->id);
         if(isset($request->profileimage)){
-          $profileName = time().'.'.$request->profileimage->getClientOriginalName();
-            $request->profileimage->move(public_path('uploads/profileimage'), $profileName);
-            $user->profile_image = $profileName;
+
+        //  $profileName = time().'.'.$request->profileimage->getClientOriginalName();
+
+          $image = $request->file('profileimage');
+                $input['imagename'] = time().'.'.$image->getClientOriginalName();
+
+
+                $destinationPath = public_path('uploads/profileimage');
+                $img = Image::make($image->getRealPath());
+                $img->resize(110, 110, function ($constraint) {
+        		    $constraint->aspectRatio();
+        		})->save($destinationPath.'/'.$input['imagename']);
+
+
+            $user->profile_image = $input['imagename'];
         }
         if(isset($request->coverName)){
-            $coverName = time().'.'.$request->coverName->getClientOriginalName();
-        $request->coverName->move(public_path('uploads/coverimage'), $coverName);
 
-          $user->coverName = $coverName;
+
+          $cover = $request->file('coverName');
+                $input['cover'] = time().'.'.$cover->getClientOriginalName();
+
+
+                $destinationPath = public_path('uploads/coverimage');
+                $img = Image::make($cover->getRealPath());
+                $img->resize(800, null, function ($constraint) {
+                  $constraint->aspectRatio();
+                  $constraint->upsize();
+        		})->save($destinationPath.'/'.$input['cover']);
+
+
+
+          $user->coverName = $input['cover'];
         }
          $user->update();
 
