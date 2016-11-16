@@ -33,6 +33,7 @@ $(document).ready(function () {
                   <th><span>{{trans('strings.project_name')}}</span></th>
                   <th><span>{{trans('strings.created_at')}}</span></th>
                   <th class="text-center"><span>{{trans('strings.status')}}</span></th>
+                  <th class="text-center"><span>Санал</span></th>
                   <th><span>{{trans('strings.price')}}</span></th>
                   <th>&nbsp;</th>
                 </tr>
@@ -53,6 +54,9 @@ $(document).ready(function () {
                     @else
                     <span class="label label-success">{{trans('strings.active')}}</span>
                     @endif
+                  </td>
+                  <td class="text-center">
+                    <span class="badge">{{$item->proposalCount()}}</span>
                   </td>
                   <td class="text-right">
                     <a href="#">{{$item->price}}</a>

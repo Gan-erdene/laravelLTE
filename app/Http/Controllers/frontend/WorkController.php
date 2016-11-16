@@ -13,6 +13,8 @@ use App\WorkCategories;
 use Validator;
 use DB;
 use App\WorkFiles;
+use App\WorkUserProposal;
+use App\WorkUserSaved;
 
 class WorkController extends Controller
 {
@@ -28,8 +30,51 @@ class WorkController extends Controller
         case 'creatework' : return $this->createWork($request);
         case 'delete': return $this->deleteWork($request->input('workid'));
         case 'save': return $this->saveWork($request);
+        case 'proposal': return $this->createProposal($request);
+        case 'save_proposal': return $this->saveProposal($request);
         default: break;
       }
+    }
+
+    public function saveProposal($request){
+      $user_id = \Auth::user()->id;
+      $workid = $request->input('workid');
+      $check = WorkUserSaved::where('user_id', $user_id)->where('workid', $workid)->first();
+      $status = false;
+      if($check){
+        $check->is_saved = $check->is_saved === 0 ? 1 : 0;
+        $status = $check->update();
+        $btntext = $check->is_saved === 0 ? "<i class='fa fa-circle-o'></i> Ажлыг хадгалах" : "<i class='fa fa-circle'></i> Хадгалсан";
+        return response()->json(['status'=>$status,'message'=>trans('strings.unsaved'), 'btntext'=>$btntext]);
+      }else{
+        $worksave = new WorkUserSaved;
+        $worksave->workid = $workid;
+        $worksave->user_id = $user_id;
+        $worksave->is_saved = 1;
+        $status = $worksave->save();
+        return response()->json(['status'=>$status,'message'=>trans('strings.unsaved'), 'btntext'=>"<i class='fa fa-circle'></i> Хадгалсан"]);
+      }
+    }
+
+    public function createProposal($request){
+      $workid = $request->input('workid');
+      $user_id = \Auth::user()->id;
+      $proposal = $request->input('proposal');
+      $check = WorkUserProposal::where('user_id', $user_id)->where('workid', $workid)->count();
+      if($check>0){
+        return redirect()->route('newsfeedWork',$workid)->with('status','warning')->with('message', 'Та санал өгсөн тул дахин санал өгөх боломжгүй');
+      }
+      $wuproposal = new WorkUserProposal;
+      $wuproposal->workid = $workid;
+      $wuproposal->user_id = $user_id;
+      $wuproposal->proposal = $proposal;
+      $status = $wuproposal->save();
+      if($status){
+        return redirect()->route('newsfeedWork',$workid)->with('status','success')->with('message', 'Таны саналыг хүлээн авлаа');
+      }else{
+        return redirect()->route('newsfeedWork',$workid)->with('status','danger')->with('message', 'Санал илгээх үед алдаа гарлаа');
+      }
+
     }
 
     public function saveWork($request){

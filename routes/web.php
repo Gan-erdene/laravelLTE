@@ -40,6 +40,7 @@ Route::group(['middleware' => 'checkuser'], function(){
 
   Route::get('/frontend/home','frontend\HomeController@home')->name('frontendHome');
   Route::get('/frontend/newsfeed','frontend\NewsfeedController@index')->name('newsfeedIndex');
+  Route::get('/frontend/newsfeed/work/{workid}','frontend\NewsfeedController@showWork')->name('newsfeedWork');
   Route::post('/frontend/newsfeed/action','frontend\NewsfeedController@action')->name('newsfeedAction');
 
   Route::get('/frontend/friends','frontend\FindUserController@friendsView')->name('friendsView');
