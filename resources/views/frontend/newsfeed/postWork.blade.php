@@ -13,8 +13,8 @@
     </div>
   </div>
   <div class="box-body">
-    <h4 class="attachment-heading"><a href="#">{{$work->project_name}}</a></h4>
-    <p><small>Ханш: {{$work->price}} - Хугацаа: {{$work->duration}} - Ажил олгогч: <i class="fa fa-check-circle-o" style="color:green"></i> Төлбөрийн системд холбогдсон</small></p>
+    <h4 class="attachment-heading"><a href="{{route('newsfeedWork', $work->id)}}">{{$work->project_name}}</a></h4>
+    <p><small>Үнэ: {{$work->price}} - Хугацаа: {{$work->duration}} - Ажил олгогч: <i class="fa fa-check-circle-o" style="color:green"></i> Төлбөрийн системд холбогдсон</small></p>
     <p> {{str_limit($work->reference, 50)}}</p>
 
     <button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share</button>

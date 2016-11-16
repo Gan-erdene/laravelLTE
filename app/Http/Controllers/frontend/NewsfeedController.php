@@ -9,6 +9,9 @@ use App\Http\Controllers\Controller;
 use App\Section;
 use DB;
 use App\SfGuardUserCategory;
+use App\Works;
+use App\WorkCategories;
+use App\WorkUserProposal;
 class NewsfeedController extends Controller
 {
     public function index(Request $request){
@@ -16,17 +19,23 @@ class NewsfeedController extends Controller
       $userSections = $this->userSections();
       $m_s = $request->input('m_s'); // menu_section
       $m_c = $request->input('m_c'); // menu_category
-      $workid = $request->input('workid');
       $userCategories = SfGuardUserCategory::where('user_id', \Auth::user()->id)->orderBy('catid', 'asc')->get();
       return view('frontend.newsfeed.index',[
         'userCategories'=>$userCategories,
         'm_s'=>$m_s, 'm_c'=>$m_c,
-        'workid'=>$workid,
         'userSections'=>$userSections]);
     }
 
-    public function showWork(){
-      
+    public function showWork($workid){
+      $work = Works::find($workid);
+      if($work->is_active == 0){
+        return redirect('/frontend/newsfeed')->with('status', 'danger')->with('message', 'Ажил устгагдсан байна');
+      }
+      $categories = WorkCategories::where('workid', $workid)->get();
+      $proposal = WorkUserProposal::where('workid', $workid)->where('user_id', \Auth::user()->id)->first();
+      return view('frontend.newsfeed.viewWork', [
+        'work'=>$work, 'categories'=>$categories, 'proposal'=>$proposal
+      ]);
     }
 
     public function userSections(){

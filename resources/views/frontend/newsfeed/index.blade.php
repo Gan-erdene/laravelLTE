@@ -11,15 +11,11 @@ $(document).ready(function(){
     $('#m_c_{{$m_c}}').addClass('active');
   @endif
 
-  @if($workid)
-
-  @else
   $.post('{{route("newsfeedAction")}}', {
     action:'post_work', _token:"{{csrf_token()}}"
   }, function(data){
     $('#posts').html(data.html);
   });
-  @endif
 });
 </script>
 @endsection
@@ -28,13 +24,7 @@ $(document).ready(function(){
       <div class="row">
         <!-- left links -->
         @include('frontend.newsfeed.leftmenu')
-        <!-- center posts -->
-        @if($workid)
-
-        @else
         @include('frontend.newsfeed.timeline')
-        @endif
-
 
         <!-- right posts -->
         <div class="col-md-3">
