@@ -21,6 +21,7 @@ $(document).on('click', '#save_proposal', function(){
       }
     });
 });
+
 </script>
 @endsection
 @section('content')
@@ -52,10 +53,16 @@ $(document).on('click', '#save_proposal', function(){
                             <p><strong>Үнэ:</strong> {{$work->price}} </p></div>
                       </div>
                       @if($work->userid === \Auth::user()->id)
-                      <div class="box-footer box-comments" style="display: block;">
-                          
+                      <div class="box-footer box-comments" style="display: block;" id="proposals">
+                        @include('frontend.work.proposal',['_proposals'=>$proposals] )
+                      </div>
+                      @else
+                        @if($proposal)
+                        <div class="box-footer box-comments" style="display: block;" id="proposals">
+                          @include('frontend.work.proposal',['_proposal'=>$proposal] )
                         </div>
                         @endif
+                      @endif
                   </div>
                 </div>
                 </div>

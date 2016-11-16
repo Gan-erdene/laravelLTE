@@ -8,4 +8,8 @@ class WorkUserProposal extends Model
 {
   protected $table = 'work_user_proposal';
   protected $primaryKey = 'id';
+
+  public function user(){
+    return $this->hasOne('App\sf_guard_user', 'id', 'user_id');
+  }
 }

@@ -33,8 +33,13 @@ class NewsfeedController extends Controller
       }
       $categories = WorkCategories::where('workid', $workid)->get();
       $proposal = WorkUserProposal::where('workid', $workid)->where('user_id', \Auth::user()->id)->first();
+
+      $proposals = array();
+      if($work->userid === \Auth::user()->id){
+          $proposals = WorkUserProposal::where('workid', $workid)->get();
+      }
       return view('frontend.newsfeed.viewWork', [
-        'work'=>$work, 'categories'=>$categories, 'proposal'=>$proposal
+        'work'=>$work, 'categories'=>$categories, 'proposal'=>$proposal, 'proposals'=>$proposals
       ]);
     }
 

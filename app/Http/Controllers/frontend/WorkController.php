@@ -32,8 +32,13 @@ class WorkController extends Controller
         case 'save': return $this->saveWork($request);
         case 'proposal': return $this->createProposal($request);
         case 'save_proposal': return $this->saveProposal($request);
+        case 'proposals':return $this->proposals($request);
         default: break;
       }
+    }
+
+    public function proposals($request){
+      
     }
 
     public function saveProposal($request){
