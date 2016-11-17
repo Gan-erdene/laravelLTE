@@ -9,10 +9,15 @@ $(document).ready(function(){
     $('#m_s_{{$m_s}}').addClass('active');
   @elseif($m_c)
     $('#m_c_{{$m_c}}').addClass('active');
+  @elseif($saved)
+    $('#savedwork').addClass('active');
   @endif
 
   $.post('{{route("newsfeedAction")}}', {
-    action:'post_work', _token:"{{csrf_token()}}"
+    action:
+      @if($saved) 'post_saved'
+      @elseif($m_c) 'post_category', value:"{{$m_c}}"
+      @else 'post_work' @endif , _token:"{{csrf_token()}}"
   }, function(data){
     $('#posts').html(data.html);
   });

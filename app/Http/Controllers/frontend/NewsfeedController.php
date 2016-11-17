@@ -15,14 +15,16 @@ use App\WorkUserProposal;
 class NewsfeedController extends Controller
 {
     public function index(Request $request){
-      $sections = Section::where('published', '1')->orderBy('order_id', 'asc')->get();
-      $userSections = $this->userSections();
       $m_s = $request->input('m_s'); // menu_section
       $m_c = $request->input('m_c'); // menu_category
+      $saved = $request->input('s_d'); // saved_work
+
+      $sections = Section::where('published', '1')->orderBy('order_id', 'asc')->get();
+      $userSections = $this->userSections();
       $userCategories = SfGuardUserCategory::where('user_id', \Auth::user()->id)->orderBy('catid', 'asc')->get();
       return view('frontend.newsfeed.index',[
         'userCategories'=>$userCategories,
-        'm_s'=>$m_s, 'm_c'=>$m_c,
+        'm_s'=>$m_s, 'm_c'=>$m_c, 'saved'=>$saved,
         'userSections'=>$userSections]);
     }
 
@@ -32,14 +34,8 @@ class NewsfeedController extends Controller
         return redirect('/frontend/newsfeed')->with('status', 'danger')->with('message', 'Ажил устгагдсан байна');
       }
       $categories = WorkCategories::where('workid', $workid)->get();
-      $proposal = WorkUserProposal::where('workid', $workid)->where('user_id', \Auth::user()->id)->first();
-
-      $proposals = array();
-      if($work->userid === \Auth::user()->id){
-          $proposals = WorkUserProposal::where('workid', $workid)->get();
-      }
       return view('frontend.newsfeed.viewWork', [
-        'work'=>$work, 'categories'=>$categories, 'proposal'=>$proposal, 'proposals'=>$proposals
+        'work'=>$work, 'categories'=>$categories
       ]);
     }
 
@@ -55,15 +51,36 @@ class NewsfeedController extends Controller
     public function action(Request $request){
       switch ($request->input('action')) {
         case 'post_work': return response()->json(['html'=>$this->postWorks()]);
-
+        case 'post_saved': return response()->json(['html'=>$this->savedPostWorks()]);
+        case 'post_category': return response()->json(['html'=>$this->postByCategory($request)]);
         default: break;
       }
+    }
+
+    public function postByCategory($request){
+      $value = $request->input('value');
+      $sql="select u.last_name, u.profile_image, u.first_name, w.* from works w
+          	left join sf_guard_user u  on w.userid = u.id
+              where w.is_active = 1 and w.id in (SELECT distinct u.workid FROM work_categories u where u.catid =  $value) order by w.created_at desc";
+      $works = DB::select($sql);
+      $html = view('frontend.newsfeed.postWork', ['works'=>$works]);
+      return $html->render();
+    }
+
+    public function savedPostWorks(){
+      $sql="select u.last_name, u.profile_image, u.first_name, w.* from works w
+		left join work_user_saved s on w.id = s.workid and s.is_saved = 1
+          	left join sf_guard_user u  on w.userid = u.id
+              where w.is_active = 1 and s.id is not null  order by w.created_at desc";
+      $works = DB::select($sql);
+      $html = view('frontend.newsfeed.postWork', ['works'=>$works]);
+      return $html->render();
     }
 
     public function postWorks(){
       $sql="select u.last_name, u.profile_image, u.first_name, w.* from works w
           	left join sf_guard_user u  on w.userid = u.id
-              where w.is_active = 1";
+              where w.is_active = 1 and (w.id in (SELECT distinct c.workid FROM sf_guard_user_category u left join work_categories c on u.catid = c.catid WHERE u.user_id = ".\Auth::user()->id.") or w.userid = ".\Auth::user()->id.")  order by w.created_at desc";
       $works = DB::select($sql);
       $html = view('frontend.newsfeed.postWork', ['works'=>$works]);
       return $html->render();

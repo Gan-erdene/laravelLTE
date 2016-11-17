@@ -17,6 +17,11 @@
               <span class="label label-info pull-right r-activity">9</span>
             </a>
           </li>
+          <li id="savedwork">
+            <a href="/frontend/newsfeed?s_d=1">
+              <i class="fa fa-save"></i> Хадгалсан ажил
+            </a>
+          </li>
         </ul>
       </div>
     </div>

@@ -22,6 +22,31 @@ $(document).on('click', '#save_proposal', function(){
     });
 });
 
+$(document).on("click", ".confirm_proposal", function () {
+     var proposalid = $(this).data('id');
+     $(".modal-body #confirm_proposalid").val( proposalid );
+});
+
+$(document).on("click", ".reject_proposal", function () {
+     var proposalid = $(this).data('id');
+     $(".modal-body #reject_proposalid").val( proposalid );
+});
+$(document).ready(function(){
+  @if($work->userid === \Auth::user()->id)
+    $.post("{{route('workAction')}}", {
+      action:'proposals', workid:'{{$work->id}}', _token:"{{ csrf_token() }}"
+    },function(data){
+      $('#proposals').append(data.html);
+    });
+  @else
+    $.post("{{route('workAction')}}", {
+      action:'my_prop', workid:'{{$work->id}}', _token:"{{ csrf_token() }}"
+    },function(data){
+      $('#proposal').append(data.html);
+    });
+  @endif
+});
+
 </script>
 @endsection
 @section('content')
@@ -54,14 +79,12 @@ $(document).on('click', '#save_proposal', function(){
                       </div>
                       @if($work->userid === \Auth::user()->id)
                       <div class="box-footer box-comments" style="display: block;" id="proposals">
-                        @include('frontend.work.proposal',['_proposals'=>$proposals] )
                       </div>
+                      @include('frontend.work.confirm_proposal')
+                      @include('frontend.work.reject_proposal')
                       @else
-                        @if($proposal)
-                        <div class="box-footer box-comments" style="display: block;" id="proposals">
-                          @include('frontend.work.proposal',['_proposal'=>$proposal] )
+                        <div class="box-footer box-comments" style="display: block;" id="proposal">
                         </div>
-                        @endif
                       @endif
                   </div>
                 </div>
@@ -72,7 +95,7 @@ $(document).on('click', '#save_proposal', function(){
                       @if($work->userid !== \Auth::user()->id)
                       <div class="row">
                         <div class="col-xs-12">
-                            @if($proposal)
+                            @if(isset($proposal))
                             <a disabled="disabled" class="btn btn-azure btn-block"> Санал илгээсэн </a>
                             @else
                             <a href="#" data-toggle="modal" data-target="#sendModal" class="btn btn-azure btn-block"> Ажилд оролцох</a>
@@ -107,8 +130,7 @@ $(document).on('click', '#save_proposal', function(){
         </div>
       </div>
     </div>
-    @if($proposal)
-    @else
+    @if($work->userid !== \Auth::user()->id)
     <div class="modal fade" id="sendModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">

@@ -22,17 +22,28 @@ class FindUserController extends Controller
     * 3 - remove friends
     * 4 - cancel request
     */
-    public function index(){
-      $users = $this->getUnfriendList();
+    public function index(Request $request){
+      $page = $this->pageNumber( $request->input("page") );
+      $start = ($page - 1) * 16 + 1;
+      $end = $page * 16;
+      $users = $this->getUnfriendList($start, $end);
       return view('frontend.find_user')
+        ->with('page', $page)
         ->with('users', $users);
     }
 
-    public function getUnfriendList(){
+    public function pageNumber($page){
+      if(is_numeric($page)){
+        return $page;
+      }
+      return 1;
+    }
+
+    public function getUnfriendList($start, $end){
       $sql = "SELECT S.id, S.last_name, S.first_name, S.email_address, F.STATUS user_status, V.STATUS friend_status FROM sf_guard_user S
 	               LEFT JOIN friends F ON S.id = F.user_id and F.friend_user_id = ".\Auth::user()->id."
                  LEFT JOIN friends V ON S.id = V.friend_user_id and V.user_id = ".\Auth::user()->id." WHERE
-              S.ID <> ".\Auth::user()->id." and 1=case when V.status =  1 or F.status = 1 then 0 else 1 end";
+              S.ID <> ".\Auth::user()->id." and 1=case when V.status =  1 or F.status = 1 then 0 else 1 end order by S.first_name limit $start, $end";
       $list = DB::select($sql);
       return $list;
     }
