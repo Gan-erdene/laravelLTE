@@ -57,6 +57,28 @@
       </div>
       @endforeach
     </div>
+    <div>
+      @if(sizeof($users) === 16)
+      <ul class="pagination">
+          <li >
+            @if($page <= 1)
+            <a style="background:#e9eaed" class="active" aria-label="Previous">
+                <span aria-hidden="true">«</span>
+            </a>
+            @else
+              <a href="/frontend/friend/find?page={{$page <=1 ? 1 : $page-1}}" aria-label="Previous">
+                  <span aria-hidden="true">«</span>
+              </a>
+              @endif
+          </li>
+          <li>
+              <a href="/frontend/friend/find?page={{$page+1}}" aria-label="Next">
+                  <span aria-hidden="true">»</span>
+              </a>
+          </li>
+      </ul>
+      @endif
+    </div>
   </div>
 </div>
 

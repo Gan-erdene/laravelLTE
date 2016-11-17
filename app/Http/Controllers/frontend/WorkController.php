@@ -32,8 +32,42 @@ class WorkController extends Controller
         case 'save': return $this->saveWork($request);
         case 'proposal': return $this->createProposal($request);
         case 'save_proposal': return $this->saveProposal($request);
+        case 'proposals':return $this->proposals($request);
+        case 'my_prop':return $this->myProposal($request);
+        case 'confirm_proposal': return $this->confirmProposal($request);
+        case 'reject_proposal': return $this->rejectProposal($request);
         default: break;
       }
+    }
+
+    public function myProposal($request){
+      $workid = $request->input('workid');
+      $proposal = WorkUserProposal::where('workid', $workid)->where('user_id', \Auth::user()->id)->get();
+      $html = view('frontend.work.my_proposal', ['proposals'=>$proposal]);
+      return response()->json(['html'=>$html->render()]);
+    }
+
+    public function confirmProposal($request){
+      $pid = $request->input('confirm_proposalid');
+      $proposal = WorkUserProposal::find($pid);
+      $proposal->status = 1; //sanaliig zuwshuursun
+      $status = $proposal->save();
+      return redirect()->route('newsfeedWork',$proposal->workid);
+    }
+
+    public function rejectProposal($request){
+      $pid = $request->input('reject_proposalid');
+      $proposal = WorkUserProposal::find($pid);
+      $proposal->status = 2; //sanaliig tatgalzsan
+      $status = $proposal->save();
+      return redirect()->route('newsfeedWork',$proposal->workid);
+    }
+
+    public function proposals($request){
+      $workid = $request->input('workid');
+      $proposals = WorkUserProposal::where('workid', $workid)->get();
+      $html = view('frontend.work.proposal', ['proposals'=>$proposals]);
+      return response()->json(['html'=>$html->render()]);
     }
 
     public function saveProposal($request){
