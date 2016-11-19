@@ -32,11 +32,14 @@ $(document).ready(function(){
     var postId = btn.data("id");
     //var isLike = event.target.previousElementSibling == null ? true : false;
   //console.log(isLike);
+  btn.prop('disabled', 'disabled');
     $.post("{{ url('/like') }}", { postId: postId, _token: '{{  csrf_token() }}' }, function(data){
         if(data.status === 'success'){
           console.log(data.message);
           console.log(btn);
           btn.html(data.message);
+          btn.prop('disabled', '');
+          $('#like_' + postId).html(data.like_count);
         }
     });
 
@@ -169,6 +172,12 @@ $(document).ready(function(){
                   <div class="row">
                     <div class="col-sm-4"><span class="text-muted">Утас</span></div>
                     <div class="col-sm-8">{{$user->phone}}</div>
+                  </div>
+                </li>
+                <li class="padding-v-5">
+                  <div class="row">
+                    <div class="col-sm-4"><span class="text-muted">Ур чадвар</span></div>
+                    <div class="col-sm-8">{{$user->ur_zadvar}}</div>
                   </div>
                 </li>
               </ul>
@@ -341,7 +350,7 @@ $(document).ready(function(){
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                   <span aria-hidden="true">&times;</span>
                                 </button>
-                                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                                <h4 class="modal-title" id="myModalLabel">Өөрийнхөө Cv оруулна уу</h4>
                               </div>
                               <form action="{{ url('/frontend/home/action') }}"enctype="multipart/form-data" method="POST">
 
@@ -448,86 +457,59 @@ $(document).ready(function(){
                 </div>
 
                   <!--   posts -->
-                  @foreach($sv_lists as $sv_list)
-                  @if($sv_list->filename)
+                  @foreach($posts as $post)
+                    @if($post->type == 3)
                   <div class="box box-widget">
                     <div class="box-header with-border">
                       <div class="user-block">
                         <img class="img-circle" src="/uploads/profileimage/{{Auth::user()->profile_image}}" alt="User Image">
-                        <span class="username"><a href="{{ url('/fronted/home',$sv_list->id) }}">{{Auth::user()->first_name}} {{Auth::user()->last_name}}.</a></span>
-                        <span class="description">Нийтлэл - {{ date('H:m',strtotime($sv_list->created_at))}}</span>
+                        <span class="username"><a href="{{ url('/fronted/home',$post->id) }}">{{Auth::user()->first_name}} {{Auth::user()->last_name}}.</a></span>
+                        <span class="description">Нийтлэл - {{ date('H:m',strtotime($post->created_at))}}</span>
                       </div>
                     </div>
 
                     <div class="box-body" style="display: block;">
-                        <p>{{$sv_list->title}}</p>
+                      <p>{{$post->reference}}</p>
+                      @if($post->filename)
+                      <img src="/uploads/post/{{$post->filename}}" alt="">
+                      @else
 
-                      <img class="img-responsive pad show-in-modal" src="/uploads/svfile/{{$sv_list->filename}}" alt="Photo">
-                        <p>{{$sv_list->body}}</p>
-
-
-                        <button type="button" data-id="{{$sv_list->id}}"  class="btn btn-default btn-xs like"><i class="fa fa-thumbs-o-up"></i> {{ \Auth::user()->likes->where('post_id',$sv_list->id)->first() ? 'unlike' : 'like'   }}</button>
+                      @endif
+                      <p></p>
+                      <button type="button" data-id="{{$post->id}}"  class="btn btn-default btn-xs like" active><i class="fa fa-thumbs-o-up"></i> {{ \Auth::user()->likes->where('post_id',$post->id)->first() ? 'unlike' : 'like'   }}</button>
                       <button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share</button>
-                      <span class="pull-right text-muted">127 likes - 3 comments</span>
+                      <span class="pull-right text-muted"><span id="like_{{$post->id}}">{{$post->Likecount()}}</span> </span>
                     </div>
-                    <div class="box-footer box-comments" style="display: block;">
-                      <div class="box-comment">
-                        <img class="img-circle img-sm" src="/frontend/img/Friends/guy-2.jpg" alt="User Image">
-                        <div class="comment-text">
-                          <span class="username">
-                          Maria Gonzales
-                          <span class="text-muted pull-right">8:03 PM Today</span>
-                          </span>
-                          It is a long established fact that a reader will be distracted
-                          by the readable content of a page when looking at its layout.
-                        </div>
-                      </div>
 
-
-                    </div>
-                    <div class="box-footer" style="display: block;">
-                      <form action="#" method="post">
-                        <img class="img-responsive img-circle img-sm" src="/uploads/profileimage/{{Auth::user()->profile_image}}" alt="Alt Text">
-                        <div class="img-push">
-                          <input type="text" class="form-control input-sm" placeholder="Сэтгэгдэл оруулна уу...">
-                        </div>
-                      </form>
-                    </div>
-                  </div><!--  end posts -->
-                  @else
-
+                  </div>
+                  @else($post->type == 2)
                   <div class="box box-widget">
                     <div class="box-header with-border">
                       <div class="user-block">
                         <img class="img-circle" src="/uploads/profileimage/{{Auth::user()->profile_image}}" alt="User Image">
-                        <span class="username"><a href="#">{{Auth::user()->first_name}} {{Auth::user()->last_name}}.</a></span>
-                        <span class="description">Нийтлэл - {{ date('H:m',strtotime($sv_list->created_at))}}</span>
+                        <span class="username"><a href="{{ url('/fronted/home',$post->id) }}">{{Auth::user()->first_name}} {{Auth::user()->last_name}}.</a></span>
+                        <span class="description">Нийтлэл - {{ date('H:m',strtotime($post->created_at))}}</span>
                       </div>
                     </div>
 
                     <div class="box-body" style="display: block;">
-                      <p>
-                        {{$sv_list->title}}
-                      </p>
-                      <p>{{$sv_list->body}}</p>
-                      <button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share</button>
-                      <button type="button" class="btn btn-default btn-xs"><i class="fa fa-thumbs-o-up"></i> Like</button>
-                      <span class="pull-right text-muted">127 likes - 3 comments</span>
-                    </div>
-                    <div class="box-footer box-comments" style="display: block;">
+                      <p>{{$post->project_name}}</p>
+                      @if($post->filename)
+                      <img src="/uploads/post/{{$post->filename}}" alt="">
+                      @else
 
+                      @endif
+                      <p>{{$post->reference}}</p>
+                      <p>{{$post->price}}</p>
+                      <button type="button" data-id="{{$post->id}}"  class="btn btn-default btn-xs like" active><i class="fa fa-thumbs-o-up"></i> {{ \Auth::user()->likes->where('post_id',$post->id)->first() ? 'unlike' : 'like'   }}</button>
+                      <button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share</button>
+                      <span class="pull-right text-muted"><span id="like_{{$post->id}}">{{$post->Likecount()}}</span> </span>
                     </div>
-                    <div class="box-footer" style="display: block;">
-                      <form action="#" method="post">
-                        <img class="img-responsive img-circle img-sm" src="/uploads/profileimage/{{Auth::user()->profile_image}}" alt="Alt Text">
-                        <div class="img-push">
-                          <input type="text" class="form-control input-sm" placeholder="Press enter to post comment">
-                        </div>
-                      </form>
-                    </div>
-                  </div><!--  end posts -->
+
+                  </div>
                   @endif
                   @endforeach
+
 
 
 

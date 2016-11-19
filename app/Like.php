@@ -15,7 +15,7 @@ class Like extends Model
     }
     public function post()
     {
-      return $this->hasOne('App\post','id','post_id');
+      return $this->hasOne('App\Works','id','post_id');
     }
 
 }

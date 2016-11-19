@@ -30,6 +30,7 @@
         $('#emdd').val("{{$user->emdd}}");
         $('#datepicker').val("{{$user->birthday}}");
         $('#address').val("{{$user->address}}");
+        $('#zadvar').val("{{$user->ur_zadvar}}");
 
        @endif
    $(document).on('change', '.selectsection', function(){
@@ -147,6 +148,12 @@
                           <label class="col-sm-1">Ажил</label>
                           <div class="col-md-7">
                             <input type="text" class="form-control" id="work" name="work" placeholder="Ажил ">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-sm-1">Ур чадвар</label>
+                          <div class="col-md-7">
+                            <textarea type="textarea" class="form-control" id="zadvar" name="zadvar" placeholder="Ур чадвар аа оруулна уу"></textarea>
                           </div>
                         </div>
                         <div class="form-group row">
