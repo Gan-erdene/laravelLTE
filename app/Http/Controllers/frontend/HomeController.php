@@ -35,7 +35,7 @@ class HomeController extends Controller
   public function postLikePost(Request $request)
   {
    $post_id = $request->input('postId');
-   $post = post::find($post_id);
+   $post = sv::find($post_id);
    if(!$post){
      return response()->json(['test'=>"post uuseegui bna"]);
    }
@@ -45,14 +45,18 @@ class HomeController extends Controller
 
     if($like){
         $like->delete();
-        return response()->json(['status'=>'success', 'message'=>"like"]);
+        $like_count =  Like::where('post_id', $post_id)->count();
+        return response()->json(['status'=>'success', 'message'=>"<i class='fa fa-thumbs-o-up'></i>"."like",'like_count'=>$like_count]);
     }else{
       $like = new Like;
     }
+
     $like->user_id = $user->id;
     $like->post_id = $post->id;
     $like->save();
-    return response()->json(['status'=>'success', 'message'=>"unlike"]);
+      $like_count =  Like::where('post_id', $post_id)->count();
+    return response()->json(['status'=>'success', 'message'=>"<i class='fa fa-thumbs-o-up'></i>"."unlike",'like_count'=>$like_count]);
+
   }
 
   public function post(Request $request)

@@ -32,11 +32,14 @@ $(document).ready(function(){
     var postId = btn.data("id");
     //var isLike = event.target.previousElementSibling == null ? true : false;
   //console.log(isLike);
+  btn.prop('disabled', 'disabled');
     $.post("{{ url('/like') }}", { postId: postId, _token: '{{  csrf_token() }}' }, function(data){
         if(data.status === 'success'){
           console.log(data.message);
           console.log(btn);
           btn.html(data.message);
+          btn.prop('disabled', '');
+          $('#like_' + postId).html(data.like_count);
         }
     });
 
@@ -466,9 +469,9 @@ $(document).ready(function(){
                         <p>{{$sv_list->body}}</p>
 
 
-                        <button type="button" data-id="{{$sv_list->id}}"  class="btn btn-default btn-xs like"><i class="fa fa-thumbs-o-up"></i> {{ \Auth::user()->likes->where('post_id',$sv_list->id)->first() ? 'unlike' : 'like'   }}</button>
+                        <button type="button" data-id="{{$sv_list->id}}"  class="btn btn-default btn-xs like" active><i class="fa fa-thumbs-o-up"></i> {{ \Auth::user()->likes->where('post_id',$sv_list->id)->first() ? 'unlike' : 'like'   }}</button>
                       <button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share</button>
-                      <span class="pull-right text-muted">127 likes - 3 comments</span>
+                      <span class="pull-right text-muted"><span id="like_{{$sv_list->id}}">{{$sv_list->Likecount()}}</span> - 3 comments</span>
                     </div>
                     <div class="box-footer box-comments" style="display: block;">
                       <div class="box-comment">
