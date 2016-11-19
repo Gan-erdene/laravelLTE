@@ -27,7 +27,7 @@
                         <input type="hidden" name="id" id="{{ Auth::user()->id}}">
                   <ul class="nav nav-pills nav-stacked">
                      <li class="active">
-                      <a>Цээж зураг &nbsp;<span class="file-input btn btn-azure btn-file">
+                      <a>Цээж зураг &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="file-input btn btn-azure btn-file">
                                 Upload   <input type="file" id="tseej" name="tseej" multiple="">
                         </span></a>
                       </li>
@@ -71,6 +71,16 @@
                 <strong>{{ $message }}</strong>
               </div>
               @endif
+              <div class="box box-widget">
+                <div class="box-header with-border">
+                  <div class="user-block">
+                    <span class="username">Цээж зураг</span>
+                  </div>
+                </div>
+                <div class="box-body" style="display: block;">
+                  <img class="img-responsive pad show-in-modal" src="/uploads/tseej/{{$user->tseej_zurag}}">
+                </div>
+              </div>
               <div class="box box-widget">
                 <div class="box-header with-border">
                   <div class="user-block">
