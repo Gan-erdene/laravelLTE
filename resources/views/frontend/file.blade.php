@@ -26,6 +26,11 @@
                       {{ csrf_field() }}
                         <input type="hidden" name="id" id="{{ Auth::user()->id}}">
                   <ul class="nav nav-pills nav-stacked">
+                     <li class="active">
+                      <a>Цээж зураг &nbsp;<span class="file-input btn btn-azure btn-file">
+                                Upload   <input type="file" id="tseej" name="tseej" multiple="">
+                        </span></a>
+                      </li>
                       <li class="active">
                         <a>Иргэний үнэмлэх хуулбар &nbsp;<span class="file-input btn btn-azure btn-file">
                                   Upload   <input type="file" id="irgenii" name="irgenii" multiple="">

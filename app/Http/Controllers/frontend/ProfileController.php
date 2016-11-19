@@ -60,6 +60,7 @@ class ProfileController extends Controller
         $user->ndd = $request->input('ndd');
         $user->emdd = $request->input('emdd');
         $user->birthday = $request->input('birthday');
+        $user->ur_zadvar = $request->input('zadvar');
         $user->phone = $request->input('phone');
         $user->address  = $request->input('address');
         $user->update();

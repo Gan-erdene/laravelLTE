@@ -14,6 +14,8 @@ use App\sv;
 use App\svcategories;
 use Validator;
 use App\Like;
+use App\Works;
+use Image;
 
 class HomeController extends Controller
 {
@@ -21,12 +23,12 @@ class HomeController extends Controller
   {
     $user = sf_guard_user::find(\Auth::user()->id);
     $sections = Section::where('published', '1')->orderBy('order_id', 'asc')->get();
-    $sv_lists = sv::where('user_id',\Auth::user()->id)->orderBy('created_at','desc')->get();
+    $posts = Works::where('userid',\Auth::user()->id)->orderBy('created_at','desc')->get();
 
     return view('frontend.home')
     ->with('user',$user)
     ->with('sections',$sections)
-    ->with('sv_lists',$sv_lists);
+    ->with('posts',$posts);
   }
   public function test(Request $request)
   {
@@ -35,7 +37,7 @@ class HomeController extends Controller
   public function postLikePost(Request $request)
   {
    $post_id = $request->input('postId');
-   $post = sv::find($post_id);
+   $post = Works::find($post_id);
    if(!$post){
      return response()->json(['test'=>"post uuseegui bna"]);
    }
@@ -61,15 +63,26 @@ class HomeController extends Controller
 
   public function post(Request $request)
   {
-      $post = new post;
-      $post->body = $request->input('fulltext');
-      if(isset($request->upload)){
-          $upload = time().'.'.$request->upload->getClientOriginalName();
-      $request->upload->move(public_path('uploads/post'), $upload);
+      $post = new Works;
+      $post->project_name = 'Post';
+      $post->startdate = '2016-11-19 03:20:00';
+      $post->enddate = '2016-11-19 03:20:00';
 
-     $post->image = $upload;
+      $post->reference = $request->input('fulltext');
+      if(isset($request->upload)){
+        $upload = $request->file('upload');
+              $input['upload'] = time().'.'.$upload->getClientOriginalName();
+              $destinationPath = public_path('uploads/post');
+              $img = Image::make($upload->getRealPath());
+              $img->resize(660, null, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+          })->save($destinationPath.'/'.$input['upload']);
+        $post->filename = $input['upload'];
       }
-      $post->user_id = \Auth::user()->id;
+
+      $post->type = '3';
+      $post->userid = \Auth::user()->id;
       $post->save();
 
       return back();
@@ -105,20 +118,28 @@ class HomeController extends Controller
     $title = $request->input('title');
     $body = $request->input('body');
     $price = $request->input('price');
-    $sv = new sv;
-    $sv->title = $title;
-    $sv->body = $body;
+    $sv = new Works;
+    $sv->startdate = '2016-11-19 03:20:00';
+    $sv->enddate = '2016-11-19 03:20:00';
+    $sv->project_name = $title;
+    $sv->reference = $body;
     if($price)
     $sv->price = $price;
+    $sv->type = '2';
 
     if(isset($request->imagename)){
-        $imagename = time().'.'.$request->imagename->getClientOriginalName();
-    $request->imagename->move(public_path('uploads/svfile'), $imagename);
-
-   $sv->filename = $imagename;
+      $upload = $request->file('imagename');
+            $input['imagename'] = time().'.'.$imagename->getClientOriginalName();
+            $destinationPath = public_path('uploads/post');
+            $img = Image::make($upload->getRealPath());
+            $img->resize(660, null, function ($constraint) {
+              $constraint->aspectRatio();
+              $constraint->upsize();
+        })->save($destinationPath.'/'.$input['imagename']);
+      $post->filename = $input['imagename'];
     }
     $sv->is_active = 1;
-    $sv->user_id = \Auth::user()->id;
+    $sv->userid = \Auth::user()->id;
     $status = $sv->save();
     if($status){
         $this->createWorkCategory($sv->id, $request->input('categories'));
