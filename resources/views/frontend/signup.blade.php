@@ -16,7 +16,7 @@
       <input type="email" name="email" class="form-control" placeholder="{{trans('strings.email_address')}}">
     </div>
     <div class="form-group">
-      <input type="password" name="password" class="form-control" placeholder="{{trans('strings.password')}}">
+      <input type="password" name="password" id="password" class="form-control" placeholder="{{trans('strings.password')}}">
     </div>
     <div class="form-group">
       <input type="password" id="repassword" name="repassword" class="form-control" placeholder="{{trans('strings.repassword')}}">
@@ -27,8 +27,8 @@
 <script src="/frontend/assets/js/jquery.1.11.0.validate.min.js"></script>
 <script>
 $(document).ready(function () {
-  jQuery.validator.addMethod("equals", function(value, element) {
-    return this.optional(element) || value === $('#repassword').val();
+  jQuery.validator.addMethod( "control-label'", function(value, element ) {
+    return this.optional( element ) || value === $('#password').val();
   }, "{{trans('strings.valid_repassword')}}");
 
   $('#signupForm').validate({ // initialize the plugin
@@ -42,8 +42,11 @@ $(document).ready(function () {
           email:{
             required: true, email: true,
           },
-          password:{
+          repassword:{
             required: true,equals:true
+          },
+          password:{
+            required: true
           }
       },
       messages:{
@@ -56,6 +59,9 @@ $(document).ready(function () {
         email:{
           required: "{{trans('strings.require_email')}}",
           email: "{{trans('strings.format_email')}}",
+        },
+        repassword:{
+          required: "{{trans('strings.require_password')}}",
         },
         password:{
           required: "{{trans('strings.require_password')}}",
