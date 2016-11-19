@@ -36,7 +36,7 @@
               </div>
               <div class="details">
                 <div class="name">
-                  <a href="#">{{$item->first_name}} {{$item->last_name}}</a>
+                  <a href="{{ url('/frontend/userprofile/?id='.$item->id) }}">{{$item->first_name}} {{$item->last_name}}</a>
                 </div>
                 <div class="time">
                   <i class="fa fa-clock-o"></i> Last online: 5 minutes ago
