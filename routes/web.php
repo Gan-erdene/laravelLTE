@@ -64,6 +64,8 @@ Route::group(['middleware' => 'checkuser'], function(){
 
   Route::get('/frontend/home/test','frontend\HomeController@test');
   Route::post('/like','frontend\HomeController@postLikePost');
+
+  Route::post('/frontend/comment/action','frontend\CommentController@action')->name('commentAction');
 }
 
 );

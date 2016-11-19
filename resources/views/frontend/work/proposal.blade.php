@@ -18,9 +18,11 @@
       </p>
       @elseif($p->status === 1)
       <p><i class="fa fa-check-circle-o" style="color:green"></i> Саналыг зөвшөөрсөн</p>
+      @include('frontend.work.comment_prop')
       @elseif($p->status === 2)
       <p><i class="fa fa-remove" ></i> Саналыг татгалзсан</p>
       @endif
+
     </div>
     <br/>
   </div>

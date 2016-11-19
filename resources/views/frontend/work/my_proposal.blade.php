@@ -13,6 +13,7 @@
     {{$p->proposal}}<br/><br/>
     @if($p->status === 1)
     <p><i class="fa fa-check-circle-o" style="color:green"></i> Саналыг зөвшөөрсөн</p>
+    @include('frontend.work.comment_prop')
     @elseif($p->status === 0)
     <p><i class="fa fa-check-circle-o" ></i> Санал илгээсэн</p>
     @endif

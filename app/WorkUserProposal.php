@@ -12,4 +12,8 @@ class WorkUserProposal extends Model
   public function user(){
     return $this->hasOne('App\sf_guard_user', 'id', 'user_id');
   }
+
+  public function comment(){
+    return $this->hasMany('App\Comment', 'prop_id', 'id')->get();
+  }
 }

@@ -45,6 +45,34 @@ $(document).ready(function(){
       $('#proposal').append(data.html);
     });
   @endif
+
+  $(document).on('click', '#btnCommentSend', function(){
+    commentSend($(this).data('id'));
+  });
+
+  $(document).on('keypress', '.comment', function (e) {
+         if(e.which === 13){
+            commentSend($(this).data('id'));
+         }
+   });
+
+  function commentSend(propid){
+    if($('#comm_'+propid).val().trim().length === 0){
+      alert("Хоосон сэтгэгдэл игээх боломжгүй");
+      return;
+    }
+    var input = $('#comm_'+propid);
+    var comment = input.val();
+    input.val("");
+    input.prop('disabled', 'disabled');
+    $.post("{{route('commentAction')}}", {
+      action:'add', propid:propid, _token:"{{csrf_token()}}", comment:comment
+    }, function(data){
+      $('#coms_'+data.propid).html(data.comments);
+      input.prop('disabled', '');
+    })
+
+  }
 });
 
 </script>
@@ -104,6 +132,8 @@ $(document).ready(function(){
                             <button data-id="{{$work->id}}" id="save_proposal" class="btn  btn-block"><i class="fa fa-circle-o"></i> Ажлыг хадгалах</button>
                         </div>
                       </div>
+                      @else
+                        <a href="#" data-toggle="modal" data-target="#salary_contract" class="btn btn-primary btn-block"> Цалинг олгох</a>
                       @endif
                     </div>
                     <div class="section">
@@ -169,3 +199,4 @@ $(document).ready(function(){
     @endif
 
 @endsection
+@include('frontend.work.advSalaryContract')
