@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\sf_guard_user;
+use App\Section;
+use App\Works;
 use Validator;
 use DB;
 use Image;
@@ -24,6 +26,21 @@ class ProfileController extends Controller
       ->with('s',$parameter)
       ->with('categories',$categories)
       ->with('sections',$sections);
+    }
+    public function userprofile(Request $request){
+      $id = $request->input('id');
+          $user_show = sf_guard_user::find($id);
+
+          $sections = Section::where('published', '1')->orderBy('order_id', 'asc')->get();
+          $posts = Works::where('userid',$id)->orderBy('created_at','desc')->get();
+
+
+
+        return view('frontend.userprofile')
+          ->with('user_show',$user_show)
+          ->with('sections',$sections)
+          ->with('posts',$posts);
+
     }
 
     public function selectUserSecions(){
@@ -73,48 +90,29 @@ class ProfileController extends Controller
     }
     public function Cover(Request $request)
     {
-
-
         $user = sf_guard_user::find(\Auth::user()->id);
         if(isset($request->profileimage)){
-
-        //  $profileName = time().'.'.$request->profileimage->getClientOriginalName();
-
           $image = $request->file('profileimage');
                 $input['imagename'] = time().'.'.$image->getClientOriginalName();
-
-
                 $destinationPath = public_path('uploads/profileimage');
                 $img = Image::make($image->getRealPath());
                 $img->resize(110, 110, function ($constraint) {
         		    $constraint->aspectRatio();
         		})->save($destinationPath.'/'.$input['imagename']);
-
-
             $user->profile_image = $input['imagename'];
         }
         if(isset($request->coverName)){
-
-
           $cover = $request->file('coverName');
                 $input['cover'] = time().'.'.$cover->getClientOriginalName();
-
-
                 $destinationPath = public_path('uploads/coverimage');
                 $img = Image::make($cover->getRealPath());
                 $img->resize(800, null, function ($constraint) {
                   $constraint->aspectRatio();
                   $constraint->upsize();
         		})->save($destinationPath.'/'.$input['cover']);
-
-
-
           $user->coverName = $input['cover'];
         }
          $user->update();
-
-
-
           return redirect('/frontend/home');
     }
 }
