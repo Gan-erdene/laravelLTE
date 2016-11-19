@@ -1,11 +1,6 @@
 @extends('layouts.frontend')
 @section('javascripts')
-<script>
-$('.like').on('click', function(event){
-//  var isLike = event.target.previousElementSibling == null ? true :false;
-    console.log(event);
-})
-</script>
+
 <script>
   $(document).on('change', '.selectsection', function(){
     if(this.checked){
@@ -29,7 +24,27 @@ $('#myModal').on('shown.bs.modal', function () {
 })
 </script>
 
+<script>
+$(document).ready(function(){
+  $('.like').click(function(event){
+    event.preventDefault();
+    var btn = $(this);
+    var postId = btn.data("id");
+    //var isLike = event.target.previousElementSibling == null ? true : false;
+  //console.log(isLike);
+    $.post("{{ url('/like') }}", { postId: postId, _token: '{{  csrf_token() }}' }, function(data){
+        if(data.status === 'success'){
+          console.log(data.message);
+          console.log(btn);
+          btn.html(data.message);
+        }
+    });
 
+
+  })
+
+})
+</script>
 
 @endsection
 @section('content')
@@ -153,7 +168,7 @@ $('#myModal').on('shown.bs.modal', function () {
                 <li class="padding-v-5">
                   <div class="row">
                     <div class="col-sm-4"><span class="text-muted">Утас</span></div>
-                    <div class="col-sm-8">99046274</div>
+                    <div class="col-sm-8">{{$user->phone}}</div>
                   </div>
                 </li>
               </ul>
@@ -439,17 +454,19 @@ $('#myModal').on('shown.bs.modal', function () {
                     <div class="box-header with-border">
                       <div class="user-block">
                         <img class="img-circle" src="/uploads/profileimage/{{Auth::user()->profile_image}}" alt="User Image">
-                        <span class="username"><a href="#">{{Auth::user()->first_name}} {{Auth::user()->last_name}}.</a></span>
+                        <span class="username"><a href="{{ url('/fronted/home',$sv_list->id) }}">{{Auth::user()->first_name}} {{Auth::user()->last_name}}.</a></span>
                         <span class="description">Нийтлэл - {{ date('H:m',strtotime($sv_list->created_at))}}</span>
                       </div>
                     </div>
 
                     <div class="box-body" style="display: block;">
                         <p>{{$sv_list->title}}</p>
+
                       <img class="img-responsive pad show-in-modal" src="/uploads/svfile/{{$sv_list->filename}}" alt="Photo">
                         <p>{{$sv_list->body}}</p>
-                        <a href="#" class="like">Like</a>
-                        <button type="button" class="btn btn-default btn-xs"><i class="fa fa-thumbs-o-up"></i> Like</button>
+
+
+                        <button type="button" data-id="{{$sv_list->id}}"  class="btn btn-default btn-xs like"><i class="fa fa-thumbs-o-up"></i> {{ \Auth::user()->likes->where('post_id',$sv_list->id)->first() ? 'unlike' : 'like'   }}</button>
                       <button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share</button>
                       <span class="pull-right text-muted">127 likes - 3 comments</span>
                     </div>

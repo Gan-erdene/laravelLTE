@@ -61,6 +61,9 @@ Route::group(['middleware' => 'checkuser'], function(){
 
   Route::post('/frontend/home/post','frontend\HomeController@post');
   Route::post('/frontend/home/action','frontend\HomeController@action');
+
+  Route::get('/frontend/home/test','frontend\HomeController@test');
+  Route::post('/like','frontend\HomeController@postLikePost');
 }
 
 );

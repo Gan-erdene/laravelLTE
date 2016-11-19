@@ -13,6 +13,7 @@ use App\Category;
 use App\sv;
 use App\svcategories;
 use Validator;
+use App\Like;
 
 class HomeController extends Controller
 {
@@ -21,10 +22,37 @@ class HomeController extends Controller
     $user = sf_guard_user::find(\Auth::user()->id);
     $sections = Section::where('published', '1')->orderBy('order_id', 'asc')->get();
     $sv_lists = sv::where('user_id',\Auth::user()->id)->orderBy('created_at','desc')->get();
+
     return view('frontend.home')
     ->with('user',$user)
     ->with('sections',$sections)
     ->with('sv_lists',$sv_lists);
+  }
+  public function test(Request $request)
+  {
+    return view('frontend.test');
+  }
+  public function postLikePost(Request $request)
+  {
+   $post_id = $request->input('postId');
+   $post = post::find($post_id);
+   if(!$post){
+     return response()->json(['test'=>"post uuseegui bna"]);
+   }
+
+    $user = \Auth::user();
+    $like =  Like::where('user_id', $user->id)->where('post_id', $post_id)->first();
+
+    if($like){
+        $like->delete();
+        return response()->json(['status'=>'success', 'message'=>"like"]);
+    }else{
+      $like = new Like;
+    }
+    $like->user_id = $user->id;
+    $like->post_id = $post->id;
+    $like->save();
+    return response()->json(['status'=>'success', 'message'=>"unlike"]);
   }
 
   public function post(Request $request)
