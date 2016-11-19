@@ -5,6 +5,11 @@
 <link href="/frontend/assets/css/profile2.css" rel="stylesheet">
 <link href="/frontend/assets/css/profile3.css" rel="stylesheet">
 <link href="/frontend/assets/css/user_detail.css" rel="stylesheet">
+<link rel="stylesheet" href="/admin/plugins/datepicker/datepicker3.css">
+<script src="/admin/plugins/datepicker/bootstrap-datepicker.js"></script>
+<style>
+.datepicker{z-index:1151 !important;}
+</style>
 <script>
 $(document).on('click', '#save_proposal', function(){
     var  btn = $(this);
@@ -73,6 +78,33 @@ $(document).ready(function(){
     })
 
   }
+
+  $(document).on( 'click', "#salary_agreement", function(){
+    $('#btnContinue').prop("disabled", this.checked ? false:true);
+  } );
+
+  $(document).on('change paste keyup', '#salary', function(){
+      calc(this.value);
+  });
+
+  function calc(salary){
+    var fee_ndsh = (110*salary)/801;
+    var fee_noat = ( (1000*salary)/801 - fee_ndsh )/10;
+    $('#fee_nd').val(fee_ndsh);
+    $('#fee_noat').val(fee_noat);
+    $('#txnvalue').val(parseFloat(fee_ndsh)+parseFloat(fee_noat)+parseFloat(salary));
+  }
+
+  $(document).on('click', '.salary_contract', function(){
+    alert($(this).data('id'));
+    
+  });
+
+  $('.datepicker').datepicker({
+     format: 'yyyy-mm-dd'
+   }).on('changeDate', function(e){
+      $(this).datepicker('hide');
+  });
 });
 
 </script>
@@ -132,8 +164,6 @@ $(document).ready(function(){
                             <button data-id="{{$work->id}}" id="save_proposal" class="btn  btn-block"><i class="fa fa-circle-o"></i> Ажлыг хадгалах</button>
                         </div>
                       </div>
-                      @else
-                        <a href="#" data-toggle="modal" data-target="#salary_contract" class="btn btn-primary btn-block"> Цалинг олгох</a>
                       @endif
                     </div>
                     <div class="section">
