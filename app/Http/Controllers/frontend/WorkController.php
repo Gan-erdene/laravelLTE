@@ -114,7 +114,9 @@ class WorkController extends Controller
     public function saveWork($request){
       $validator = Validator::make($request->all(), [
           'project_name' => 'required',
-          'reference' => 'required'
+          'reference' => 'required',
+          'startdate' => 'required',
+          'enddate' => 'required'
       ], $this->messages());
 
       if ($validator->fails()) {
@@ -126,8 +128,8 @@ class WorkController extends Controller
       $reference =  $request->input('reference');
       $skill = $request->input('your_skill');
       $price = $request->input('price');
-      $duration_type = $request->input('duration_type');
-      $duration = $request->input('duration');
+      $enddate = $request->input('enddate');
+      $startdate = $request->input('startdate');
       $is_active = $request->input('is_active') ? $request->input('is_active') : 0;
 
       $work = Works::find($request->input('workid'));
@@ -137,8 +139,8 @@ class WorkController extends Controller
       $work->skill = ($skill) ? $skill : null;
       $work->price = ($price) ? $price : null;
       $work->is_active = $is_active;
-      $work->duration = ($duration) ? $duration : null;
-      $work->duration_type = ($duration_type) ? $duration_type : null;
+      $work->startdate = $startdate;
+      $work->enddate = $enddate;
       $work->userid = \Auth::user()->id;
       $status = $work->save();
       if($status){
@@ -183,7 +185,9 @@ class WorkController extends Controller
     {
         return [
             'project_name.required' => trans('strings.require_project_name'),
-            'reference.required'  => trans('strings.require_reference')
+            'reference.required'  => trans('strings.require_reference'),
+            'startdate.required'  => trans('strings.require_startdate'),
+            'enddate.required'  => trans('strings.require_enddate')
         ];
     }
 
@@ -191,7 +195,9 @@ class WorkController extends Controller
 
       $validator = Validator::make($request->all(), [
           'project_name' => 'required',
-          'reference' => 'required'
+          'reference' => 'required',
+          'startdate' => 'required',
+          'enddate' => 'required'
       ], $this->messages());
 
       if ($validator->fails()) {
@@ -203,8 +209,8 @@ class WorkController extends Controller
       $reference = $request->input('reference');
       $skill = $request->input('your_skill');
       $price = $request->input('price');
-      $duration_type = $request->input('duration_type');
-      $duration = $request->input('duration');
+      $startdate = $request->input('startdate');
+      $enddate = $request->input('enddate');
       $is_active = $request->input('is_active') ? $request->input('is_active') : 0;
 
       $work = new Works;
@@ -215,10 +221,8 @@ class WorkController extends Controller
       if($price)
         $work->price = $price;
       $work->is_active = $is_active;
-      if($duration)
-        $work->duration = $duration;
-      if($duration_type)
-        $work->duration_type = $duration_type;
+      $work->startdate = $startdate;
+      $work->enddate = $enddate;
       $work->userid = \Auth::user()->id;
       $status = $work->save();
       if($status){

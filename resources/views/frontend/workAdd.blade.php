@@ -1,6 +1,8 @@
 @extends('layouts.frontend')
 @section('javascripts')
 <link href="/frontend/assets/css/file_manager.css" rel="stylesheet">
+<link rel="stylesheet" href="/admin/plugins/datepicker/datepicker3.css">
+<script src="/admin/plugins/datepicker/bootstrap-datepicker.js"></script>
 <script>
   $(document).on('change', '.selectsection', function(){
     if(this.checked){
@@ -16,7 +18,13 @@
 
   $(document).ready(function () {
     $("#menu_add_work").addClass('active');
+    $('.datepicker').datepicker({
+       format: 'yyyy-mm-dd'
+     }).on('changeDate', function(e){
+        $(this).datepicker('hide');
+    });
   });
+
 </script>
 @endsection
 @section('content')
@@ -102,24 +110,31 @@
               </div><br/>
               <div class="row">
                   <div class="col-md-3">
-                    {{trans('strings.duration_type')}}
+                    {{trans('strings.startdate')}}
                   </div>
-                  <div class="col-md-9">
-                    <select name="duration_type" id="duration_type">
-                        <option value="h">{{trans('strings.hour')}}</option>
-                        <option value="d">{{trans('strings.day')}}</option>
-                        <option value="m">{{trans('strings.month')}}</option>
-                        <option value="y">{{trans('strings.year')}}</option>
-                    </select>
+                  <div class="col-md-9 @if($errors->add->first('startdate') !== "") has-error has-feedback @endif">
+                    @if($errors->add->first('startdate') !== "")<label class="control-label" > {{$errors->add->first('startdate')}} </label>@endif
+                    <div class="input-group date">
+                      <div class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                      </div>
+                      <input type="text" class="form-control datepicker" id="startdate" name="startdate" placeholder="Он, Сар, Өдөр">
+                    </div>
                   </div>
               </div><br/>
 
               <div class="row">
                   <div class="col-md-3">
-                    {{trans('strings.duration')}}
+                    {{trans('strings.enddate')}}
                   </div>
-                  <div class="col-md-9">
-                    <input type="text" placeholder="{{trans('strings.duration')}}..." class="form-control input-sm" id="duration" name="duration">
+                  <div class="col-md-9 @if($errors->add->first('enddate') !== "") has-error has-feedback @endif">
+                    @if($errors->add->first('enddate') !== "")<label class="control-label" > {{$errors->add->first('enddate')}} </label>@endif
+                    <div class="input-group date">
+                      <div class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                      </div>
+                      <input type="text" class="form-control datepicker" id="enddate" name="enddate" placeholder="Он, Сар, Өдөр">
+                    </div>
                     <label>
                         <input value="1" name="is_active" type="checkbox" class="colored-blue"><br/>
                         <span class="text">{{trans('strings.show_work')}}</span>
