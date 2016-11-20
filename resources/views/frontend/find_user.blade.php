@@ -30,7 +30,11 @@
       <div class="col-md-3">
           <div class="contact-box center-version">
             <a href="#">
-              <img alt="image" class="img-circle" src="/frontend/img/Friends/guy-1.jpg">
+              @if($item->profile_image)
+                  <img class="img-circle" src="/uploads/profileimage/{{$item->profile_image}}" alt="">
+              @else
+                  <img  class="img-circle" src="/frontend/img/Profile/default-avatar.png" alt="">
+              @endif
               <h4 class="m-b-xs">{{$item->last_name}}<br>{{$item->first_name}}</h4>
 
               <div class="font-bold">Graphics designer</div>
