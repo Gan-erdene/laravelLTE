@@ -11,7 +11,7 @@ use App\Section;
 use App\post;
 use App\Category;
 use App\sv;
-use App\svcategories;
+use App\WorkCategories;
 use Validator;
 use App\Like;
 use App\Works;
@@ -158,8 +158,8 @@ class HomeController extends Controller
   public function createWorkCategory($svid, $categories){
     if(sizeof($categories) > 0){
       foreach($categories as $catid){
-          $scategory = new svcategories;
-          $scategory->cvid = $svid;
+          $scategory = new WorkCategories;
+          $scategory->workid = $svid;
           $scategory->catid = $catid;
           $scategory->save();
       }
