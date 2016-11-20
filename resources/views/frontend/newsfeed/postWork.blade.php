@@ -15,7 +15,11 @@
   <div class="box-body">
     @if($work->type !== 3)
     <h4 class="attachment-heading"><a href="{{route('newsfeedWork', $work->id)}}">{{$work->project_name}}</a></h4>
-    <p><small>Үнэ: {{$work->price}} - Хугацаа: {{$work->startdate}} - Ажил олгогч: <i class="fa fa-check-circle-o" style="color:green"></i> Төлбөрийн системд холбогдсон</small></p>
+    <p>
+      <small>Үнэ: {{$work->price}}
+      @if($work->type === 1)- Хугацаа: {{$work->startdate}}  @endif
+      </small>
+    </p>
     <p> {{str_limit($work->reference, 50)}}</p>
     @else
     <p> {{$work->reference}}</p>

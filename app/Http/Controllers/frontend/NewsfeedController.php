@@ -55,6 +55,7 @@ class NewsfeedController extends Controller
         case 'post_work': return response()->json(['html'=>$this->postWorks()]);
         case 'post_saved': return response()->json(['html'=>$this->savedPostWorks()]);
         case 'post_category': return response()->json(['html'=>$this->postByCategory($request)]);
+        case 'post_section': return response()->json(['html'=>$this->postBySection($request)]);
         default: break;
       }
     }
@@ -65,6 +66,17 @@ class NewsfeedController extends Controller
           	left join sf_guard_user u  on w.userid = u.id
             left join (select count(post_id) likecount, post_id from likes group by post_id ) l on w.id = l.post_id
               where w.is_active = 1 and w.id in (SELECT distinct u.workid FROM work_categories u where u.catid =  $value) order by w.created_at desc";
+      $works = DB::select($sql);
+      $html = view('frontend.newsfeed.postWork', ['works'=>$works]);
+      return $html->render();
+    }
+
+    public function postBySection($request){
+      $value = $request->input('value');
+      $sql="select u.last_name, u.profile_image, u.first_name, l.likecount, w.* from works w
+          	left join sf_guard_user u  on w.userid = u.id
+            left join (select count(post_id) likecount, post_id from likes group by post_id ) l on w.id = l.post_id
+              where w.is_active = 1 and w.id in (SELECT distinct u.workid FROM work_categories u where u.section_id =  $value) order by w.created_at desc";
       $works = DB::select($sql);
       $html = view('frontend.newsfeed.postWork', ['works'=>$works]);
       return $html->render();
@@ -85,7 +97,7 @@ class NewsfeedController extends Controller
       $sql="select u.last_name, u.profile_image,l.likecount, u.first_name, w.* from works w
           	left join sf_guard_user u  on w.userid = u.id
             left join (select count(post_id) likecount, post_id from likes group by post_id ) l on w.id = l.post_id
-              where w.is_active = 1 and (w.id in (SELECT distinct c.workid FROM sf_guard_user_category u left join work_categories c on u.catid = c.catid WHERE u.user_id = ".\Auth::user()->id.") or w.userid = ".\Auth::user()->id.")  order by w.created_at desc";
+              where w.is_active = 1 and (w.id in (SELECT distinct c.workid FROM sf_guard_user_category u left join work_categories c on u.catid = c.catid WHERE u.user_id = ".\Auth::user()->id.") or w.type <> 1)  order by w.created_at desc";
       $works = DB::select($sql);
       $html = view('frontend.newsfeed.postWork', ['works'=>$works]);
       return $html->render();

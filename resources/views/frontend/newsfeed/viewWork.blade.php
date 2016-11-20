@@ -225,8 +225,10 @@ $(document).ready(function(){
                               {{$work->reference}}
                           </div><hr/>
                           <div class="footer">
+                            @if($work->type === 1)
                             <p><strong>Хугацаа:</strong> {{$work->startdate}} - {{$work->enddate}}</p>
                             <p><strong>Шаардагдах ур чадвар:</strong> {{$work->skill}} </p>
+                            @endif
                             <p><strong>Үнэ:</strong> {{$work->price}} </p>
                             <p><strong>Ажил оруулсан:</strong> {{$work->created_at}}</p></div>
                       </div>
@@ -242,6 +244,7 @@ $(document).ready(function(){
                   </div>
                 </div>
                 </div>
+                @if($work->type === 1)
                 <div class="col-sm-3 profile-social">
                   <div style="top:0px" class="profile-info-left">
                     <div class="action-buttons">
@@ -271,11 +274,11 @@ $(document).ready(function(){
                       <ul class="list-unstyled list-social">
                         <li><a href="#"><i class="fa fa-plus"></i> Ажил нэмэх</a></li>
                         <li><a href="#"><i class="fa fa-bars"></i> Ажлын жагсаалт</a></li>
-                        <li><a href="#"><i class="fa fa-check"></i> Хийсэн ажлын жагсаалт</a></li>
                       </ul>
                     </div>
                   </div>
                 </div>
+                @endif
               </div>
             </div>
           </div>

@@ -224,6 +224,7 @@ class WorkController extends Controller
       $work->is_active = $is_active;
       $work->startdate = $startdate;
       $work->enddate = $enddate;
+      $work->type = 1;
       $work->userid = \Auth::user()->id;
       $status = $work->save();
       if($status){
@@ -246,7 +247,7 @@ class WorkController extends Controller
     }
 
     public function listWork(){
-      $list = Works::where('userid', \Auth::user()->id)->orderBy('created_at', 'desc')->paginate(15);
+      $list = Works::where('userid', \Auth::user()->id)->where('type', 1)->orderBy('created_at', 'desc')->paginate(15);
       return view('frontend.workList', ['list'=>$list]);
     }
 
