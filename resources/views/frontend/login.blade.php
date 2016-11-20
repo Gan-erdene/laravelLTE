@@ -39,7 +39,7 @@
             <span class="icon-bar bar2"></span>
             <span class="icon-bar bar3"></span>
           </button>
-          <a class="navbar-brand" href="profile.html">Day-Day</a>
+          <a class="navbar-brand" href=""><img src="/frontend/img/logo_no_bg.png"></a>
         </div>
       </div>
     </nav>
@@ -56,7 +56,7 @@
                       <p class="text-muted">Нэвтэрч орох хэсэг</p>
                     </div>
                       @include('status')
-                      
+
                     <form method="POST" action="{{ url('/frontend/login') }}">
                       {{ csrf_field() }}
                         <div class="form-group">
