@@ -88,11 +88,12 @@ $(document).ready(function(){
   });
 
   function calc(salary){
-    var fee_ndsh = (110*salary)/801;
-    var fee_noat = ( (1000*salary)/801 - fee_ndsh )/10;
+    var fee_ndsh = (salary/100)*11;
+    var fee_noat = ( parseFloat(salary) + parseFloat(fee_ndsh) )/10;
+    var txn_value = parseFloat(fee_ndsh)+parseFloat(fee_noat)+parseFloat(salary)+parseFloat(1500);
     $('#fee_nd').val(fee_ndsh);
     $('#fee_noat').val(fee_noat);
-    $('#txnvalue').val(parseFloat(fee_ndsh)+parseFloat(fee_noat)+parseFloat(salary));
+    $('#txnvalue').val(txn_value);
   }
 
   $(document).on('click', '.salary_contract', function(){
@@ -100,13 +101,17 @@ $(document).ready(function(){
       action:'info', _token:"{{csrf_token()}}", user_id:$(this).data('id')
     }, function(data){
         $('#last_name').val(data.last_name);
-        $('#first_name').val(data.last_name);
+        $('#first_name').val(data.first_name);
         $('#regnum').val(data.regnum);
+        $('#receive_user_id').val(data.user_id);
+
 
         $('#company_name').val("{{\Auth::user()->first_name}}");
         $('#work_name').val("{{$work->project_name}}");
-        $('#startdate').val("{{$work->startdate}}");
-        $('#enddate').val("{{$work->enddate}}");
+        $('#proposalid').val("{{$work->prop}}");
+
+        $('#startdate').datepicker( "setDate", new Date({{date('Y,m,d', strtotime($work->startdate))}}) );
+        $('#enddate').datepicker( "setDate", new Date({{date('Y,m,d', strtotime($work->enddate))}}) );
 
     });
   });
@@ -179,7 +184,7 @@ $(document).ready(function(){
                     </div>
                     <div class="section">
                         <h3>Ажил олгогчийн тухай</h3>
-                        <p><i class="fa fa-check-circle-o" style="color:green"></i> Төлбөрийн системд холбогдсон</p>
+                        <p><i class="fa fa-fw fa-clock-o" style="color:green"></i> {{date('Y.m.d', strtotime( $userinfo['created_at'] ))}}-с хойш гишүүнээр элссэн</p>
                     </div>
                     <div class="section">
                       <h3>Statistics</h3>
@@ -188,10 +193,9 @@ $(document).ready(function(){
                     <div class="section">
                       <h3>Social</h3>
                       <ul class="list-unstyled list-social">
-                        <li><a href="#"><i class="fa fa-twitter"></i> @jhongrwo</a></li>
-                        <li><a href="#"><i class="fa fa-facebook"></i> John grow</a></li>
-                        <li><a href="#"><i class="fa fa-google"></i> johninizzie</a></li>
-                        <li><a href="#"><i class="fa fa-linkedin"></i> John grow</a></li>
+                        <li><a href="#"><i class="fa fa-plus"></i> Ажил нэмэх</a></li>
+                        <li><a href="#"><i class="fa fa-bars"></i> Ажлын жагсаалт</a></li>
+                        <li><a href="#"><i class="fa fa-check"></i> Хийсэн ажлын жагсаалт</a></li>
                       </ul>
                     </div>
                   </div>

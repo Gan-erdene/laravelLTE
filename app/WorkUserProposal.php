@@ -16,4 +16,8 @@ class WorkUserProposal extends Model
   public function comment(){
     return $this->hasMany('App\Comment', 'prop_id', 'id')->get();
   }
+
+  public function txns(){
+    return $this->hasMany('App\Models\WorkTxn', 'proposalid', 'id')->get();
+  }
 }

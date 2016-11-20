@@ -12,6 +12,7 @@ use App\SfGuardUserCategory;
 use App\Works;
 use App\WorkCategories;
 use App\WorkUserProposal;
+use App\sf_guard_user;
 class NewsfeedController extends Controller
 {
     public function index(Request $request){
@@ -33,9 +34,10 @@ class NewsfeedController extends Controller
       if($work->is_active == 0){
         return redirect('/frontend/newsfeed')->with('status', 'danger')->with('message', 'Ажил устгагдсан байна');
       }
+      $userInfo = sf_guard_user::find($work->userid);
       $categories = WorkCategories::where('workid', $workid)->get();
       return view('frontend.newsfeed.viewWork', [
-        'work'=>$work, 'categories'=>$categories
+        'work'=>$work, 'categories'=>$categories, 'userinfo'=>array('created_at'=>$userInfo->created_at)
       ]);
     }
 
