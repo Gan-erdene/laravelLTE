@@ -4,7 +4,11 @@
       <div class="widget-body">
         <div class="user-heading round">
           <a href="#">
-              <img src="img/Friends/guy-3.jpg" alt="">
+            @if(\Auth::user()->profile_image)
+                <img class="img-circle" src="/uploads/profileimage/{{\Auth::user()->profile_image}}" alt="">
+            @else
+                <img  class="img-circle" src="/frontend/img/Profile/default-avatar.png" alt="">
+            @endif
           </a>
           <h1>{{\Auth::user()->first_name}}</h1>
           <p>@username</p>
