@@ -123,8 +123,8 @@
                 <tbody>
                 @foreach($sectionlist as $item)
                 <tr>
-                  <td>{{$item->secTrans('mn')->name}}</td>
-                  <td>{{$item->secTrans('mn')->description}}</td>
+                  <td>{{isset($item->secTrans('mn')->name) ? $item->secTrans('mn')->name : ''}}</td>
+                  <td>{{isset($item->secTrans('mn')->description) ? $item->secTrans('mn')->description : ''}}</td>
                   <td><i class="fa {{$item->isPublished()}}"></i></td>
                   <td>{{ $item->sectype->name }}</td>
                   <td>{{$item->order_id}}</td>

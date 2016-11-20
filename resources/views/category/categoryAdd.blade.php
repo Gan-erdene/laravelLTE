@@ -97,10 +97,10 @@
                 <tbody>
                   @foreach($category as $categories)
                 <tr>
-                  <td>{{$categories->CategoryTranslationJoin->name}} </td>
-                  <td>
-                    {{ $categories->SectionTranslationJoin->secTrans('mn')->name}}
-                  </td>
+                  <td>{{isset($categories->CategoryTranslationJoin->name) ? $categories->CategoryTranslationJoin->name : ''}} </td>
+                    <td>
+                      {{ isset($categories->SectionTranslationJoin->secTrans('mn')->name) ? $categories->SectionTranslationJoin->secTrans('mn')->name : ''}}
+                    </td>
                   <td>{{$categories->published}}</td>
                   <td>
                     <button data-id="{{$categories->id}}" type="button" class="btn btn-primary btn-xs btnedit" >
@@ -121,6 +121,33 @@
           <!-- /.box -->
       </div>
     </div>
+
+      <div class="example-modal">
+        <div class="modal modal-danger"  id="myModal">
+          <div class="modal-dialog">
+            <form method="post" class="modal-content" action="/home/category/action">
+              <input type="hidden" name="_token" value="{{ csrf_token() }}">
+              <input type="hidden" name="action" value="delete">
+              <input type="hidden" name="deleteid" id="deleteid">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Устгах цонх</h4>
+              </div>
+              <div class="modal-body">
+                <p>Та устгахдаа итгэлтэй байна уу ?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal"> Болих </button>
+                <button type="submit" class="btn btn-outline"> Устгах </button>
+              </div>
+            </form>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+      </div>
   </section>
 
 </div>
@@ -158,6 +185,10 @@ $(function(){
   });
 });
     $('#example1').DataTable();
+
+    $(".announce").click(function(){ // Click to only happen on announce links
+       $("#deleteid").val($(this).data('id'));
+     });
 });
 </script>
 @endsection

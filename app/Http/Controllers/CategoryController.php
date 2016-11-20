@@ -53,8 +53,17 @@ class CategoryController extends Controller
             case 'create' : return $this->create($request);
             case 'category' : return \Response::json(array('category'=>Category::find($request->id), 'translation'=>Category::find($request->id)->CategoryTranslationJoin()->first()));
             case 'edit': return $this->editCategory($request);
+            case 'delete': return $this->deleteSection($request);
         default: break;
       }
+    }
+    public function deleteSection($request){
+        $category = Category::find($request->input('deleteid'));
+        $category->catTrans("mn")->delete();
+        $category->delete();
+        return back()
+          ->with('status', 'success')
+          ->with('message', 'Category амжилттай устгалаа');
     }
 
     public function messages()
@@ -102,4 +111,6 @@ class CategoryController extends Controller
         $list = DB::select($sql);
         return $list;
     }
+
+
 }
