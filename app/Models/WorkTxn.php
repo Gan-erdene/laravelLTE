@@ -12,4 +12,8 @@ class WorkTxn extends Model
   public function accounts(){
     return $this->hasMany('App\Models\UserAccounts', 'user_id', 'receive_user_id')->get();
   }
+
+  public function getStatus(){
+    return TxnStatusAction::where('worktxnid', $this->id)->orderBy('id', 'desc')->first();
+  }
 }

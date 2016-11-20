@@ -5,7 +5,7 @@ namespace App\Http\Controllers\frontend;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\sf_guard_user;
-use App\WorkTxn;
+use App\Models\WorkTxn;
 
 class SalaryController extends Controller
 {
@@ -32,7 +32,7 @@ class SalaryController extends Controller
       $fee_noat = $request->input('fee_noat');
       $txnvalue = $request->input('txnvalue');
       $fee_txn = $request->input('fee_txn');
-      $receive_user_id = $rquest->input('receive_user_id');
+      $receive_user_id = $request->input('receive_user_id');
 
       $txn = new WorkTxn;
       $txn->workid = $workid;
@@ -68,6 +68,7 @@ class SalaryController extends Controller
       return response()->json([
         'last_name'=>$user->last_name,
         'first_name'=>$user->first_name,
+        'user_id'=>$user_id,
         'regnum'=>$user->registr ? $user->registr : ""
       ]);
     }

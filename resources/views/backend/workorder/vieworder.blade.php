@@ -24,78 +24,47 @@
           </div>
           <!-- /.box-header -->
           <!-- form start -->
-          <form class="form-horizontal">
+          <div class="form-horizontal">
             <div class="box-body">
               <div class="form-group">
                 <label for="company_name" class="col-sm-3 control-label">Захиалагч байгууллагын нэр</label>
 
                 <div class="col-sm-9">
-                  <input type="text" readonly="true" class="form-control" id="company_name" value="{{$order->company_name}}">
+                  <span>{{$order->company_name}}</span>
                 </div>
               </div>
               <div class="form-group">
                 <label for="work_name" class="col-sm-3 control-label">Гүйцэтгэсэн ажлын утга</label>
 
                 <div class="col-sm-9">
-                  <input type="text" readonly="true" class="form-control" id="work_name" value="{{$order->work_name}}">
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="first_name" class="col-sm-3 control-label">Хүл.авагч нэр</label>
-
-                <div class="col-sm-9">
-                  <input type="text" readonly="true" class="form-control" id="first_name" value="{{$order->first_name}}">
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="first_name" class="col-sm-3 control-label">Хүл.авагч нэр</label>
-
-                <div class="col-sm-9">
-                  <input type="text" readonly="true" class="form-control" id="first_name" value="{{$order->first_name}}">
+                  <span>{{$order->work_name}}</span>
                 </div>
               </div>
               <div class="form-group">
                 <label for="created_at" class="col-sm-3 control-label">Захиалга илгээсэн огноо</label>
                 <div class="col-sm-9">
-                  <input type="text" readonly="true" class="form-control" id="created_at" value="{{date('Y.m.d H:i', strtotime($order->created_at))}}">
+                  <span>{{date('Y.m.d H:i', strtotime($order->created_at))}}</span>
                 </div>
               </div>
-              @if($order->statuscode === 1)
-              <div class="form-group">
-                <label for="accepted_at" class="col-sm-3 control-label">Захиалга баталгаажуулсан огноо</label>
-
-                <div class="col-sm-9">
-                  <input type="text" readonly="true" class="form-control" id="accepted_at" value="{{date('Y.m.d H:i', strtotime($order->created_at))}}">
-                </div>
-              </div>
-              @elseif($order->statuscode === 2)
-              <div class="form-group">
-                <label for="rejected_at" class="col-sm-3 control-label">Захиалга цуцалсан огноо</label>
-
-                <div class="col-sm-9">
-                  <input type="text" readonly="true" class="form-control" id="rejected_at" value="{{date('Y.m.d H:i', strtotime($order->created_at))}}">
-                </div>
-              </div>
-              @endif
               <div class="form-group">
                 <label for="salary" class="col-sm-3 control-label">Гарт олгох цалин</label>
 
                 <div class="col-sm-9">
-                  <input type="text" readonly="true" class="form-control" id="salary" value="{{$order->salary}}">
+                  <span>{{number_format($order->salary, 2)}}</span>
                 </div>
               </div>
               <div class="form-group">
                 <label for="fee_nd" class="col-sm-3 control-label">ЭМ, НДШ 10%</label>
 
                 <div class="col-sm-9">
-                  <input type="text" readonly="true" class="form-control" id="fee_nd" value="{{$order->fee_nd}}">
+                  <span>{{number_format($order->fee_nd, 2)}}</span>
                 </div>
               </div>
               <div class="form-group">
                 <label for="fee_haoat" class="col-sm-3 control-label">ХАОАТ 10%</label>
 
                 <div class="col-sm-9">
-                  <input type="text" readonly="true" class="form-control" id="fee_haoat" value="{{$order->fee_haoat}}">
+                  <span>{{number_format($order->fee_haoat, 2)}}</span>
                 </div>
               </div>
 
@@ -103,7 +72,7 @@
                 <label for="fee_ersdel" class="col-sm-3 control-label">Эрсдлийн сан 1%</label>
 
                 <div class="col-sm-9">
-                  <input type="text" readonly="true" class="form-control" id="fee_ersdel" value="{{$order->fee_ersdel}}">
+                  <span>{{number_format($order->fee_ersdel, 2)}}</span>
                 </div>
               </div>
 
@@ -111,7 +80,7 @@
                 <label for="txnvalue" class="col-sm-3 control-label">Нийт илгээх дүн</label>
 
                 <div class="col-sm-9">
-                  <input type="text" readonly="true" class="form-control" id="txnvalue" value="{{$order->txnvalue}}">
+                  <span>{{number_format($order->txnvalue, 2)}}</span>
                 </div>
               </div>
 
@@ -119,49 +88,71 @@
                 <label for="last_name" class="col-sm-3 control-label">Хүлээн авагч овог</label>
 
                 <div class="col-sm-9">
-                  <input type="text" value="{{$order->last_name}}" readonly="true" class="form-control" id="last_name">
+                  <span>{{$order->last_name}}"</span>
                 </div>
               </div>
               <div class="form-group">
                 <label for="first_name" class="col-sm-3 control-label">Хүлээн авагч нэр</label>
 
                 <div class="col-sm-9">
-                  <input type="text" readonly="true" class="form-control" id="first_name" value="{{$order->first_name}}">
+                  <span>{{$order->first_name}}</span>
                 </div>
               </div>
               <div class="form-group">
                 <label for="first_name" class="col-sm-3 control-label">Хүлээн авагч регистр</label>
 
                 <div class="col-sm-9">
-                  <input type="text" readonly="true" class="form-control" id="regnum" value="{{$order->regnum}}">
+                  <span>{{$order->regnum}}</span>
                 </div>
               </div>
               <div class="form-group">
                 <label for="first_name" class="col-sm-3 control-label">Хүлээн авагч данс</label>
 
                 <div class="col-sm-9">
-                  <select>
+                  <select id="accounts">
                   @foreach($order->accounts() as $account)
-                    <option>{{$account->accountno}}</option>
+                    <option value="{{$account->accountno}}">{{$account->accountno}}</option>
                   @endforeach
                   </select>
                 </div>
               </div>
+              @if($order->statuscode === 1)
+              <div class="form-group">
+                <label for="accepted_at" class="col-sm-3 control-label">Баталгаажуулсан огноо</label>
+
+                <div class="col-sm-9">
+                  {{date('Y.m.d H:i', strtotime($order->getStatus()->created_at))}}
+                </div>
+              </div>
+              @elseif($order->statuscode === 2)
+              <div class="form-group">
+                <label for="rejected_at" class="col-sm-3 control-label">Цуцалсан огноо</label>
+
+                <div class="col-sm-9">
+                  {{date('Y.m.d H:i', strtotime($order->getStatus()->created_at))}}
+                </div>
+              </div>
+              @endif
 
             </div>
             <!-- /.box-body -->
             <div class="box-footer">
               <a href="{{route('workOrders')}}" type="submit" class="btn btn-default">Буцах</a>
+              @if($order->statuscode === 0)
               <div class="pull-right">
-                <button type="submit" class="btn btn-danger">Захиалгыг цуцлах</button>
-                <button type="submit" class="btn btn-success">Захиалгыг баталгаажуулах</button>
+                <button class="btn btn-danger rejectorder">Захиалгыг цуцлах</button>
+                <button class="btn btn-success acceptorder">Захиалгыг баталгаажуулах</button>
               </div>
+              @endif
             </div>
             <!-- /.box-footer -->
-          </form>
+          </div>
         </div>
     </div>
-    @include('backend.user.confirmModal')
+    @if($order->statuscode === 0)
+    @include('backend.workorder.accept', ['order'=>$order])
+    @include('backend.workorder.reject', ['order'=>$order])
+    @endif
   </section>
 
 </div>
@@ -179,6 +170,16 @@ $(function(){
   $("#_work").addClass("open active");
   $("#_work_list").addClass("active");
 
+  $(document).on("click", ".acceptorder", function () {
+       var accountno = $('#accounts').val();
+       $("#acceptModal #accountno").val( accountno );
+       $("#acceptModal").modal("show");
+  });
+  $(document).on("click", ".rejectorder", function () {
+       var accountno = $('#accounts').val();
+       $("#rejectModal #accountno").val( accountno );
+       $("#rejectModal").modal("show");
+  });
 });
 </script>
 @endsection

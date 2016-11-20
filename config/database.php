@@ -54,17 +54,17 @@ return [
 
         'mysql' => [
             'read' => [
-                'host' => '192.168.1.105'
+                'host' => env('DB_HOST')
             ],
             'write' => [
-                'host' => '192.168.1.105'
+                'host' => env('DB_HOST')
             ],
             'driver' => 'mysql',
-            'host' => '192.168.1.105',
-            'port' => env('DB_PORT', '3306'),
-            'database' => 'amin',
-            'username' => 'root',
-            'password' => '',
+            'host' => env('DB_HOST'),
+            'port' => env('DB_PORT'),
+            'database' => env('DB_DATABASE'),
+            'username' => env('DB_USERNAME'),
+            'password' => env('DB_PASSWORD'),
             'charset' => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix' => '',

@@ -32,17 +32,31 @@ class OrderController extends Controller
 
     public function acceptOrder($request){
       $worktxnid = $request->input('orderid');
-      $order = WorkTxn::find($orderid);
-      $oldstatus = $order->statuscode
+      $order = WorkTxn::find($worktxnid);
+      $oldstatus = $order->statuscode;
       $newstatus = 1;
+      //$order->statuscode = $request->input('accountno'); //batalgaajuulsan
       $order->statuscode = 1; //batalgaajuulsan
-      $status = $order->save();
+      $status = $order->update();
 
       if($status){
-        return back()->with('status', 'success')->with('message', 'Захиалга баталгаажлаа');
-      }else{
-        return back()->with('status', 'danger')->with('message', 'Захиалга баталгаажуулах үед алдаа гарлаа');
+        $txnaction = new TxnStatusAction;
+        $txnaction->worktxnid = $worktxnid;
+        $txnaction->change_user_id = \Auth::user()->id;
+        $txnaction->created_at = $order->updated_at;
+        $txnaction->old_status = $oldstatus;
+        $txnaction->new_status = $newstatus;
+        if($txnaction->save()){
+            return back()->with('status', 'success')->with('message', 'Захиалга баталгаажлаа');
+        }else{
+          $txnaction->delete();
+          $order->statuscode = $oldstatus;
+          $order->update();
+        }
+
       }
+
+      return back()->with('status', 'danger')->with('message', 'Захиалга баталгаажуулах үед алдаа гарлаа');
     }
 
     public function rejectOrder($request){
