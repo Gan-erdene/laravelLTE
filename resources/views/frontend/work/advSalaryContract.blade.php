@@ -13,6 +13,7 @@
         <input type="hidden" name="action" value="txn">
         <input type="hidden" name="workid" value="{{$work->id}}">
         <input type="hidden" name="receive_user_id" id="receive_user_id">
+        <input type="hidden" name="proposalid" id="proposalid">
       <div class="modal-body">
         <div class="widget">
 
