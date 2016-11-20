@@ -33,7 +33,7 @@
                   <th nowrap rowspan="2">Д/д</th>
                   <th rowspan="2">Код</th>
                   <th>Шилжүүлэгч</th>
-                  <th colspan="3" class="text-center">Хүлээн авагч</th>
+                  <th colspan="2" class="text-center">Хүлээн авагч</th>
                   <th rowspan="2">Захиалагч байгууллага</th>
                   <th rowspan="2">Гүйлцэтгэсэн ажлын утга</th>
                   <th rowspan="2">Нийт дүн</th>
@@ -44,7 +44,6 @@
                   <th>Эконетворк</th>
                   <th>Нэр</th>
                   <th>Регистр</th>
-                  <th>Дансны дугаар</th>
                 </tr>
                 @foreach($list as $item)
                 <tr class='clickable-row' data-href="{{route('viewOrder', $item->id)}}">
@@ -53,13 +52,6 @@
                   <td>---</td>
                   <td>{{$item->first_name}}.{{substr($item->last_name, 0, 1)}}</td>
                   <td>{{$item->regnum}}</td>
-                  <td>
-                    <select>
-                    @foreach($item->accounts() as $account)
-                      <option>{{$account->accountno}}</option>
-                    @endforeach
-                    </select>
-                  </td>
                   <td>{{$item->company_name}}</td>
                   <td>{{$item->work_name}}</td>
                   <td>{{number_format($item->txnvalue, 2)}}</td>
@@ -68,6 +60,8 @@
                     <td><span class="badge bg-yellow"> Баталгаажуулах </span></td>
                   @elseif( $item->statuscode == 1 )
                     <td><span class="badge bg-green"> Баталгаажсан </span></td>
+                  @elseif( $item->statuscode == 2 )
+                    <td><span class="badge bg-red"> Татгалзсан </span></td>
                   @endif
                 </tr>
                 @endforeach

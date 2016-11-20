@@ -6,20 +6,7 @@
         <div class="col-md-12">
           @include('status')
         <!-- post state form -->
-          <div class="box profile-info n-border-top">
-            <form>
-                <textarea class="form-control input-lg p-text-area" rows="2" placeholder="Whats in your mind today?"></textarea>
-            </form>
-            <div class="box-footer box-form">
-                <button type="button" class="btn btn-azure pull-right">Post</button>
-                <ul class="nav nav-pills">
-                    <li><a href="#"><i class="fa fa-map-marker"></i></a></li>
-                    <li><a href="#"><i class="fa fa-camera"></i></a></li>
-                    <li><a href="#"><i class=" fa fa-film"></i></a></li>
-                    <li><a href="#"><i class="fa fa-microphone"></i></a></li>
-                </ul>
-            </div>
-          </div><!-- end post state form -->
+          @include('frontend.posts')
 
           <div id="posts">
           </div>

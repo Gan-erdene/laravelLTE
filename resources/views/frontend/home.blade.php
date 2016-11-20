@@ -1,51 +1,15 @@
 @extends('layouts.frontend')
 @section('javascripts')
-
 <script>
-  $(document).on('change', '.selectsection', function(){
-    if(this.checked){
-        $.post("{{ url('/frontend/home/action') }}", {'_token':"{{ csrf_token() }}",
-          action:'category', section_id:this.value
-        }, function(data){
-            $('#cat_container').append(data.html);
-        });
-    }else{
-      $('.sec_'+this.value).remove();
-    }
-  });
-
+  @include('frontend.js.getcategory')
   $(document).ready(function () {
     $("#menu_add_work").addClass('active');
+    @include('frontend.js.like')
   });
 </script>
 <script>
 $('#myModal').on('shown.bs.modal', function () {
   $('#myInput').focus()
-})
-</script>
-
-<script>
-$(document).ready(function(){
-  $('.like').click(function(event){
-    event.preventDefault();
-    var btn = $(this);
-    var postId = btn.data("id");
-    //var isLike = event.target.previousElementSibling == null ? true : false;
-  //console.log(isLike);
-  btn.prop('disabled', 'disabled');
-    $.post("{{ url('/like') }}", { postId: postId, _token: '{{  csrf_token() }}' }, function(data){
-        if(data.status === 'success'){
-          console.log(data.message);
-          console.log(btn);
-          btn.html(data.message);
-          btn.prop('disabled', '');
-          $('#like_' + postId).html(data.like_count);
-        }
-    });
-
-
-  })
-
 })
 </script>
 
@@ -123,10 +87,10 @@ $(document).ready(function(){
               @endif
               <div class="name"><a href="#">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</a></div>
               <ul class="cover-nav">
-                <li class="active"><a href="profile.html"><i class="fa fa-fw fa-bars"></i> Timeline</a></li>
+                <!-- <li class="active"><a href="profile.html"><i class="fa fa-fw fa-bars"></i> Timeline</a></li> -->
                 <li class="active"><a href="{{route('frontendEditProfile')}}"><i class="fa fa-fw fa-user"></i> About</a></li>
                 <li id='friendView' class="active"><a href="{{route('friendsView')}}"><i class="fa fa-fw fa-users"></i> Friends</a></li>
-                <li class="active"><a href="photos1.html"><i class="fa fa-fw fa-image"></i> Photos</a></li>
+                <!-- <li class="active"><a href="photos1.html"><i class="fa fa-fw fa-image"></i> Photos</a></li> -->
               </ul>
             </div>
           </div>
@@ -315,146 +279,7 @@ $(document).ready(function(){
               <div class="row">
                 <div class="col-md-12">
                 <!-- post state form -->
-                <div class="box profile-info n-border-top">
-                  <ul class="nav nav-tabs">
-                    <li class="active"><a href="#tab-post" data-toggle="tab">Мэдээ</a></li>
-                    <li><a href="#tab-timeline" data-toggle="tab">Following</a></li>
-                  </ul>
-                  <div class="tab-content">
-                    <div class="tab-pane fade in active" id="tab-post">
-                      <form action="{{ url('/frontend/home/post') }}"  enctype="multipart/form-data" method="POST">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-
-                        <textarea class="form-control input-lg p-text-area" id="fulltext" name="fulltext" rows="body" placeholder="Юу бодож байна?"></textarea>
-                        <div class="box-footer box-form">
-                          <button type="submit" class="btn btn-azure pull-right">Нийтлэх</button>
-                          <ul class="nav nav-pills">
-                            <li><a href="#" onclick="document.getElementById('upload').click(); return true"><i class="fa fa-image"> </i><input type="file" id="upload" name="upload" style="visibility: hidden; width: 1px; height: 1px" multiple /></a></li>
-                            <li><a href="#"><i class="fa fa-map-marker"></i></a></li>
-                            <li><a href="#"><i class=" fa fa-film"></i></a></li>
-                            <li><a href="#"><i class="fa fa-microphone"></i></a></li>
-                          </ul>
-                        </div>
-                      </form>
-                    </div><!-- end post state form -->
-                    <div class="tab-pane fade" id="tab-timeline">
-
-                        <textarea data-toggle="modal" href="#myModal" class="form-control input-lg p-text-area"  rows="2" placeholder="Whats in your mind today?">
-
-                        </textarea>
-
-                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                          <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                  <span aria-hidden="true">&times;</span>
-                                </button>
-                                <h4 class="modal-title" id="myModalLabel">Өөрийнхөө Cv оруулна уу</h4>
-                              </div>
-                              <form action="{{ url('/frontend/home/action') }}"enctype="multipart/form-data" method="POST">
-
-                              <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                <input type="hidden" name="action" value="creatework">
-                              <div class="modal-body">
-
-                                <div class="widget">
-
-                                  <div class="widget-body bordered-top bordered-sky">
-
-
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                        Гарчиг
-                                        </div>
-                                        <div class="col-md-9 @if($errors->add->first('project_name') !== "") has-error has-feedback @endif">
-                                          @if($errors->add->first('project_name') !== "")<label class="control-label" > {{$errors->add->first('project_name')}} </label>@endif
-                                          <input type="text" class="form-control input-sm" id="title" name="title" placeholder="гарчиг...">
-                                        </div>
-                                    </div>
-                                    <hr/>
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                          {{trans('strings.your_skill')}}
-                                        </div>
-                                        <div class="col-md-9 @if($errors->add->first('reference') !== "") has-error has-feedback @endif">
-                                          @if($errors->add->first('reference') !== "")<label class="control-label" > {{$errors->add->first('reference')}} </label>@endif
-                                          <textarea class="form-control" placeholder="Таны ур чадвар..." rows="5" id="body" name="body"></textarea>
-                                        </div>
-                                    </div>
-                                    <hr/>
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                          {{trans('strings.section')}}
-                                        </div>
-                                        <div class="col-md-9">
-                                            <div class="row">
-                                              @foreach($sections as $section)
-                                                <div class="col-md-6">
-                                                  <label>
-                                                      <input value="{{$section->id}}"  type="checkbox" class="colored-blue selectsection">
-                                                      <span class="text">{{$section->secTrans('mn')->name}}</span>
-                                                  </label>
-                                                </div>
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <hr/>
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                          {{trans('strings.category')}}
-                                        </div>
-                                        <div class="col-md-9">
-                                            <div class="row" id="cat_container">
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <hr/>
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                          {{trans('strings.price')}}
-                                        </div>
-                                        <div class="col-md-9">
-                                          <input type="text" placeholder="{{trans('strings.price')}}..." class="form-control input-sm" id="price" name="price">
-                                        </div>
-                                    </div><br/>
-                                    <div class="row">
-                                      <div class="col-md-3">
-
-                                      </div>
-                                      <div class="col-md-9">
-                                        <a><span class="file-input btn btn-azure btn-file"><input type="file" id="imagename" name="imagename" multiple="" /> Файл нэмэх</a>
-                                      </div>
-                                    </div>
-                                  </div>
-
-
-                                </div>
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Хаах</button>
-                                <button type="submit" class="btn btn-primary">Хадгалах</button>
-                              </div>
-                            </form>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="box-footer box-form">
-                          <button type="button" class="btn btn-azure pull-right">Post</button>
-                          <ul class="nav nav-pills">
-                            <li><a href="#"><i class="fa fa-map-marker"></i></a></li>
-                            <li><a href="#"><i class="fa fa-camera"></i></a></li>
-                            <li><a href="#"><i class=" fa fa-film"></i></a></li>
-                            <li><a href="#"><i class="fa fa-microphone"></i></a></li>
-                          </ul>
-                        </div>
-
-
-                    </div>
-                  </div>
-                </div>
+                @include('frontend.posts')
 
                   <!--   posts -->
                   @foreach($posts as $post)
@@ -482,7 +307,7 @@ $(document).ready(function(){
                     </div>
 
                   </div>
-                  @else($post->type == 2)
+                  @else( $post->type == 2 )
                   <div class="box box-widget">
                     <div class="box-header with-border">
                       <div class="user-block">

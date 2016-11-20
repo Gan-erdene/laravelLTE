@@ -6,6 +6,7 @@
 <link href="/frontend/assets/css/profile3.css" rel="stylesheet">
 <link href="/frontend/assets/css/user_detail.css" rel="stylesheet">
 <link rel="stylesheet" href="/admin/plugins/datepicker/datepicker3.css">
+<script src="/frontend/assets/js/jquery.1.11.0.validate.min.js"></script>
 <script src="/admin/plugins/datepicker/bootstrap-datepicker.js"></script>
 <style>
 .datepicker{z-index:1151 !important;}
@@ -115,6 +116,80 @@ $(document).ready(function(){
         $('#enddate').datepicker( "setDate", new Date({{date('Y,m,d', strtotime($work->enddate))}}) );
 
     });
+  });
+
+  $('#txnForm').validate({ // initialize the plugin
+      rules: {
+          regnum: {
+              required: true,
+          },
+          company_name: {
+              required: true,
+          },
+          work_name: {
+              required: true,
+          },
+          salary: {
+              required: true,number:true,
+          },
+          last_name: {
+              required: true,
+          },
+          first_name: {
+              required: true,
+          },
+          startdate: {
+              required: true,
+          },
+          enddate: {
+              required: true,
+          },
+      },
+      messages:{
+        regnum: {
+            required: "Регистр хоосон байж болохгүй",
+        },
+        company_name: {
+            required: "Байгууллагын нэр хоосон байж болохгүй",
+        },
+        work_name: {
+            required: "Гүйцэтгэх ажлын утга хоосон байж болохгүй",
+        },
+        salary: {
+            required: "Цалин хоосон байж болохгүй", number:"Цалин талбарт зөвхөн тоон утга оруулна уу"
+        },
+        last_name: {
+            required: "Овог хоосон байж болохгүй",
+        },
+        first_name: {
+            required: "Нэр хоосон байж болохгүй",
+        },
+        startdate: {
+            required: "Эхлэх огноо хоосон байж болохгүй",
+        },
+        enddate: {
+            required: "Дуусах огноо хоосон байж болохгүй",
+        },
+      },
+      highlight: function(element, error) {
+
+        // add a class "has_error" to the element
+        $(element).closest('.fmd').addClass('has-error');
+      },
+      unhighlight: function(element) {
+          $(element).parent().removeClass('has-error');
+      },
+    errorPlacement: function (error, element) {
+      $(error).closest('label').addClass('control-label');
+      if (element.parent('.input-group').length || element.prop('type') === 'checkbox' || element.prop('type') === 'radio') {
+          error.insertAfter(element.parent());
+      } else {
+          error.insertAfter(element);
+      }
+    },
+      submitHandler: function (form) { // for demo
+            form.submitHandler();
+        }
   });
 
   $('.datepicker').datepicker({

@@ -11,12 +11,6 @@
         </div>
 
         <ul class="nav nav-pills nav-stacked">
-          <li>
-            <a href="#">
-              <i class="fa fa-envelope"></i> Зурвас
-              <span class="label label-info pull-right r-activity">9</span>
-            </a>
-          </li>
           <li id="savedwork">
             <a href="/frontend/newsfeed?s_d=1">
               <i class="fa fa-save"></i> Хадгалсан ажил
@@ -39,7 +33,7 @@
               <h5>{{trans('strings.category')}}</h5>
               <ul class="folder-list" style="padding: 0">
                 @foreach($userCategories as $category)
-                  <li id="m_c_{{$category->catid}}"> <a href="{{route('newsfeedIndex')}}?m_c={{$category->catid}}"> {{$category->category->CategoryTranslationJoin->name}}</a></li>
+                  <li id="m_c_{{$category->catid}}"> <a href="{{route('newsfeedIndex')}}?m_c={{$category->catid}}"> {{isset($category->category->CategoryTranslationJoin->name) ? $category->category->CategoryTranslationJoin->name : ""}}</a></li>
                 @endforeach
               </ul>
               <div class="clearfix"></div>

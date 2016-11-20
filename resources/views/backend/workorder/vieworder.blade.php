@@ -18,6 +18,7 @@
   <section class="content">
       @include('status')
     <div class="row">
+
       <div class="box box-success">
           <div class="box-header with-border">
             <h3 class="box-title">Захиалгын дугаар: #{{$order->id}}</h3>
@@ -26,129 +27,92 @@
           <!-- form start -->
           <div class="form-horizontal">
             <div class="box-body">
-              <div class="form-group">
-                <label for="company_name" class="col-sm-3 control-label">Захиалагч байгууллагын нэр</label>
-
-                <div class="col-sm-9">
-                  <span>{{$order->company_name}}</span>
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="work_name" class="col-sm-3 control-label">Гүйцэтгэсэн ажлын утга</label>
-
-                <div class="col-sm-9">
-                  <span>{{$order->work_name}}</span>
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="created_at" class="col-sm-3 control-label">Захиалга илгээсэн огноо</label>
-                <div class="col-sm-9">
-                  <span>{{date('Y.m.d H:i', strtotime($order->created_at))}}</span>
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="salary" class="col-sm-3 control-label">Гарт олгох цалин</label>
-
-                <div class="col-sm-9">
-                  <span>{{number_format($order->salary, 2)}}</span>
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="fee_nd" class="col-sm-3 control-label">ЭМ, НДШ 10%</label>
-
-                <div class="col-sm-9">
-                  <span>{{number_format($order->fee_nd, 2)}}</span>
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="fee_haoat" class="col-sm-3 control-label">ХАОАТ 10%</label>
-
-                <div class="col-sm-9">
-                  <span>{{number_format($order->fee_haoat, 2)}}</span>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label for="fee_ersdel" class="col-sm-3 control-label">Эрсдлийн сан 1%</label>
-
-                <div class="col-sm-9">
-                  <span>{{number_format($order->fee_ersdel, 2)}}</span>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label for="fee_haoat" class="col-sm-3 control-label">Үйлчилгээний шимтгэл</label>
-
-                <div class="col-sm-9">
-                  <span>{{number_format($order->fee_txn, 2)}}</span>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label for="txnvalue" class="col-sm-3 control-label">Илгээх дүн</label>
-
-                <div class="col-sm-9">
-                  <span>{{number_format($order->txnvalue-$order->fee_txn, 2)}}</span>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label for="txnvalue" class="col-sm-3 control-label">Нийт дүн</label>
-
-                <div class="col-sm-9">
-                  <span>{{number_format($order->txnvalue, 2)}}</span>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label for="last_name" class="col-sm-3 control-label">Хүлээн авагч овог</label>
-
-                <div class="col-sm-9">
-                  <span>{{$order->last_name}}"</span>
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="first_name" class="col-sm-3 control-label">Хүлээн авагч нэр</label>
-
-                <div class="col-sm-9">
-                  <span>{{$order->first_name}}</span>
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="first_name" class="col-sm-3 control-label">Хүлээн авагч регистр</label>
-
-                <div class="col-sm-9">
-                  <span>{{$order->regnum}}</span>
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="first_name" class="col-sm-3 control-label">Хүлээн авагч данс</label>
-
-                <div class="col-sm-9">
-                  <select id="accounts">
-                  @foreach($order->accounts() as $account)
-                    <option value="{{$account->accountno}}">{{$account->accountno}}</option>
-                  @endforeach
-                  </select>
-                </div>
-              </div>
-              @if($order->statuscode === 1)
-              <div class="form-group">
-                <label for="accepted_at" class="col-sm-3 control-label">Баталгаажуулсан огноо</label>
-
-                <div class="col-sm-9">
-                  {{date('Y.m.d H:i', strtotime($order->getStatus()->created_at))}}
-                </div>
-              </div>
-              @elseif($order->statuscode === 2)
-              <div class="form-group">
-                <label for="rejected_at" class="col-sm-3 control-label">Цуцалсан огноо</label>
-
-                <div class="col-sm-9">
-                  {{date('Y.m.d H:i', strtotime($order->getStatus()->created_at))}}
-                </div>
-              </div>
-              @endif
+              <table class="table">
+                <tr>
+                  <td width="30%" class="text-right">Захиалагч байгууллагын нэр: </td>
+                  <td><span>{{$order->company_name}}</span></td>
+                </tr>
+                <tr>
+                  <td class="text-right">Гүйцэтгэсэн ажлын утга: </td>
+                  <td><span>{{$order->work_name}}</span></td>
+                </tr>
+                <tr>
+                  <td class="text-right">Захиалга илгээсэн огноо: </td>
+                  <td><span>{{date('Y.m.d H:i', strtotime($order->created_at))}}</span></td>
+                </tr>
+                <tr class="info">
+                  <td class="text-right">Гарт олгох цалин: </td>
+                  <td><span>{{number_format($order->salary, 2)}}</span></td>
+                </tr>
+                <tr class="info">
+                  <td class="text-right">ЭМ, НДШ 10%: </td>
+                  <td><span>{{number_format($order->fee_nd, 2)}}</span></td>
+                </tr>
+                <tr class="info">
+                  <td class="text-right">ХАОАТ 10%: </td>
+                  <td><span>{{number_format($order->fee_haoat, 2)}}</span></td>
+                </tr>
+                <tr class="info">
+                  <td class="text-right">Эрсдлийн сан 1%: </td>
+                  <td><span>{{number_format($order->fee_ersdel, 2)}}</span></td>
+                </tr>
+                <tr class="info">
+                  <td class="text-right">Илгээх дүн: </td>
+                  <td><span>{{number_format($order->txnvalue-$order->fee_txn, 2)}}</span></td>
+                </tr>
+                <tr class="info">
+                  <td class="text-right">Үйлчилгээний шимтгэл: </td>
+                  <td><span>{{number_format($order->fee_txn, 2)}}</span></td>
+                </tr>
+                <tr class="info">
+                  <td class="text-right">Нийт дүн: </td>
+                  <td><span>{{number_format($order->txnvalue, 2)}}</span></td>
+                </tr>
+                <tr>
+                  <td class="text-right">Хүлээн авагч овог: </td>
+                  <td><span>{{$order->last_name}}"</span></td>
+                </tr>
+                <tr>
+                  <td class="text-right">Хүлээн авагч нэр: </td>
+                  <td><span>{{$order->first_name}}</span></td>
+                </tr>
+                <tr>
+                  <td class="text-right">Хүлээн авагч нэр: </td>
+                  <td><span>{{$order->first_name}}</span></td>
+                </tr>
+                <tr>
+                  <td class="text-right">Хүлээн авагч регистр: </td>
+                  <td><span>{{$order->regnum}}</span></td>
+                </tr>
+                  @if($order->statuscode === 1)
+                <tr class="success">
+                  <td class="text-right">Баталгаажуулсан огноо:</td>
+                  <td>{{date('Y.m.d H:i', strtotime($order->getStatus()->created_at))}}</td>
+                </tr>
+                <tr class="success">
+                  <td class="text-right">Баталгаажуулсан ажилтан:</td>
+                  <td>{{App\sf_guard_user::find($order->getStatus()->change_user_id)->getShortName()}}</td>
+                </tr>
+                  @elseif($order->statuscode === 2)
+                <tr class="danger">
+                  <td class="text-right">Татгалзсан огноо:</td>
+                  <td>{{date('Y.m.d H:i', strtotime($order->getStatus()->created_at))}}</td>
+                </tr>
+                <tr class="danger">
+                  <td class="text-right">Татгалзсан ажилтан:</td>
+                  <td>{{App\sf_guard_user::find($order->getStatus()->change_user_id)->getShortName()}}</td>
+                </tr>
+                @else
+                <tr>
+                  <td class="text-right">Хүлээн авагч данс: </td>
+                  <td><select id="accounts">
+                    @foreach($order->accounts() as $account)
+                      <option value="{{$account->accountno}}">{{$account->accountno}}</option>
+                    @endforeach
+                    </select></td>
+                </tr>
+                  @endif
+              </table>
 
             </div>
             <!-- /.box-body -->

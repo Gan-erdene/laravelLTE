@@ -27,6 +27,10 @@ class sf_guard_user extends Authenticatable
     return $this->hasMany('App\Like','user_id','id');
   }
 
+  public function getShortName(){
+    return $this->first_name." .".substr($this->last_name, 0, 1);
+  }
+
   /**
    * The attributes that should be hidden for arrays.
    *

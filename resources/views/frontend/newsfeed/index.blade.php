@@ -18,9 +18,12 @@ $(document).ready(function(){
       @if($saved) 'post_saved'
       @elseif($m_c) 'post_category', value:"{{$m_c}}"
       @else 'post_work' @endif , _token:"{{csrf_token()}}"
-  }, function(data){
-    $('#posts').html(data.html);
+  }, function( data ){
+    $('#posts').html( data.html );
   });
+
+  @include('frontend.js.like')
+  @include('frontend.js.getcategory')
 });
 </script>
 @endsection

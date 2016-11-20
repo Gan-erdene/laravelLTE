@@ -13,13 +13,16 @@
     </div>
   </div>
   <div class="box-body">
+    @if($work->type !== 3)
     <h4 class="attachment-heading"><a href="{{route('newsfeedWork', $work->id)}}">{{$work->project_name}}</a></h4>
     <p><small>Үнэ: {{$work->price}} - Хугацаа: {{$work->startdate}} - Ажил олгогч: <i class="fa fa-check-circle-o" style="color:green"></i> Төлбөрийн системд холбогдсон</small></p>
     <p> {{str_limit($work->reference, 50)}}</p>
+    @else
+    <p> {{$work->reference}}</p>
+    @endif
 
-    <button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share</button>
-    <button type="button" class="btn btn-default btn-xs"><i class="fa fa-thumbs-o-up"></i> Like</button>
-    <span class="pull-right text-muted">45 likes</span>
+    <button type="button" data-id="{{$work->id}}"  class="btn btn-default btn-xs like" active><i class="fa fa-thumbs-o-up"></i> {{ \Auth::user()->likes->where('post_id',$work->id)->first() ? 'unlike' : 'like'   }}</button>
+    <span class="pull-right text-muted"><span id="like_{{$work->id}}">{{ $work->likecount }}</span> likes</span>
   </div>
 </div>
 @endforeach

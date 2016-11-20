@@ -7,7 +7,7 @@
         </button>
         <h4 class="modal-title" id="myModalLabel">Цалин илгээх форм</h4>
       </div>
-      <form action="{{ route('salaryAction') }}"enctype="multipart/form-data" method="POST">
+      <form action="{{ route('salaryAction') }}" enctype="multipart/form-data" method="POST" id="txnForm">
 
       <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <input type="hidden" name="action" value="txn">
@@ -22,11 +22,11 @@
               <h3 class="widget-caption">Ажил захиалагч</h3>
             </div>
             <div class="widget-body bordered-top bordered-sky">
-              <div class="form-group">
+              <div class="form-group fmd">
                 <span>Байгууллагын нэр</span>
                 <input class="form-control" name="company_name" id="company_name" type="text" placeholder="Ажил захиалагч байгууллагын нэр...">
               </div>
-              <div class="form-group">
+              <div class="form-group fmd">
                 <span>Гүйцэтгэх ажлын утга</span>
                 <input class="form-control" name="work_name" id="work_name" type="text" placeholder="Гүйцэтгэх ажлын утга...">
               </div>
@@ -40,7 +40,7 @@
                 <div class="col-md-2">
                   <label class="control-label" for="company_name">{{trans('strings.last_name')}}</label>
                 </div>
-                <div class="col-md-10">
+                <div class="col-md-10 fmd">
                       <input class="form-control" name="last_name" id="last_name" type="text" placeholder="{{trans('strings.last_name')}}...">
                 </div>
               </div>
@@ -48,7 +48,7 @@
                 <div class="col-md-2">
                   <span>{{trans('strings.first_name')}}</label>
                 </div>
-                <div class="col-md-10">
+                <div class="col-md-10 fmd">
                   <input class="form-control" name="first_name" id="first_name" type="text" placeholder="{{trans('strings.first_name')}}...">
                 </div>
               </div>
@@ -56,7 +56,7 @@
                 <div class="col-md-2">
                   <span>Регистр</label>
                 </div>
-                <div class="col-md-10">
+                <div class="col-md-10 fmd">
                   <input class="form-control" name="regnum" id="regnum" type="text" placeholder="Регистр...">
                 </div>
               </div>
@@ -71,7 +71,7 @@
                 <div class="col-md-3">
                   <span>{{trans('strings.startdate')}}</span>
                 </div>
-                <div class="col-md-9">
+                <div class="col-md-9 fmd">
                   <div class="input-group date">
                     <div class="input-group-addon">
                       <i class="fa fa-calendar"></i>
@@ -84,7 +84,7 @@
                 <div class="col-md-3">
                   <span>{{trans('strings.enddate')}}</span>
                 </div>
-                <div class="col-md-9">
+                <div class="col-md-9 fmd">
                   <div class="input-group date">
                     <div class="input-group-addon">
                       <i class="fa fa-calendar"></i>
@@ -97,7 +97,7 @@
                 <div class="col-md-3">
                   <span>Цалин</span>
                 </div>
-                <div class="col-md-9">
+                <div class="col-md-9 fmd">
                   <input class="form-control" name="salary" id="salary" type="text" placeholder="Цалин...">
                 </div>
               </div>

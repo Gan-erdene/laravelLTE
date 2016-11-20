@@ -60,6 +60,31 @@ class OrderController extends Controller
     }
 
     public function rejectOrder($request){
-      $orderid = $request->input('orderid');
+      $worktxnid = $request->input('orderid');
+      $order = WorkTxn::find($worktxnid);
+      $oldstatus = $order->statuscode;
+      $newstatus = 2;
+      //$order->statuscode = $request->input('accountno'); //batalgaajuulsan
+      $order->statuscode = 2; //tatgalzaw
+      $status = $order->update();
+
+      if($status){
+        $txnaction = new TxnStatusAction;
+        $txnaction->worktxnid = $worktxnid;
+        $txnaction->change_user_id = \Auth::user()->id;
+        $txnaction->created_at = $order->updated_at;
+        $txnaction->old_status = $oldstatus;
+        $txnaction->new_status = $newstatus;
+        if($txnaction->save()){
+            return back()->with('status', 'success')->with('message', 'Захиалгыг татгалзав');
+        }else{
+          $txnaction->delete();
+          $order->statuscode = $oldstatus;
+          $order->update();
+        }
+
+      }
+
+      return back()->with('status', 'danger')->with('message', 'Захиалга татгалзах үед алдаа гарлаа');
     }
 }
