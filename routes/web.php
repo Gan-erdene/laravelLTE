@@ -38,6 +38,10 @@ Route::group(['middleware' => 'checkuser'], function(){
   Route::get('/backend/user/list','backend\UserController@index');
   Route::post('/backend/user/action','backend\UserController@action');
 
+  Route::get('/backend/order','backend\OrderController@orders')->name('workOrders');
+  Route::get('/backend/order/view/{orderid}','backend\OrderController@viewOrder')->name('viewOrder');
+  Route::post('/backend/order/action','backend\OrderController@action')->name('actionOrder');
+
   Route::get('/frontend/home','frontend\HomeController@home')->name('frontendHome');
   Route::get('/frontend/newsfeed','frontend\NewsfeedController@index')->name('newsfeedIndex');
   Route::get('/frontend/newsfeed/work/{workid}','frontend\NewsfeedController@showWork')->name('newsfeedWork');
@@ -54,6 +58,7 @@ Route::group(['middleware' => 'checkuser'], function(){
   Route::get('/frontend/work/add','frontend\WorkController@addWork')->name('addWork');
   Route::get('/frontend/work/edit/{workid}','frontend\WorkController@editWork')->name('editWork');
   Route::get('/frontend/work/list','frontend\WorkController@listWork')->name('listWork');
+  Route::get('/frontend/work/txn','frontend\WorkController@txnWork')->name('txnWork');
   Route::post('/frontend/work/action','frontend\WorkController@action')->name('workAction');
 
   Route::get('/frontend/file','frontend\FileController@index');

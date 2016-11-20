@@ -5,13 +5,14 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h4 class="modal-title" id="myModalLabel">Цалин олгох форм</h4>
+        <h4 class="modal-title" id="myModalLabel">Цалин илгээх форм</h4>
       </div>
       <form action="{{ route('salaryAction') }}"enctype="multipart/form-data" method="POST">
 
       <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <input type="hidden" name="action" value="txn">
         <input type="hidden" name="workid" value="{{$work->id}}">
+        <input type="hidden" name="receive_user_id" id="receive_user_id">
       <div class="modal-body">
         <div class="widget">
 
@@ -113,6 +114,14 @@
                 </div>
                 <div class="col-md-6">
                   <input class="form-control" readonly="true" name="fee_noat" id="fee_noat" type="text" placeholder="НӨАТ 10%...">
+                </div>
+              </div>
+              <div class="row"><br/>
+                <div class="col-md-6">
+                  <span>Үйлчилгээний шимтгэл</span>
+                </div>
+                <div class="col-md-6">
+                  <input class="form-control" readonly="true" name="fee_txn" id="fee_txn" type="text" value="1500">
                 </div>
               </div>
               <div class="row"><br/>

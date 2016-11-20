@@ -247,7 +247,7 @@
             </li>
           </ul>
         </li>
-        <li id="_user" class="treeview active">
+        <li id="_user" class="treeview">
           <a href="#">
             <i class="fa fa-user"></i> <span>{{trans('strings.user')}}</span>
             <span class="pull-right-container">
@@ -256,7 +256,17 @@
           </a>
           <ul class="treeview-menu menu-open" style="display: block;">
             <li id="_user_list"><a href="/backend/user/list"><i class="fa fa-circle-o"></i> {{trans('strings.list')}}</a></li>
-            <li><a href="../../index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+          </ul>
+        </li>
+        <li id="_work" class="treeview">
+          <a href="#">
+            <i class="fa fa-user"></i> <span>Ажлын захиалга</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu menu-open" style="display: block;">
+            <li id="_work_list"><a href="{{route('workOrders')}}"><i class="fa fa-circle-o"></i> Захиалгын жагсаалт</a></li>
           </ul>
         </li>
       </ul>

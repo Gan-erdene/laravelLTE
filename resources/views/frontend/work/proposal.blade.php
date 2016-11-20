@@ -21,6 +21,10 @@
       </p>
       @elseif($p->status === 1)
       <p><i class="fa fa-check-circle-o" style="color:green"></i> Саналыг зөвшөөрсөн</p>
+        @foreach($p->txns() as $txn )
+        <p><i class="fa fa-check-circle-o" @if($txn->statuscode === 1) style="color:green" @endif ></i> <span class="text-primary">Шилжүүлсэн дүн: {{number_format($txn->salary)}} ₮ </span> @if($txn->statuscode === 0) <i><small class="text-warning">/ Ажил олгогчийн гүйлгээ баталгаажаагүй байна /</small></i> @endif</p>
+        @endforeach
+      <br/>
       @include('frontend.work.comment_prop')
       @elseif($p->status === 2)
       <p><i class="fa fa-remove" ></i> Саналыг татгалзсан</p>

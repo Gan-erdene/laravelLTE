@@ -102,6 +102,7 @@ $(document).ready(function(){
         $('#last_name').val(data.last_name);
         $('#first_name').val(data.last_name);
         $('#regnum').val(data.regnum);
+        $('#receive_user_id').val($(this).data('id'));
 
         $('#company_name').val("{{\Auth::user()->first_name}}");
         $('#work_name').val("{{$work->project_name}}");

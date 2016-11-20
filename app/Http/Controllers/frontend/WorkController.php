@@ -15,6 +15,7 @@ use DB;
 use App\WorkFiles;
 use App\WorkUserProposal;
 use App\WorkUserSaved;
+use App\Models\WorkTxn;
 
 class WorkController extends Controller
 {
@@ -276,5 +277,11 @@ class WorkController extends Controller
               order by c.section_id asc, c.order_id asc";
       $list = DB::select($sql);
       return $list;
+    }
+
+    public function txnWork(){
+      $sent_user_id = \Auth::user()->id;
+      $list = WorkTxn::where('sent_user_id', $sent_user_id)->orderBy('created_at', 'desc')->paginate(15);
+      return view('frontend.work.txnworks', ['list'=>$list]);
     }
 }
