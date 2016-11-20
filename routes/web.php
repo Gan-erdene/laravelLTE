@@ -68,6 +68,7 @@ Route::group(['middleware' => 'checkuser'], function(){
   Route::get('/frontend/userprofile','frontend\ProfileController@userprofile');
 
   Route::post('/frontend/comment/action','frontend\CommentController@action')->name('commentAction');
+  Route::post('/frontend/salary/action','frontend\SalaryController@action')->name('salaryAction');
 }
 
 );

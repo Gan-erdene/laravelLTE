@@ -7,10 +7,10 @@
         </button>
         <h4 class="modal-title" id="myModalLabel">Цалин олгох форм</h4>
       </div>
-      <form action="{{ route('workAction') }}"enctype="multipart/form-data" method="POST">
+      <form action="{{ route('salaryAction') }}"enctype="multipart/form-data" method="POST">
 
       <input type="hidden" name="_token" value="{{ csrf_token() }}">
-        <input type="hidden" name="action" value="confirm_proposal">
+        <input type="hidden" name="action" value="txn">
         <input type="hidden" name="workid" value="{{$work->id}}">
       <div class="modal-body">
         <div class="widget">

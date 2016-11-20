@@ -96,8 +96,19 @@ $(document).ready(function(){
   }
 
   $(document).on('click', '.salary_contract', function(){
-    alert($(this).data('id'));
-    
+    $.post("{{route('salaryAction')}}",{
+      action:'info', _token:"{{csrf_token()}}", user_id:$(this).data('id')
+    }, function(data){
+        $('#last_name').val(data.last_name);
+        $('#first_name').val(data.last_name);
+        $('#regnum').val(data.regnum);
+
+        $('#company_name').val("{{\Auth::user()->first_name}}");
+        $('#work_name').val("{{$work->project_name}}");
+        $('#startdate').val("{{$work->startdate}}");
+        $('#enddate').val("{{$work->enddate}}");
+
+    });
   });
 
   $('.datepicker').datepicker({
