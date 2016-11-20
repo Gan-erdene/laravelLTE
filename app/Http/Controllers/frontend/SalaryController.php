@@ -32,6 +32,7 @@ class SalaryController extends Controller
       $fee_noat = $request->input('fee_noat');
       $txnvalue = $request->input('txnvalue');
       $fee_txn = $request->input('fee_txn');
+      $proposalid = $request->input('proposalid');
       $receive_user_id = $request->input('receive_user_id');
 
       $txn = new WorkTxn;
@@ -47,11 +48,12 @@ class SalaryController extends Controller
       $txn->fee_nd = ($fee_nd/11)*10;
       $txn->fee_noat = $fee_noat;
       $txn->txnvalue = $txnvalue;
-      $txn->fee_txn = $fee_txn;
+      $txn->fee_txn = 1500;//$fee_txn;
       $txn->fee_ersdel = $fee_nd/11;
       $txn->sent_user_id = $sent_user_id;
       $txn->receive_user_id = $receive_user_id;
-
+      $txn->proposalid = $proposalid;
+      $txn->fee_haoat = $txn->salary * 0.9 * 0.1;
       $status = $txn->save();
 
       if($status){

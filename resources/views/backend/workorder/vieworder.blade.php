@@ -77,7 +77,23 @@
               </div>
 
               <div class="form-group">
-                <label for="txnvalue" class="col-sm-3 control-label">Нийт илгээх дүн</label>
+                <label for="fee_haoat" class="col-sm-3 control-label">Үйлчилгээний шимтгэл</label>
+
+                <div class="col-sm-9">
+                  <span>{{number_format($order->fee_txn, 2)}}</span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="txnvalue" class="col-sm-3 control-label">Илгээх дүн</label>
+
+                <div class="col-sm-9">
+                  <span>{{number_format($order->txnvalue-$order->fee_txn, 2)}}</span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="txnvalue" class="col-sm-3 control-label">Нийт дүн</label>
 
                 <div class="col-sm-9">
                   <span>{{number_format($order->txnvalue, 2)}}</span>

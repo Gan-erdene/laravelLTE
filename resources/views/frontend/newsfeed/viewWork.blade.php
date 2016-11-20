@@ -97,6 +97,7 @@ $(document).ready(function(){
   }
 
   $(document).on('click', '.salary_contract', function(){
+    var propid = $(this).data('propid');
     $.post("{{route('salaryAction')}}",{
       action:'info', _token:"{{csrf_token()}}", user_id:$(this).data('id')
     }, function(data){
@@ -104,11 +105,11 @@ $(document).ready(function(){
         $('#first_name').val(data.first_name);
         $('#regnum').val(data.regnum);
         $('#receive_user_id').val(data.user_id);
+        $('#proposalid').val(propid);
 
 
         $('#company_name').val("{{\Auth::user()->first_name}}");
         $('#work_name').val("{{$work->project_name}}");
-        $('#proposalid').val("{{$work->prop}}");
 
         $('#startdate').datepicker( "setDate", new Date({{date('Y,m,d', strtotime($work->startdate))}}) );
         $('#enddate').datepicker( "setDate", new Date({{date('Y,m,d', strtotime($work->enddate))}}) );
