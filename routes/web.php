@@ -12,27 +12,31 @@
 */
 
 Route::get('/', function () {
-    return view('/Auth/login');
+    return redirect('/frontend/index');
 });
 
-
-
-
-Route::group(['prefix' => '/home'], function () {
-  Route::get('/', 'HomeController@index');
-
-  Route::get('/section/add', 'SectionController@index');
-  Route::post('/section/action', 'SectionController@action');
-  Route::get('/section/list', 'SectionController@sectionList');
-
-  Route::get('/category/add', 'CategoryController@index');
-  Route::post('/category/create', 'CategoryController@create');
-  Route::post('/category/action', 'CategoryController@action');
-
-  Route::get('/content/add','contentController@index');
+Route::get('/backend/login',function(){
+  return view('/Auth/login');
 });
-Route::post('/login','LoginController@login');
 
+Route::post('/backend/login','backend\LoginController@login');
+
+Route::group(['middleware' => 'checkadmin'], function(){
+
+    Route::get('/backend/home', 'backend\HomeController@index');
+
+    Route::get('/backend/section/add', 'SectionController@index');
+    Route::post('/backend/section/action', 'SectionController@action');
+    Route::get('/backend/section/list', 'SectionController@sectionList');
+
+    Route::get('/backend/category/add', 'CategoryController@index');
+    Route::post('/backend/category/create', 'CategoryController@create');
+    Route::post('/backend/category/action', 'CategoryController@action');
+
+    Route::get('/backend/content/add','contentController@index');
+
+
+});
 Route::group(['middleware' => 'checkuser'], function(){
 
   Route::get('/backend/user/list','backend\UserController@index');

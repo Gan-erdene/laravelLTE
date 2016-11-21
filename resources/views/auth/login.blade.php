@@ -27,7 +27,7 @@
 <div class="login-box-body">
   <p class="login-box-msg">Нэвтэрч орох</p>
 
-  <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
+  <form class="form-horizontal" role="form" method="POST" action="{{ url('/backend/login') }}">
       {{ csrf_field() }}
           <div class="form-group has-feedback{{ $errors->has('email') ? ' has-error' : '' }}">
       <input id="email" type="email" class="form-control" placeholder="Мэйл хаяг" name="email" value="{{ old('email') }}" required autofocus>
