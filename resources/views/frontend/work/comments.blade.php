@@ -9,6 +9,6 @@
     {{$comment->user->first_name}} {{$comment->user->last_name}}
     <span class="text-muted pull-right">{{$comment->created_at}}</span>
     </span>
-    {{$comment->comment_text}}<br/><br/>
-  </div>
+    {{$comment->comment_text}}
+  </div><hr/>
 @endforeach

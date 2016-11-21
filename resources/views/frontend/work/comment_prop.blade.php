@@ -8,5 +8,4 @@
               <button class="btn btn-default" data-id="{{$p->id}}" id="btnCommentSend" type="button">Илгээх</button>
           </span>
       </div></p>
-  <br/>
 </div>

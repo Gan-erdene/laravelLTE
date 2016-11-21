@@ -5,6 +5,11 @@
   $(document).ready(function () {
     $("#menu_add_work").addClass('active');
     @include('frontend.js.like')
+    $.post('{{route("newsfeedAction")}}', {
+      action:'post_my' , _token:"{{csrf_token()}}"
+    }, function( data ){
+      $('#posts').html( data.html );
+    });
   });
 </script>
 <script>
@@ -236,62 +241,9 @@ $('#myModal').on('shown.bs.modal', function () {
               <div class="row">
                 <div class="col-md-12">
                 <!-- post state form -->
-                @include('frontend.posts')
 
-                  <!--   posts -->
-                  @foreach($posts as $post)
-                    @if($post->type == 3)
-                  <div class="box box-widget">
-                    <div class="box-header with-border">
-                      <div class="user-block">
-                        <img class="img-circle" src="/uploads/profileimage/{{Auth::user()->profile_image}}" alt="User Image">
-                        <span class="username"><a href="{{ url('/fronted/home',$post->id) }}">{{Auth::user()->first_name}} {{Auth::user()->last_name}}.</a></span>
-                        <span class="description">Нийтлэл - {{ date('H:m',strtotime($post->created_at))}}</span>
-                      </div>
-                    </div>
-
-                    <div class="box-body" style="display: block;">
-                      <p>{{$post->reference}}</p>
-                      @if($post->filename)
-                      <img src="/uploads/post/{{$post->filename}}" alt="">
-                      @else
-
-                      @endif
-                      <p></p>
-                      <button type="button" data-id="{{$post->id}}"  class="btn btn-default btn-xs like" active><i class="fa fa-thumbs-o-up"></i> {{ \Auth::user()->likes->where('post_id',$post->id)->first() ? 'unlike' : 'like'   }}</button>
-                      <button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share</button>
-                      <span class="pull-right text-muted"><span id="like_{{$post->id}}">{{$post->Likecount()}}</span> </span>
-                    </div>
-
-                  </div>
-                  @else( $post->type == 2 )
-                  <div class="box box-widget">
-                    <div class="box-header with-border">
-                      <div class="user-block">
-                        <img class="img-circle" src="/uploads/profileimage/{{Auth::user()->profile_image}}" alt="User Image">
-                        <span class="username"><a href="{{ url('/fronted/home',$post->id) }}">{{Auth::user()->first_name}} {{Auth::user()->last_name}}.</a></span>
-                        <span class="description">Нийтлэл - {{ date('H:m',strtotime($post->created_at))}}</span>
-                      </div>
-                    </div>
-
-                    <div class="box-body" style="display: block;">
-                      <p>{{$post->project_name}}</p>
-                      @if($post->filename)
-                      <img src="/uploads/post/{{$post->filename}}" alt="">
-                      @else
-
-                      @endif
-                      <p>{{$post->reference}}</p>
-                      <p>{{$post->price}}</p>
-                      <button type="button" data-id="{{$post->id}}"  class="btn btn-default btn-xs like" active><i class="fa fa-thumbs-o-up"></i> {{ \Auth::user()->likes->where('post_id',$post->id)->first() ? 'unlike' : 'like'   }}</button>
-                      <button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share</button>
-                      <span class="pull-right text-muted"><span id="like_{{$post->id}}">{{$post->Likecount()}}</span> </span>
-                    </div>
-
-                  </div>
-                  @endif
-                  @endforeach
-
+                <div id="posts">
+                </div>
 
 
 

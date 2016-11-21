@@ -25,6 +25,34 @@ $(document).ready(function(){
 
   @include('frontend.js.like')
   @include('frontend.js.getcategory')
+
+  $(document).on('click', '#btnCommentSend', function(){
+    commentSend($(this).data('id'));
+  });
+
+  $(document).on('keypress', '.comment', function (e) {
+         if(e.which === 13){
+            commentSend($(this).data('id'));
+         }
+   });
+
+  function commentSend(workid){
+    if($('#comm_'+workid).val().trim().length === 0){
+      alert("Хоосон сэтгэгдэл игээх боломжгүй");
+      return;
+    }
+    var input = $('#comm_'+workid);
+    var comment = input.val();
+    input.val("");
+    input.prop('disabled', 'disabled');
+    $.post("{{route('commentAction')}}", {
+      action:'add_post', workid:workid, _token:"{{csrf_token()}}", comment:comment
+    }, function(data){
+      $('#coms_'+data.workid).html(data.comments);
+      input.prop('disabled', '');
+    })
+
+  }
 });
 </script>
 @endsection

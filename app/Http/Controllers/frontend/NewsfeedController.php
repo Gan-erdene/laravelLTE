@@ -53,6 +53,7 @@ class NewsfeedController extends Controller
     public function action(Request $request){
       switch ($request->input('action')) {
         case 'post_work': return response()->json(['html'=>$this->postWorks()]);
+        case 'post_my': return response()->json(['html'=>$this->postMy()]);
         case 'post_saved': return response()->json(['html'=>$this->savedPostWorks()]);
         case 'post_category': return response()->json(['html'=>$this->postByCategory($request)]);
         case 'post_section': return response()->json(['html'=>$this->postBySection($request)]);
@@ -98,6 +99,17 @@ class NewsfeedController extends Controller
           	left join sf_guard_user u  on w.userid = u.id
             left join (select count(post_id) likecount, post_id from likes group by post_id ) l on w.id = l.post_id
               where w.is_active = 1 and (w.id in (SELECT distinct c.workid FROM sf_guard_user_category u left join work_categories c on u.catid = c.catid WHERE u.user_id = ".\Auth::user()->id.") or w.type <> 1)  order by w.created_at desc";
+      $works = DB::select($sql);
+      $html = view('frontend.newsfeed.postWork', ['works'=>$works]);
+      return $html->render();
+    }
+
+    public function postMy(){
+      $userid = \Auth::user()->id;
+      $sql="select u.last_name, u.profile_image,l.likecount, u.first_name, w.* from works w
+          	left join sf_guard_user u  on w.userid = u.id
+            left join (select count(post_id) likecount, post_id from likes group by post_id ) l on w.id = l.post_id
+              where w.is_active = 1 and w.userid = $userid order by w.created_at desc";
       $works = DB::select($sql);
       $html = view('frontend.newsfeed.postWork', ['works'=>$works]);
       return $html->render();
