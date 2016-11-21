@@ -29,8 +29,10 @@
     <button type="button" data-id="{{$work->id}}"  class="btn btn-default btn-xs like" active><i class="fa fa-thumbs-o-up"></i> {{ \Auth::user()->likes->where('post_id',$work->id)->first() ? 'unlike' : 'like'   }}</button>
     <span class="pull-right text-muted"><span id="like_{{$work->id}}">{{ $work->likecount }}</span> likes</span>
   </div>
+  @if($work->type !== 1)
   <div class="box-footer box-comments">
     @include('frontend.work.comment_prop',['p'=>App\Works::find($work->id)])
   </div>
+  @endif
 </div>
 @endforeach
