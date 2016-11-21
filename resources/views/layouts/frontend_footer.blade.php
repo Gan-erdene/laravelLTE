@@ -1,5 +1,5 @@
 <footer class="footer">
   <div class="container">
-    <p class="text-muted"> Copyright &copy; Company - Мэдээллийн технологийн цогц шийдэл </p>
+    <p class="text-muted"> ЭкоНетворк ХХК. Бүх эрх хуулиар хамгаалагдсан. </p>
   </div>
 </footer>
