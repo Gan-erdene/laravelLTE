@@ -26,7 +26,7 @@ Route::group(['middleware' => 'checkadmin'], function(){
     Route::get('/backend/home', 'backend\HomeController@index');
 
     Route::get('/backend/section/add', 'backend\SectionController@index');
-    Route::post('/backend/section/action', 'backend\SectionController@action');
+    Route::post('/backend/section/action', 'backend\SectionController@action')->name('sectionAction');
     Route::get('/backend/section/list', 'backend\SectionController@sectionList');
 
     Route::get('/backend/category/add', 'backend\CategoryController@index');

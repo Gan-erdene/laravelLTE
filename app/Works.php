@@ -19,4 +19,8 @@ class Works extends Model
   public function Likecount(){
     return Like::where('post_id',$this->id)->count();
   }
+
+  public function comment(){
+      return $this->hasMany('App\Models\Comment_post', 'workid', 'id')->get();
+  }
 }

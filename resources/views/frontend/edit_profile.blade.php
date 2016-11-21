@@ -259,7 +259,7 @@
               </div>
               <div class="tab-pane category" id="category-tab">
                 @include('status')
-                <form action="/home/section/action" method="post">
+                <form action="{{route('sectionAction')}}" method="post">
                   <input type="hidden" name="_token" value="{{ csrf_token() }}">
                   <input type="hidden" name="action" value="user_cat_sec">
                   <div class="row">
