@@ -21,6 +21,7 @@
     <script src="/frontend/assets/js/jquery.1.11.1.min.js"></script>
     <script src="/frontend/bootstrap.3.3.6/js/bootstrap.min.js"></script>
     <script src="/frontend/assets/js/custom.js"></script>
+
     <script>
           window.Laravel = <?php echo json_encode([
               'csrfToken' => csrf_token(),
@@ -73,6 +74,10 @@
                         <button type="submit" class="btn  btn-azure">Нэвтрэх</button>
 
 
+                      </div>
+                      <div class="social-auth-links text-center">
+                        <a href="" class="pull-xs-right"><small> - Эсвэл - </small></a>
+                        <a href="/frontend/facebook" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i>Facebook эрхээр нэвтрэх </a>
                       </div>
                     </form>
                   </div>

@@ -99,7 +99,7 @@
     }
 }
 
-@media all and (max-width: 544px) { 
+@media all and (max-width: 544px) {
     .parallax {
         height: 750px !important;
     }
@@ -120,6 +120,16 @@
 .center {
     text-align: center;
 }
+.social-auth-links{
+  color: #fff;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.btn-facebook{
+  background-color: #2dc3e8 !important;
+  border-color: #2dc3e8;
+  font-weight: bold;
+}
 .m-a-2 {
     margin: 1.5rem!important;
 }
@@ -133,4 +143,3 @@
     text-shadow: 0 0 3px rgba(0,0,0,0.5);
     text-shadow: 4px 3px 0 #fff,9px 8px 0 rgba(0,0,0,0.15);
 }
-

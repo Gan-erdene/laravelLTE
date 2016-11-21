@@ -66,7 +66,7 @@ class LoginController extends Controller
           $user = sf_guard_user::firstOrcreate(
             ['email_address' => $socialUser->getEmail()],
             ['first_name' => $socialUser->getName()],
-            ['profile_image' => $socialUser->getAvatar()],
+            ['profile_image' => $socialUser->getAvatar()]
           #  ['gender' => $socialUser->getGender()],
           #  ['phone' => $socialUser->getPhone()],
           # ['address' => $socialUser->getRaw()]
