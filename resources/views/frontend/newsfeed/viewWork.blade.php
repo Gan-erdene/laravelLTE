@@ -220,14 +220,14 @@ $(document).ready(function(){
                   <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="well with-header  with-footer with-body">
-                          <div class="header bordered-blue">Тайлбар</div>
+                          <div class="header bordered-blue"><small><b>Тайлбар</b></small></div>
                           <div class="body">
                               {{$work->reference}}
                           </div><hr/>
                           <div class="footer">
                             @if($work->type === 1)
                             <p><strong>Хугацаа:</strong> {{$work->startdate}} - {{$work->enddate}}</p>
-                            <p><strong>Шаардагдах ур чадвар:</strong> {{$work->skill}} </p>
+                            <p><strong>Шаардагдах ур чадвар:</strong> <span>{{$work->skill}}</span> </p>
                             @endif
                             <p><strong>Үнэ:</strong> {{$work->price}} </p>
                             <p><strong>Ажил оруулсан:</strong> {{$work->created_at}}</p></div>
@@ -266,11 +266,8 @@ $(document).ready(function(){
                         <p><i class="fa fa-fw fa-clock-o" style="color:green"></i> {{date('Y.m.d', strtotime( $userinfo['created_at'] ))}}-с хойш гишүүнээр элссэн</p>
                     </div>
                     <div class="section">
-                      <h3>Statistics</h3>
-                      <p><span class="badge">620</span> Likes</p>
-                    </div>
-                    <div class="section">
-                      <h3>Social</h3>
+                      <h3></h3>
+                      <p><span class="badge">{{$work->Likecount()}}</span> Likes</p>
                       <ul class="list-unstyled list-social">
                         <li><a href="#"><i class="fa fa-plus"></i> Ажил нэмэх</a></li>
                         <li><a href="#"><i class="fa fa-bars"></i> Ажлын жагсаалт</a></li>

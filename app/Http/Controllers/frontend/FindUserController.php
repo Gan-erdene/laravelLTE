@@ -43,7 +43,7 @@ class FindUserController extends Controller
       $sql = "SELECT S.id, S.last_name, S.first_name, S.email_address, F.STATUS user_status, s.profile_image, V.STATUS friend_status FROM sf_guard_user S
 	               LEFT JOIN friends F ON S.id = F.user_id and F.friend_user_id = ".\Auth::user()->id."
                  LEFT JOIN friends V ON S.id = V.friend_user_id and V.user_id = ".\Auth::user()->id." WHERE
-              S.ID <> ".\Auth::user()->id." and 1=case when V.status =  1 or F.status = 1 then 0 else 1 end order by S.first_name ";
+              S.ID <> ".\Auth::user()->id." and 1=case when V.status =  1 or F.status = 1 then 0 else 1 end order by S.first_name limit $start, $end";
       $list = DB::select($sql);
       return $list;
     }

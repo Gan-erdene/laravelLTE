@@ -68,7 +68,7 @@
           <ul class="nav nav-tabs nav-tabs-custom-colored tabs-iconized">
             <li id="prof" class=""><a href="#profile-tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-user"></i> Бүртгэл</a></li>
             <li id="ava" class=""><a href="#avatar-tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-user"></i> Профайл зураг</a></li>
-            <li id="cate" class=""><a href="#category-tab" data-toggle="tab" aria-expanded="true"> Сонирходог сэдэв</a></li>
+            <li id="cate" class=""><a href="#category-tab" data-toggle="tab" aria-expanded="true"> Ур чадвар, мэргэжлийн мэдээлэл</a></li>
           </ul>
           <!-- END NAV TABS -->
           <div class="tab-content profile-page">

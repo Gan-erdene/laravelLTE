@@ -53,6 +53,8 @@ $(document).ready(function(){
     })
 
   }
+
+  @include('frontend.js.friend_request')
 });
 </script>
 @endsection
@@ -68,60 +70,44 @@ $(document).ready(function(){
           <!-- People You May Know -->
           <div class="widget">
             <div class="widget-header">
-              <h3 class="widget-caption">People You May Know</h3>
+              <h3 class="widget-caption">Та эдгээр хүмүүсийг мэдэх үү</h3>
             </div>
             <div class="widget-body bordered-top bordered-sky">
               <div class="card">
                   <div class="content">
                       <ul class="list-unstyled team-members">
+                        @foreach($right_users as $rUser)
                           <li>
                               <div class="row">
                                   <div class="col-xs-3">
                                       <div class="avatar">
-                                          <img src="img/Friends/guy-2.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+                                        @if($rUser->profile_image)
+                                            <img class="img-circle img-no-padding img-responsive" src="/uploads/profileimage/{{$item->profile_image}}" alt="">
+                                        @else
+                                            <img  class="img-circle img-no-padding img-responsive" src="/frontend/img/Profile/default-avatar.png" alt="">
+                                        @endif
                                       </div>
                                   </div>
-                                  <div class="col-xs-6">
-                                     Carlos marthur
-                                  </div>
-
-                                  <div class="col-xs-3 text-right">
-                                      <btn class="btn btn-sm btn-azure btn-icon"><i class="fa fa-user-plus"></i></btn>
+                                  <div class="col-xs-9">
+                                     {{$rUser->last_name}} {{$rUser->first_name}}<br/>
+                                     @if( $rUser->user_status === 0 )
+                                     <button data-id="acc_{{$rUser->id}}" class="btn btn-xs btn-white finduser"> {{trans('strings.accept_friend')}}</button>
+                                     <button data-id="dec_{{$rUser->id}}" class="btn btn-xs btn-white finduser"> {{trans('strings.decline_friend')}}</button>
+                                     @elseif($rUser->friend_status === 0 )
+                                     <button data-id="can_{{$rUser->id}}" class="btn btn-xs btn-white finduser"> {{trans('strings.cancel_friend')}}</button>
+                                     @elseif($rUser->user_status === 1 or $rUser->friend_status === 1)
+                                     <button data-id="fri_{{$rUser->id}}" class="btn btn-xs btn-white finduser"> {{trans('strings.friend')}}</button>
+                                     @elseif($rUser->user_status === 2 )
+                                     <button data-id="ded_{{$rUser->id}}" class="btn btn-xs btn-white"> {{trans('strings.declined')}}</button>
+                                     @elseif($rUser->friend_status === 2 )
+                                     <button data-id="ded_{{$rUser->id}}" class="btn btn-xs btn-white"> {{trans('strings.declined')}}</button>
+                                     @else
+                                     <button data-id="add_{{$rUser->id}}" class="btn btn-xs btn-white finduser"> {{trans('strings.add_friend')}}</button>
+                                     @endif
                                   </div>
                               </div>
                           </li>
-                          <li>
-                              <div class="row">
-                                  <div class="col-xs-3">
-                                      <div class="avatar">
-                                          <img src="img/Friends/woman-1.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                                      </div>
-                                  </div>
-                                  <div class="col-xs-6">
-                                      Maria gustami
-                                  </div>
-
-                                  <div class="col-xs-3 text-right">
-                                      <btn class="btn btn-sm btn-azure btn-icon"><i class="fa fa-user-plus"></i></btn>
-                                  </div>
-                              </div>
-                          </li>
-                          <li>
-                              <div class="row">
-                                  <div class="col-xs-3">
-                                      <div class="avatar">
-                                          <img src="img/Friends/woman-2.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                                      </div>
-                                  </div>
-                                  <div class="col-xs-6">
-                                      Angellina mcblown
-                                  </div>
-
-                                  <div class="col-xs-3 text-right">
-                                      <btn class="btn btn-sm btn-azure btn-icon"><i class="fa fa-user-plus"></i></btn>
-                                  </div>
-                              </div>
-                          </li>
+                          @endforeach
                       </ul>
                   </div>
               </div>

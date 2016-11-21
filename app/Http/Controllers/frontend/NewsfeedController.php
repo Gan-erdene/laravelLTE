@@ -23,9 +23,11 @@ class NewsfeedController extends Controller
       $sections = Section::where('published', '1')->orderBy('order_id', 'asc')->get();
       $userSections = $this->userSections();
       $userCategories = SfGuardUserCategory::where('user_id', \Auth::user()->id)->orderBy('catid', 'asc')->get();
+      $finduser = new FindUserController();
+      $users = $finduser->getUnfriendList(0, 4);
       return view('frontend.newsfeed.index',[
         'userCategories'=>$userCategories,'sections'=>$sections,
-        'm_s'=>$m_s, 'm_c'=>$m_c, 'saved'=>$saved,
+        'm_s'=>$m_s, 'm_c'=>$m_c, 'saved'=>$saved, 'right_users'=>$users,
         'userSections'=>$userSections]);
     }
 
