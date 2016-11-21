@@ -241,7 +241,7 @@ $('#myModal').on('shown.bs.modal', function () {
               <div class="row">
                 <div class="col-md-12">
                 <!-- post state form -->
-
+                @include('frontend.posts')
                 <div id="posts">
                 </div>
 
