@@ -75,7 +75,7 @@ Route::group(['middleware' => 'checkuser'], function(){
   Route::get('/frontend/home/test','frontend\HomeController@test');
   Route::post('/like','frontend\HomeController@postLikePost');
 
-  Route::get('/frontend/userprofile','frontend\ProfileController@userprofile');
+  Route::get('/frontend/userprofile','frontend\ProfileController@userprofile')->name('userProfile');
 
   Route::post('/frontend/comment/action','frontend\CommentController@action')->name('commentAction');
   Route::post('/frontend/salary/action','frontend\SalaryController@action')->name('salaryAction');

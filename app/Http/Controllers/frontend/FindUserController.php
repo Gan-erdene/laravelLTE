@@ -43,7 +43,15 @@ class FindUserController extends Controller
       $sql = "SELECT S.id, S.last_name, S.first_name, S.email_address, F.STATUS user_status, s.profile_image, V.STATUS friend_status FROM sf_guard_user S
 	               LEFT JOIN friends F ON S.id = F.user_id and F.friend_user_id = ".\Auth::user()->id."
                  LEFT JOIN friends V ON S.id = V.friend_user_id and V.user_id = ".\Auth::user()->id." WHERE
-              S.ID <> ".\Auth::user()->id." and 1=case when V.status =  1 or F.status = 1 then 0 else 1 end order by S.first_name limit $start, $end";
+              S.ID <> ".\Auth::user()->id." and 1=case when V.status =  1 or F.status = 1 then 0 else 1 end order by S.first_name ";
+      $list = DB::select($sql);
+      return $list;
+    }
+
+    public function friendList($start, $end){
+      $userid = \Auth::user()->id;
+      $sql = "select u.last_name, h.listid, u.first_name, u.id, u.profile_image, h.uid from sf_guard_user u
+                  left join (select case when s.user_id = $userid then s.friend_user_id else s.user_id end uid, s.id as listid from friends s where (s.user_id=$userid or s.friend_user_id = $userid) and s.status = 1) h on u.id = h.uid where h.uid is not null and u.id <> $userid limit $start, $end";
       $list = DB::select($sql);
       return $list;
     }
@@ -113,14 +121,6 @@ class FindUserController extends Controller
       return response()->json(['dataid'=>$userid,
           'status'=>$status, 'btntext'=>trans('strings.declined')
       ]);
-    }
-
-    public function friendList(){
-      $userid = \Auth::user()->id;
-      $sql = "select u.last_name, h.listid, u.first_name, u.id, u.profile_image, h.uid from sf_guard_user u
-                  left join (select case when s.user_id = $userid then s.friend_user_id else s.user_id end uid, s.id as listid from friends s where (s.user_id=$userid or s.friend_user_id = $userid) and s.status = 1) h on u.id = h.uid where h.uid is not null";
-      $list = DB::select($sql);
-      return $list;
     }
 
     public function canCancel($userid, $friendid){
@@ -241,7 +241,7 @@ class FindUserController extends Controller
     }
 
     public function friendsView(){
-      $list = $this->friendList();
+      $list = $this->friendList(0,8);
       return view('frontend.friendList')
         ->with('friends', $list);
     }

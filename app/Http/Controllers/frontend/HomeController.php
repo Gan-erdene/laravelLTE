@@ -24,9 +24,11 @@ class HomeController extends Controller
     $user = sf_guard_user::find(\Auth::user()->id);
     $sections = Section::where('published', '1')->orderBy('order_id', 'asc')->get();
     $posts = Works::where('userid',\Auth::user()->id)->orderBy('created_at','desc')->get();
-
+    $fuController = new FindUserController;
+    $friends = $fuController->friendList(0, 8);
     return view('frontend.home')
     ->with('user',$user)
+    ->with('cover_right_friend',$friends)
     ->with('sections',$sections)
     ->with('posts',$posts);
   }

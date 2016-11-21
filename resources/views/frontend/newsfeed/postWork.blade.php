@@ -2,13 +2,14 @@
 <div class="box box-widget">
   <div class="box-header with-border">
     <div class="user-block">
-
+      <img class="img-circle"
       @if($work->profile_image)
-          <img class="img-circle" src="/uploads/profileimage/{{$work->profile_image}}" alt="">
+        src="/uploads/profileimage/{{$work->profile_image}}"
       @else
-          <img  class="img-circle" src="/frontend/img/Profile/default-avatar.png" alt="">
+          src="/frontend/img/Profile/default-avatar.png"
       @endif
-      <span class="username"><a href="#">{{$work->first_name}} {{$work->last_name}}</a></span>
+       alt="">
+      <span class="username"><a href="{{route('userProfile')}}?id={{$work->userid}}">{{$work->first_name}} {{$work->last_name}}</a></span>
       <span class="description">Нийтэлсэн: {{date('Y.m.d H:i:s', strtotime($work->created_at))}}</span>
     </div>
   </div>
