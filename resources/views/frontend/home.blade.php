@@ -88,8 +88,8 @@ $('#myModal').on('shown.bs.modal', function () {
               <div class="name"><a href="#">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</a></div>
               <ul class="cover-nav">
                 <!-- <li class="active"><a href="profile.html"><i class="fa fa-fw fa-bars"></i> Timeline</a></li> -->
-                <li class="active"><a href="{{route('frontendEditProfile')}}"><i class="fa fa-fw fa-user"></i> About</a></li>
-                <li id='friendView' class="active"><a href="{{route('friendsView')}}"><i class="fa fa-fw fa-users"></i> Friends</a></li>
+                <li class="active"><a href="{{route('frontendEditProfile')}}"><i class="fa fa-fw fa-user"></i> Миний тухай</a></li>
+                <li id='friendView' class="active"><a href="{{route('friendsView')}}"><i class="fa fa-fw fa-users"></i> Найзууд</a></li>
                 <!-- <li class="active"><a href="photos1.html"><i class="fa fa-fw fa-image"></i> Photos</a></li> -->
               </ul>
             </div>
@@ -100,7 +100,7 @@ $('#myModal').on('shown.bs.modal', function () {
         <div class="col-md-5">
           <div class="widget">
             <div class="widget-header">
-              <h3 class="widget-caption">About</h3>
+              <h3 class="widget-caption">Миний тухай</h3>
             </div>
             <div class="widget-body bordered-top bordered-sky">
               <ul class="list-unstyled profile-about margin-none">
@@ -150,7 +150,7 @@ $('#myModal').on('shown.bs.modal', function () {
 
           <div class="widget widget-friends">
             <div class="widget-header">
-              <h3 class="widget-caption">Friends</h3>
+              <h3 class="widget-caption">Найзууд</h3>
             </div>
             <div class="widget-body bordered-top  bordered-sky">
               <div class="row">
@@ -209,7 +209,7 @@ $('#myModal').on('shown.bs.modal', function () {
 
           <div class="widget">
             <div class="widget-header">
-              <h3 class="widget-caption">Groups</h3>
+              <h3 class="widget-caption">Групп</h3>
             </div>
             <div class="widget-body bordered-top bordered-sky">
               <div class="card">

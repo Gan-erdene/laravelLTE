@@ -1,7 +1,7 @@
 <div class="box profile-info n-border-top">
   <ul class="nav nav-tabs">
     <li class="active"><a href="#tab-post" data-toggle="tab">Мэдээ</a></li>
-    <li><a href="#tab-timeline" data-toggle="tab">Миний ур чадвар</a></li>
+    <li><a href="#tab-timeline" data-toggle="tab">Хийх ажлаа оруулах</a></li>
   </ul>
   <div class="tab-content">
     <div class="tab-pane fade in active" id="tab-post">
@@ -30,7 +30,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="myModalLabel">Өөрийнхөө Cv оруулна уу</h4>
+                <h4 class="modal-title" id="myModalLabel">Хийх ажлаа оруулах</h4>
               </div>
               <form action="{{ url('/frontend/home/action') }}"enctype="multipart/form-data" method="POST">
 
@@ -49,7 +49,7 @@
                         </div>
                         <div class="col-md-9 @if($errors->add->first('project_name') !== "") has-error has-feedback @endif">
                           @if($errors->add->first('project_name') !== "")<label class="control-label" > {{$errors->add->first('project_name')}} </label>@endif
-                          <input type="text" class="form-control input-sm" id="title" name="title" placeholder="гарчиг...">
+                          <input type="text" class="form-control input-sm" id="title" name="title" placeholder="Хийх ажлаа оруулах...">
                         </div>
                     </div>
                     <hr/>
@@ -59,7 +59,7 @@
                         </div>
                         <div class="col-md-9 @if($errors->add->first('reference') !== "") has-error has-feedback @endif">
                           @if($errors->add->first('reference') !== "")<label class="control-label" > {{$errors->add->first('reference')}} </label>@endif
-                          <textarea class="form-control" placeholder="Таны ур чадвар..." rows="5" id="body" name="body"></textarea>
+                          <textarea class="form-control" placeholder="Хийх ажлын тухай товчхон оруулах..." rows="5" id="body" name="body"></textarea>
                         </div>
                     </div>
                     <hr/>

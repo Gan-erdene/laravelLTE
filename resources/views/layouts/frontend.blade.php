@@ -52,7 +52,7 @@
             <li class="actives"><a href="{{route('addWork')}}">{{trans('strings.add_work')}}</a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                Pages <span class="caret"></span>
+                 <i class="fa fa-cog"></i>
               </a>
               <ul class="dropdown-menu">
                 <li><a href="{{ url('/frontend/file') }}">Файлууд</a></li>
