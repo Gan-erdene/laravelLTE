@@ -33,12 +33,13 @@ class ProfileController extends Controller
 
           $sections = Section::where('published', '1')->orderBy('order_id', 'asc')->get();
           $posts = Works::where('userid',$id)->orderBy('created_at','desc')->get();
-
-
+          $finduser = new FindUserController;
+          $cover_right_friend = $finduser->friendList(0, 8);
 
         return view('frontend.userprofile')
           ->with('user_show',$user_show)
           ->with('sections',$sections)
+          ->with('cover_right_friend', $cover_right_friend)
           ->with('posts',$posts);
 
     }

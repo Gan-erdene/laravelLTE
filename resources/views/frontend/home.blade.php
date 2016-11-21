@@ -30,50 +30,7 @@ $('#myModal').on('shown.bs.modal', function () {
                      <img src="/frontend/img/Cover/profile-cover.jpg" class="show-in-modal" alt="people">
                    </div>
                   @endif
-
-              <ul class="friends">
-                <li>
-                  <a href="#">
-                    <img src="/frontend/img/Friends/guy-6.jpg" alt="people" class="img-responsive">
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <img src="/frontend/img/Friends/woman-3.jpg" alt="people" class="img-responsive">
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <img src="/frontend/img/Friends/guy-2.jpg" alt="people" class="img-responsive">
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <img src="/frontend/img/Friends/guy-9.jpg" alt="people" class="img-responsive">
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <img src="/frontend/img/Friends/woman-9.jpg" alt="people" class="img-responsive">
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <img src="/frontend/img/Friends/guy-4.jpg" alt="people" class="img-responsive">
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <img src="/frontend/img/Friends/guy-1.jpg" alt="people" class="img-responsive">
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <img src="/frontend/img/Friends/woman-4.jpg" alt="people" class="img-responsive">
-                  </a>
-                </li>
-                <li><a href="#" class="group"><i class="fa fa-group"></i></a></li>
-              </ul>
+              @include('frontend.home.cover_right_friends',['cover_right_friend'=>$cover_right_friend])
             </div>
             <div class="cover-info">
               @if($user->profile_image)
