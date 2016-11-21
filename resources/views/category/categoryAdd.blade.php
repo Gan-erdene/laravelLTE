@@ -28,7 +28,7 @@
 
 
           <div class="box-body">
-            <form role="form" method="POST" action="{{ url('/home/category/action') }}">
+            <form role="form" method="POST" action="{{ url('/backend/category/action') }}">
                   <input type="hidden" name="_token" value="{{ csrf_token() }}">
                   <input type="hidden" name="action" id="action" value="create">
                   <input type="hidden" name="id" id="id">
@@ -125,7 +125,7 @@
       <div class="example-modal">
         <div class="modal modal-danger"  id="myModal">
           <div class="modal-dialog">
-            <form method="post" class="modal-content" action="/home/category/action">
+            <form method="post" class="modal-content" action="/backend/category/action">
               <input type="hidden" name="_token" value="{{ csrf_token() }}">
               <input type="hidden" name="action" value="delete">
               <input type="hidden" name="deleteid" id="deleteid">
@@ -169,7 +169,7 @@ $(function(){
   $("#category_add").addClass("active");
 
   $('.btnedit').on('click',function(){
-  $.post('/home/category/action', {'_token':"{{ csrf_token() }}", 'action':'category', 'id':$(this).data('id')}, function(data){
+  $.post('/backend/category/action', {'_token':"{{ csrf_token() }}", 'action':'category', 'id':$(this).data('id')}, function(data){
       $('#name').val(data.translation.name);
       $('#description').val(data.translation.description);
       $('#checkbox').prop('checked', data.category.published == 1 ? true : false);

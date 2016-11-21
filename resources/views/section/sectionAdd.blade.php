@@ -32,7 +32,7 @@
     </div>
     <div class="row">
       <div class="col-lg-6 ">
-        <form id="sectionForm" method="post" action="{{ url('/home/section/action') }}" class="form-horizontal">
+        <form id="sectionForm" method="post" action="{{ url('/backend/section/action') }}" class="form-horizontal">
           <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <input type="hidden" name="action" id="action" value="create">
         <input type="hidden" name="id" id="id">
@@ -159,7 +159,7 @@
     <div class="example-modal">
         <div class="modal modal-danger"  id="myModal">
           <div class="modal-dialog">
-            <form method="post" class="modal-content" action="/home/section/action">
+            <form method="post" class="modal-content" action="/backend/section/action">
               <input type="hidden" name="_token" value="{{ csrf_token() }}">
               <input type="hidden" name="action" value="delete">
               <input type="hidden" name="deleteid" id="deleteid">
@@ -204,7 +204,7 @@ $(function(){
     $("#sectionadd").addClass("active");
 
     $('.btnedit').on('click',function(){
-      $.post('/home/section/action', {'_token':"{{ csrf_token() }}", 'action':'section', 'id':$(this).data('id')}, function(data){
+      $.post('/backend/section/action', {'_token':"{{ csrf_token() }}", 'action':'section', 'id':$(this).data('id')}, function(data){
           $('#secname').val(data.translation.name);
           $('#secdesc').val(data.translation.description);
           $('#published').prop('checked', data.section.published == 1 ? true : false);

@@ -25,15 +25,16 @@ Route::group(['middleware' => 'checkadmin'], function(){
 
     Route::get('/backend/home', 'backend\HomeController@index');
 
-    Route::get('/backend/section/add', 'SectionController@index');
-    Route::post('/backend/section/action', 'SectionController@action');
-    Route::get('/backend/section/list', 'SectionController@sectionList');
+    Route::get('/backend/section/add', 'backend\SectionController@index');
+    Route::post('/backend/section/action', 'backend\SectionController@action');
+    Route::get('/backend/section/list', 'backend\SectionController@sectionList');
 
-    Route::get('/backend/category/add', 'CategoryController@index');
-    Route::post('/backend/category/create', 'CategoryController@create');
-    Route::post('/backend/category/action', 'CategoryController@action');
+    Route::get('/backend/category/add', 'backend\CategoryController@index');
+    Route::post('/backend/category/create', 'backend\CategoryController@create');
+    Route::post('/backend/category/action', 'backend\CategoryController@action');
 
-    Route::get('/backend/content/add','contentController@index');
+    Route::get('/backend/content/add','backend\contentController@index');
+    Route::get('/backend/logout','backend\LoginController@logout');
 
 
 });

@@ -29,7 +29,7 @@
 
 
           <div class="box-body">
-            <form role="form" method="POST" action="{{ url('/home/content/index') }}">
+            <form role="form" method="POST" action="{{ url('/backend/content/index') }}">
                   <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
               <div class="form-group">
@@ -129,7 +129,7 @@ $(function(){
   $('#example1').DataTable();
 
   $('#section_id').on('change', function(){
-      $.post("/home/category/action", {'_token':"{{ csrf_token() }}", action:'cat', section_id:this.value}, function(data){
+      $.post("/backend/category/action", {'_token':"{{ csrf_token() }}", action:'cat', section_id:this.value}, function(data){
         var chekcboxlist = "";
           $.each(data, function(index, item){
               chekcboxlist +='<label> '+

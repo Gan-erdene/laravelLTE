@@ -164,11 +164,7 @@
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="{{ url('/frotnend/logout') }}" class="btn btn-default btn-flat"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            Logout
-                                        </a>
+                  <a href="{{ url('/backend/logout') }}" class="btn btn-default btn-flat" >Logout</a>
 
 
                 </div>
@@ -221,7 +217,7 @@
           </a>
           <ul class="treeview-menu">
             <li>
-              <a href="/home/content/add"><i class="fa  fa-plus-circle"></i> Мэдээлэл нэмэх</a>
+              <a href="/backend/content/add"><i class="fa  fa-plus-circle"></i> Мэдээлэл нэмэх</a>
             </li>
           </ul>
           <ul class="treeview-menu">
@@ -232,7 +228,7 @@
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li id="category_add"><a href="/home/category/add"><i class="fa fa-plus-circle"></i> Нэмэх</a></li>
+                <li id="category_add"><a href="/backend/category/add"><i class="fa fa-plus-circle"></i> Нэмэх</a></li>
               </ul>
             </li>
             <li id="_section">
@@ -242,7 +238,7 @@
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li id="sectionadd"><a href="/home/section/add"><i class="fa fa-plus-circle"></i> Нэмэх</a></li>
+                <li id="sectionadd"><a href="/backend/section/add"><i class="fa fa-plus-circle"></i> Нэмэх</a></li>
               </ul>
             </li>
           </ul>
@@ -306,9 +302,9 @@
               <i class="menu-icon fa fa-birthday-cake bg-red"></i>
 
               <div class="menu-info">
-                <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+                <h4 class="control-sidebar-subheading">Langdons Birthday</h4>
 
-                <p>Will be 23 on April 24th</p>
+                <p>Will be 23 on April</p>
               </div>
             </a>
           </li>
@@ -319,7 +315,7 @@
               <div class="menu-info">
                 <h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>
 
-                <p>New phone +1(800)555-1234</p>
+                <p>New phone(800)555-1234</p>
               </div>
             </a>
           </li>
@@ -478,13 +474,13 @@
     </div>
   </aside>
   <!-- /.control-sidebar -->
-  <!-- Add the sidebar's background. This div must be placed
+  <!-- Add the sidebars background. This div must be placed
        immediately after the control sidebar -->
   <div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->
   @endif
-<!-- jQuery 2.2.3 -->
+<!-- jQuery 2.2 -->
 <script src="/admin/plugins/jQuery/jquery-2.2.3.min.js"></script>
 <!-- Bootstrap 3.3.6 -->
 <script src="/admin/bootstrap/js/bootstrap.min.js"></script>
