@@ -58,7 +58,7 @@ class LoginController extends Controller
       }
       catch(\Exception $e)
       {
-        return redirect('/frontend/index');
+        return var_dump($e);//redirect('/frontend/index');
       }
       $socialProvider = SocialProvider::where('provider_id',$socialUser->getId())->first();
       if(!$socialProvider)
