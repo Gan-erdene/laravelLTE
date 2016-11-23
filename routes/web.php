@@ -66,6 +66,9 @@ Route::group(['middleware' => 'checkuser'], function(){
   Route::get('/frontend/work/txn','frontend\WorkController@txnWork')->name('txnWork');
   Route::post('/frontend/work/action','frontend\WorkController@action')->name('workAction');
 
+  Route::get('/frontend/groups/{groupid}','frontend\GroupController@viewGroup')->name('viewGroup');
+  Route::post('/frontend/group/action','frontend\GroupController@action')->name('groupAction');
+
   Route::get('/frontend/file','frontend\FileController@index');
   Route::post('/frontend/file/add','frontend\FileController@add');
 
