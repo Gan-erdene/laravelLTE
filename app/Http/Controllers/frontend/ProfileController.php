@@ -34,7 +34,7 @@ class ProfileController extends Controller
           $sections = Section::where('published', '1')->orderBy('order_id', 'asc')->get();
           $posts = Works::where('userid',$id)->orderBy('created_at','desc')->get();
           $finduser = new FindUserController;
-          $cover_right_friend = $finduser->friendList(0, 8);
+          $cover_right_friend = $finduser->friendList(0, 8, $id);
 
         return view('frontend.userprofile')
           ->with('user_show',$user_show)
@@ -46,9 +46,11 @@ class ProfileController extends Controller
     public function userabout(Request $request){
       $id = $request->input('id');
         $user_about = sf_guard_user::find($id);
-        
+        $finduser = new FindUserController;
+        $cover_right_friend = $finduser->friendList(0, 8, $id);
         return view('frontend.userabout')
-        ->with('user_about',$user_about);
+        ->with('user_about',$user_about)
+        ->with('cover_right_friend', $cover_right_friend);
     }
 
     public function selectUserSecions(){

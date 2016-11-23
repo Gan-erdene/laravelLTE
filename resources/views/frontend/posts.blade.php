@@ -12,7 +12,7 @@
         <div class="box-footer box-form">
           <button type="submit" class="btn btn-azure pull-right">Нийтлэх</button>
           <ul class="nav nav-pills">
-           <li><a href="" onclick="document.getElementById('upload').click(); return true"><i class="fa fa-image"> </i><input type="file" id="upload" name="upload" style="visibility: hidden; width: 1px; height: 1px" multiple /></a></li>
+           <li><a onclick="document.getElementById('upload').click(); return true"><i class="fa fa-image"> </i><input type="file" id="upload" name="upload" style="visibility: hidden; width: 1px; height: 1px" multiple /></a></li>
             <li><a href="#"><i class=" fa fa-film"></i></a></li>
           </ul>
         </div>

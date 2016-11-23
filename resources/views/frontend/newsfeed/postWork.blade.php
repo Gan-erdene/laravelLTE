@@ -14,6 +14,10 @@
     </div>
   </div>
   <div class="box-body">
+    @if($work->filename)
+     <img class="img-responsive show-in-modal" src="/uploads/post/{{$work->filename}}" alt="Photo">
+    @else
+    @endif
     @if($work->type !== 3)
     <h4 class="attachment-heading"><a href="{{route('newsfeedWork', $work->id)}}">{{$work->project_name}}</a></h4>
     <p>

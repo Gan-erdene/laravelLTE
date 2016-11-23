@@ -23,49 +23,7 @@
                      <img src="/frontend/img/Cover/profile-cover.jpg" class="show-in-modal" alt="people">
                    </div>
                   @endif
-                <ul class="friends">
-                  <li>
-                    <a href="#">
-                      <img src="img/Friends/guy-6.jpg" alt="people" class="img-responsive">
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img src="img/Friends/woman-3.jpg" alt="people" class="img-responsive">
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img src="img/Friends/guy-2.jpg" alt="people" class="img-responsive">
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img src="img/Friends/guy-9.jpg" alt="people" class="img-responsive">
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img src="img/Friends/woman-9.jpg" alt="people" class="img-responsive">
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img src="img/Friends/guy-4.jpg" alt="people" class="img-responsive">
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img src="img/Friends/guy-1.jpg" alt="people" class="img-responsive">
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img src="img/Friends/woman-4.jpg" alt="people" class="img-responsive">
-                    </a>
-                  </li>
-                  <li><a href="#" class="group"><i class="fa fa-group"></i></a></li>
-                </ul>
+                @include('frontend.home.cover_right_friends',['cover_right_friend'=>$cover_right_friend])
               </div>
               <div class="cover-info">
                 @if( $user_about->profile_image)
@@ -77,6 +35,7 @@
                     <img src="/frontend/img/Profile/default-avatar.png" alt="people">
                 </div>
                 @endif
+
                 <div class="name"><a href="#">{{ $user_about->first_name }} {{ $user_about->last_name }}</a></div>
                 <ul class="cover-nav">
                   <li class="active"><a href="{{ url('/frontend/userabout/?id='.$user_about->id)  }}"><i class="fa fa-fw fa-user"></i> Миний тухай</a></li>
@@ -98,6 +57,19 @@
                 <div class="row content-info">
                   @if($user_about->email_address)
                   <div class="col-xs-3">
+                    Хүйс:
+                  </div>
+                  <div class="col-xs-9">
+                    @if($user_about->gender  === 1)
+                    Эрэгтэй
+                    @else
+                      Эмэгтэй
+                    @endif
+                  </div>
+                  @else
+                  @endif
+                  @if($user_about->email_address)
+                  <div class="col-xs-3">
                     Имэйл:
                   </div>
                   <div class="col-xs-9">
@@ -116,14 +88,13 @@
                   @endif
                   @if($user_about->birthday)
                   <div class="col-xs-3">
-                    Төрсөн өдөр:
+                    Birthday:
                   </div>
                   <div class="col-xs-9">
                     {{$user_about->birthday}}
                   </div>
                   @else
                   @endif
-
                   @if($user_about->work)
                   <div class="col-xs-3">
                    Ажил:
@@ -135,7 +106,7 @@
                   @endif
                   @if($user_about->ur_zadvar)
                   <div class="col-xs-3">
-                    Ур чадвар:
+                    Чадвар:
                   </div>
                   <div class="col-xs-9">
                     {{$user_about->ur_zadvar}}
