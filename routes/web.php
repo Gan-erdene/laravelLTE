@@ -80,6 +80,7 @@ Route::group(['middleware' => 'checkuser'], function(){
 
   Route::get('/frontend/userprofile','frontend\ProfileController@userprofile')->name('userProfile');
   Route::get('/frontend/userabout','frontend\ProfileController@userabout')->name('userAbout');
+  Route::get('/frontend/userFriendsList','frontend\ProfileController@userFriendsList')->name('userFriendsList');
 
   Route::post('/frontend/comment/action','frontend\CommentController@action')->name('commentAction');
   Route::post('/frontend/salary/action','frontend\SalaryController@action')->name('salaryAction');

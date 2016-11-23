@@ -84,7 +84,7 @@ $(document).ready(function(){
               <div class="name"><a href="#">{{ $user_show->first_name }} {{ $user_show->last_name }}</a></div>
               <ul class="cover-nav">
                 <li class="active"><a href="{{ url('/frontend/userabout/?id='.$user_show->id)  }}"><i class="fa fa-fw fa-bars"></i> Миний тухай</a></li>
-                <li class="active"><a href="#"><i class="fa fa-fw fa-user"></i> Найзууд</a></li>
+                <li class="active"><a href="{{ url('/frontend/userFriendsList/?id='.$user_show->id)}}"><i class="fa fa-fw fa-user"></i> Найзууд</a></li>
                 <!-- <li id='friendView' class="active"><a href="{{route('friendsView')}}"><i class="fa fa-fw fa-users"></i> Friends</a></li>
                 <li class="active"><a href="photos1.html"><i class="fa fa-fw fa-image"></i> Photos</a></li> -->
               </ul>
