@@ -16,17 +16,21 @@ use Validator;
 use App\Like;
 use App\Works;
 use Image;
+use App\Models\GroupUsers;
 
 class HomeController extends Controller
 {
   public function home(Request $request)
   {
-    $user = sf_guard_user::find(\Auth::user()->id);
+    $userid = \Auth::user()->id;
+    $user = sf_guard_user::find($userid);
     $sections = Section::where('published', '1')->orderBy('order_id', 'asc')->get();
     $fuController = new FindUserController;
     $friends = $fuController->friendList(0, 8);
+    $groups = GroupUsers::where('user_id',$userid)->get();
     return view('frontend.home')
     ->with('user',$user)
+    ->with('groups', $groups)
     ->with('cover_right_friend',$friends)
     ->with('sections',$sections);
   }

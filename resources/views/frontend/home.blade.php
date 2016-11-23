@@ -1,5 +1,8 @@
 @extends('layouts.frontend')
 @section('javascripts')
+<link href="/frontend/assets/css/timeline.css" rel="stylesheet">
+<link href="/frontend/assets/css/file_manager.css" rel="stylesheet">
+<link href="/frontend/assets/css/user_detail.css" rel="stylesheet">
 <script>
   @include('frontend.js.getcategory')
   $(document).ready(function () {
@@ -168,68 +171,26 @@ $('#myModal').on('shown.bs.modal', function () {
               </div>
             </div>
           </div>
-
+          @if(sizeof($groups) > 0)
           <div class="widget">
             <div class="widget-header">
               <h3 class="widget-caption">Групп</h3>
             </div>
-            <div class="widget-body bordered-top bordered-sky">
-              <div class="card">
-                <div class="content">
-                  <ul class="list-unstyled team-members">
-                    <li>
-                      <div class="row">
-                          <div class="col-xs-3">
-                              <div class="avatar">
-                                  <img src="/frontend/img/Likes/likes-1.png" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                              </div>
-                          </div>
-                          <div class="col-xs-6">
-                             Github
-                          </div>
-
-                          <div class="col-xs-3 text-right">
-                              <btn class="btn btn-sm btn-azure btn-icon"><i class="fa fa-user"></i></btn>
-                          </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="row">
-                          <div class="col-xs-3">
-                              <div class="avatar">
-                                  <img src="/frontend/img/Likes/likes-3.png" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                              </div>
-                          </div>
-                          <div class="col-xs-6">
-                              Css snippets
-                          </div>
-
-                          <div class="col-xs-3 text-right">
-                              <btn class="btn btn-sm btn-azure btn-icon"><i class="fa fa-user"></i></btn>
-                          </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="row">
-                          <div class="col-xs-3">
-                              <div class="avatar">
-                                  <img src="/frontend/img/Likes/likes-2.png " alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                              </div>
-                          </div>
-                          <div class="col-xs-6">
-                              Html Action
-                          </div>
-
-                          <div class="col-xs-3 text-right">
-                              <btn class="btn btn-sm btn-azure btn-icon"><i class="fa fa-user"></i></btn>
-                          </div>
-                      </div>
-                    </li>
-                  </ul>
+            <div class="widget-body bordered-top bordered-sky" style="padding: 0">
+              <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                  <div class="file-manager">
+                    <ul class="folder-list" style="padding: 0">
+                      @foreach($groups as $group)
+                        <li> <a href="{{route('viewGroup', ['groupid'=>$group->id])}}"> <i class="fa fa-users"></i> {{str_limit($group->group->group_name, 30)}}</a></li>
+                      @endforeach
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+          @endif
         </div>
 
 

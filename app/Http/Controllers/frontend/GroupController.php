@@ -30,6 +30,7 @@ class GroupController extends Controller
         $groupuser = new GroupUsers();
         $groupuser->status = 2;//group admin
         $groupuser->group_id = $group->id;
+        $groupuser->user_id = $user_id;
         $groupuser->save();
         return redirect()->route('viewGroup',['groupid'=>$group->id]);
       }
