@@ -83,10 +83,10 @@ $(document).ready(function(){
               @endif
               <div class="name"><a href="#">{{ $user_show->first_name }} {{ $user_show->last_name }}</a></div>
               <ul class="cover-nav">
-                <li class="active"><a href="profile.html"><i class="fa fa-fw fa-bars"></i> Timeline</a></li>
-                <li class="active"><a href="{{route('frontendEditProfile')}}"><i class="fa fa-fw fa-user"></i> About</a></li>
-                <li id='friendView' class="active"><a href="{{route('friendsView')}}"><i class="fa fa-fw fa-users"></i> Friends</a></li>
-                <li class="active"><a href="photos1.html"><i class="fa fa-fw fa-image"></i> Photos</a></li>
+                <li class="active"><a href="{{ url('/frontend/userabout/?id='.$user_show->id)  }}"><i class="fa fa-fw fa-bars"></i> Миний тухай</a></li>
+                <li class="active"><a href="#"><i class="fa fa-fw fa-user"></i> Найзууд</a></li>
+                <!-- <li id='friendView' class="active"><a href="{{route('friendsView')}}"><i class="fa fa-fw fa-users"></i> Friends</a></li>
+                <li class="active"><a href="photos1.html"><i class="fa fa-fw fa-image"></i> Photos</a></li> -->
               </ul>
             </div>
           </div>
@@ -96,7 +96,7 @@ $(document).ready(function(){
         <div class="col-md-5">
           <div class="widget">
             <div class="widget-header">
-              <h3 class="widget-caption">About</h3>
+              <h3 class="widget-caption">Миний тухай</h3>
             </div>
             <div class="widget-body bordered-top bordered-sky">
               <ul class="list-unstyled profile-about margin-none">

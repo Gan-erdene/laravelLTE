@@ -43,6 +43,13 @@ class ProfileController extends Controller
           ->with('posts',$posts);
 
     }
+    public function userabout(Request $request){
+      $id = $request->input('id');
+        $user_about = sf_guard_user::find($id);
+        
+        return view('frontend.userabout')
+        ->with('user_about',$user_about);
+    }
 
     public function selectUserSecions(){
       $sql = "select s.*, d.section_id, t.name as section_name from section s

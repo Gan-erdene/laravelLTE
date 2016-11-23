@@ -12,16 +12,15 @@
         <div class="box-footer box-form">
           <button type="submit" class="btn btn-azure pull-right">Нийтлэх</button>
           <ul class="nav nav-pills">
-            <li><a href="#"></a></li>
+           <li><a href="" onclick="document.getElementById('upload').click(); return true"><i class="fa fa-image"> </i><input type="file" id="upload" name="upload" style="visibility: hidden; width: 1px; height: 1px" multiple /></a></li>
+            <li><a href="#"><i class=" fa fa-film"></i></a></li>
           </ul>
         </div>
       </form>
     </div><!-- end post state form -->
     <div class="tab-pane fade" id="tab-timeline">
 
-        <textarea data-toggle="modal" href="#myModal" class="form-control input-lg p-text-area"  rows="2" placeholder="Whats in your mind today?">
-
-        </textarea>
+        <textarea type="textarea" placeholder="Хийх ажлаа оруулна уу" data-toggle="modal" href="#myModal" class="form-control input-lg p-text-area" rows="2"></textarea>
 
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
