@@ -12,6 +12,7 @@ use App\Works;
 use Validator;
 use DB;
 use Image;
+use App\Friends;
 
 class ProfileController extends Controller
 {
@@ -51,6 +52,22 @@ class ProfileController extends Controller
         return view('frontend.userabout')
         ->with('user_about',$user_about)
         ->with('cover_right_friend', $cover_right_friend);
+    }
+    public function userFriendsList(Request $request){
+      $id = $request->input('id');
+      $user_about = sf_guard_user::find($id);
+      $finduser = new FindUserController;
+
+      $friends = Friends::where('user_id',$id)->orWhere('friend_user_id',$id)->get();
+
+
+      $cover_right_friend = $finduser->friendList(0, 8, $id);
+
+
+      return view('frontend.userFriendsList')
+      ->with('user_about',$user_about)
+      ->with('cover_right_friend', $cover_right_friend)
+      ->with('friends',$friends);
     }
 
     public function selectUserSecions(){

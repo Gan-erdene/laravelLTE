@@ -1,10 +1,6 @@
 @extends('layouts.frontend')
 @section('javascripts')
  <link href="/frontend/assets/css/user_detail.css" rel="stylesheet">
-
-
-
-
 @endsection
 @section('content')
 
@@ -39,7 +35,7 @@
                 <div class="name"><a href="#">{{ $user_about->first_name }} {{ $user_about->last_name }}</a></div>
                 <ul class="cover-nav">
                   <li class="active"><a href="{{ url('/frontend/userabout/?id='.$user_about->id)  }}"><i class="fa fa-fw fa-user"></i> Миний тухай</a></li>
-                  <li id='friendView'><a href="{{route('friendsView')}}"><i class="fa fa-fw fa-users"></i> Найзууд</a></li>
+                  <li id='friendView'><a href="{{ url('/frontend/userFriendsList/?id='.$user_about->id)}}"><i class="fa fa-fw fa-users"></i> Найзууд</a></li>
                 </ul>
               </div>
             </div>
