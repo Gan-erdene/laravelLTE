@@ -13,7 +13,7 @@ class CreateGroupUsersTable extends Migration
      */
     public function up()
     {
-      Schema::create('groups', function (Blueprint $table) {
+      Schema::create('group_users', function (Blueprint $table) {
           $table->increments('id');
           $table->integer('group_id');
           $table->integer('user_id');
