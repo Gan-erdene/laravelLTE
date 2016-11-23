@@ -24,6 +24,7 @@
           <div class="row">
             <!-- group posts -->
             <div class="col-md-7">
+              @if($groupuser)
               <div class="box profile-info n-border-top">
                 <form>
                     <textarea class="form-control input-lg p-text-area" rows="2" placeholder="Whats in your mind today?"></textarea>
@@ -38,7 +39,7 @@
                   </ul>
                 </div>
               </div>
-
+              @endif
               <!--  posts -->
               <div class="box box-widget">
                 <div class="box-header with-border">
@@ -167,11 +168,18 @@
             <div class="col-md-5">
               <div class="widget">
                 <div class="widget-header">
-                  <h3 class="widget-caption">Actions</h3>
+                  <h3 class="widget-caption">Үйлдлүүд</h3>
                 </div>
                 <div class="widget-body bordered-top bordered-sky">
-                    <button type="button" class="btn btn-success"><i class="fa fa-user-plus"></i>Гишүүн болох</button>
+                  @if($groupuser)
+                    @if($groupuser->status === 0)
+                    <button type="button" class="btn btn-azure"><i class="fa fa-user-times"></i>Хүсэлтийг зогсоох</button>
+                    @else
                     <button type="button" class="btn btn-azure"><i class="fa fa-user-times"></i>Грүппээс гарах</button>
+                    @endif
+                  @else
+                    <button type="button" class="btn btn-success"><i class="fa fa-user-plus"></i>Гишүүн болох</button>
+                  @endif
                 </div>
               </div>
 

@@ -102,6 +102,14 @@
               <hr/>
               <div class="row">
                   <div class="col-md-3">
+                    Холбоо барих утас
+                  </div>
+                  <div class="col-md-9">
+                    <input class="form-control" name="phone" id="phone" type="text" placeholder="xxxxxxxx, xxxxxxxx...">
+                  </div>
+              </div><br/>
+              <div class="row">
+                  <div class="col-md-3">
                     {{trans('strings.price')}}
                   </div>
                   <div class="col-md-9">

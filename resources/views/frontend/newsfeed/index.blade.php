@@ -114,7 +114,7 @@ $(document).ready(function(){
             </div>
           </div><!-- End people yout may know -->
 
-          @include('frontend.group.groups')
+          @include('frontend.newsfeed.groups')
           @include('frontend.group.create_group')
         </div><!-- end right posts -->
       </div>

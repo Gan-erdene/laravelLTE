@@ -38,6 +38,7 @@ class GroupController extends Controller
 
     public function viewGroup($groupid){
       $group = Groups::find($groupid);
-      return view('frontend.group.view_group', ['group'=>$group]);
+      $groupUser = GroupUsers::where('user_id',\Auth::user()->id)->where('group_id',$groupid)->first();
+      return view('frontend.group.view_group', ['group'=>$group, 'groupuser'=>$groupUser]);
     }
 }
