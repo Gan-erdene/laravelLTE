@@ -93,7 +93,7 @@ class FindUserController extends Controller
         $fupdate->save();
 
         return response()->json(['dataid'=>'add_'.$friend_user_id,
-            'status'=>$status, 'btntext'=>trans('strings.add_friend')
+            'status'=>true, 'btntext'=>trans('strings.add_friend')
         ]);
       }
 
@@ -135,34 +135,38 @@ class FindUserController extends Controller
       return $user;
     }
 
-    public function cancelRequest($userid){
-        $friendtable = $this->canCancel(\Auth::user()->id,$userid);
-        if(!$friendtable or ($friendtable[0]->status === 2 or $friendtable[0]->status === 3)){
-          return response()->json([
-              'status'=>false, 'message'=>'Энэ хэрэглэгчтэй та найз болоогүй байна.'
+    public function createHistory($status){
+      $fupdate = new FriendUpdates();
+      $fupdate->created_at = new \DateTime();
+      $fupdate->status = $status;
+      $fupdate->user_id = \Auth::user()->id;
+      $fupdate->save();
+    }
+
+    public function cancelRequest($friendid){
+        $friend = Friends::where('user_id', \Auth::user()->id)->where('friend_user_id', $friendid)->first();
+        if($friend->status === 0 or $friend->status === 1 or $friend->status === 8 or $friend->status === 9){
+          $friend->status = 8; //huselt butsaasan
+          $friend->update();
+          $_friend = Friends::where('friend_user_id', \Auth::user()->id)->where('user_id', $friendid)->first();
+          $_friend->status = 9; //huselt butsaagdsan
+          $_friend->update();
+
+          $this->createHistory($friend->status);
+
+          return response()->json(['dataid'=>"add_".$friendid,
+              'status'=>true, 'btntext'=>trans('strings.add_friend')
           ]);
         }
 
-        if($friendtable[0]->status === 1){
+        if(!$friend){
           return response()->json([
-              'status'=>false, 'message'=>'Таны хүсэлтийг найзаар бүртгэсэн тул цуцлах боломжгүй байна.'
+              'status'=>false, 'message'=>'Хүсэлт үүсээгүй байна.'
           ]);
         }
 
-        $ffriend = Friends::find($friendtable[0]->id);
-        $ffriend->status = 4;
-        $status = $ffriend->update();
-        if($status){
-          $fupdate = new FriendUpdates();
-          $fupdate->friend_id = $friendtable[0]->id;
-          $fupdate->created_at = new \DateTime();
-          $fupdate->status = $ffriend->status;
-          $fupdate->user_id = \Auth::user()->id;
-          $fupdate->save();
-        }
-
-        return response()->json(['dataid'=>"add_".$userid,
-            'status'=>$status, 'btntext'=>trans('strings.add_friend')
+        return response()->json(['dataid'=>'can_'.$friendid,
+            'status'=>true, 'btntext'=>$this->status[$friend->status]
         ]);
     }
 
@@ -173,6 +177,7 @@ class FindUserController extends Controller
               'status'=>false, 'message'=>'Хэрэглэгч найзын хүсэлт явуулаагүй эсвэл буцаасан байна.'
           ]);
         }
+
         if($user->status === 1){
           $user->status = 2; //zuwshuursun
           $status = $user->save();
@@ -188,15 +193,15 @@ class FindUserController extends Controller
             $fupdate->status = $user->status;
             $fupdate->user_id = \Auth::user()->id;
             $fupdate->save();
-          }
 
-          return response()->json(['dataid'=>$userid,
-              'status'=>$status, 'btntext'=>trans('strings.friend')
-          ]);
+            return response()->json(['dataid'=>$userid,
+                'status'=>$status, 'btntext'=>trans('strings.friend')
+            ]);
+          }
         }
 
-        return response()->json(['dataid'=>'can_'.$userid,
-            'status'=>false, 'btntext'=>$this->status[$oldhist->status]
+        return response()->json([
+            'status'=>false, 'btntext'=>$this->status[$user->status]
         ]);
 
     }
@@ -235,26 +240,23 @@ class FindUserController extends Controller
       '3'=>'Та энэ хүнтэй найз биш байна',
       '4'=>'Та блок хийсэн байна',
       '5'=>'Таныг блок хийсэн байна',
-      '7'=>'Таныг найзаас хассан байна'
+      '7'=>'Таныг найзаас хассан байна',
+      '8'=>'Хүсэлт буцаасан',
+      '9'=>'Хүсэлт буцаагдсан'
     ];
 
     public function friendRequest($userid){
         $oldhist = Friends::where('user_id', \Auth::user()->id)->where('friend_user_id', $userid)->first();
-        if($oldhist){
-          if($oldhist->status === 3 or $oldhist->status === 7){
+        if( $oldhist ){
+          if($oldhist->status === 3 or $oldhist->status === 7 or $oldhist->status === 8 or $oldhist->status === 9){
             $oldhist->status = 0; // huselt ilgeesen
             $status = $oldhist->update();
             if($status){
 
-              $friend = Friends::where('friend_user_id', \Auth::user()->id)->where('user_id'. $userid)->first();
+              $friend = Friends::where('friend_user_id', \Auth::user()->id)->where('user_id', $userid)->first();
               $friend->status = 1; // huselt irsen
               $friend->update();
-
-              $fupdate = new FriendUpdates();
-              $fupdate->created_at = new \DateTime();
-              $fupdate->status = $oldhist->status;
-              $fupdate->user_id = \Auth::user()->id;
-              $fupdate->save();
+              $this->createHistory($friend->status);
             }
             return response()->json(['dataid'=>'can_'.$userid,
                 'status'=>$status, 'btntext'=>trans('strings.cancel_request')
@@ -262,7 +264,7 @@ class FindUserController extends Controller
           }else{
 
             return response()->json(['dataid'=>'can_'.$userid,
-                'status'=>false, 'btntext'=>$this->status[$oldhist->status]
+                'status'=>true, 'btntext'=>$this->status[$oldhist->status]
             ]);
           }
         }
@@ -278,8 +280,15 @@ class FindUserController extends Controller
     }
 
     public function friendsView(){
-      $list = $this->friendList(0,8);
+      $id = \Auth::user()->id;
+      $user_about = sf_guard_user::find($id);
+      $finduser = new FindUserController;
+      $friends = $this->friendList(0,8);
+      $cover_right_friend = $finduser->friendList(0, 8, $id);
       return view('frontend.friendList')
-        ->with('friends', $list);
+      ->with('user_about',$user_about)
+      ->with('cover_right_friend', $cover_right_friend)
+      ->with('friends',$friends);
+
     }
 }

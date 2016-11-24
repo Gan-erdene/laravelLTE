@@ -12,7 +12,7 @@
       @foreach($users as $item)
       <div class="col-md-3">
           <div class="contact-box center-version">
-            <a href="#">
+            <a href="{{route('userProfile')}}?id={{$item->id}}">
               @if($item->profile_image)
                   <img class="img-circle" src="/uploads/profileimage/{{$item->profile_image}}" alt="">
               @else
@@ -29,7 +29,7 @@
                 <button data-id="dec_{{$item->friend_user_id}}" class="btn btn-xs btn-white finduser"> {{trans('strings.decline_friend')}}</button>
                 @elseif( $item->status === 0 )
                 <button data-id="can_{{$item->friend_user_id}}" class="btn btn-xs btn-white finduser"> {{trans('strings.cancel_request')}}</button>
-                @elseif($item->status  === 2 or $item->status === 3 )
+                @elseif($item->status  === 2)
                 <button data-id="ded_{{$item->friend_user_id}}" class="btn btn-xs btn-white"> {{trans('strings.declined')}}</button>
                 @else
                 <button data-id="add_{{$item->id}}" class="btn btn-xs btn-white finduser"> {{trans('strings.add_friend')}}</button>

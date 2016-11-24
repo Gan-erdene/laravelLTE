@@ -49,13 +49,8 @@
         @foreach($friends as $friend)
           <div class="col-md-3">
               <div class="contact-box center-version">
-                <a href="#">
-                  @if(isset($friend->friend->profile_image))
-                  <img alt="image" class="img-circle" src="/uploads/profileimage/{{$friend->friend->profile_image}}">
-                  @else
-                    <img alt="image" class="img-circle" src="/frontend/img/Profile/default-avatar.png" alt="people">
-                  @endif
-
+                <a href="{{route('userProfile')}}?id={{$friend->friend_user_id}}">
+                  <img alt="image" class="img-circle" src="{{$friend->friend->getAvatar()}}">
                   <h3 class="m-b-xs"><strong>{{$friend->friend->first_name}}</strong></h3>
                   @if($friend->friend->work)
                   <div class="font-bold">{{$friend->friend->work}}</div>
@@ -67,8 +62,7 @@
                 </a>
                 <div class="contact-box-footer">
                   <div class="m-t-xs btn-group">
-                    <a href="messages1.html" class="btn btn-xs btn-white"><i class="fa fa-envelope"></i>Send Messages</a>
-                    <a class="btn btn-xs btn-white"><i class="fa fa-user-plus"></i> Follow</a>
+                    <a href="messages1.html" class="btn btn-xs btn-white"><i class="fa fa-envelope"></i>Зурвас илгээх</a>
                   </div>
                 </div>
               </div>

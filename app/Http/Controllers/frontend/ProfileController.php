@@ -61,7 +61,7 @@ class ProfileController extends Controller
       $user_about = sf_guard_user::find($id);
       $finduser = new FindUserController;
 
-      $friends = Friends::where('user_id',$id)->orWhere('friend_user_id',$id)->get();
+      $friends = $finduser->friendList(0, 8, $id);
 
 
       $cover_right_friend = $finduser->friendList(0, 8, $id);

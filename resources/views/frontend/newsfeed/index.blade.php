@@ -89,18 +89,14 @@ $(document).ready(function(){
                                       </div>
                                   </div>
                                   <div class="col-xs-9">
-                                     {{$rUser->last_name}} {{$rUser->first_name}}<br/>
-                                     @if( $rUser->user_status === 0 )
-                                     <button data-id="acc_{{$rUser->id}}" class="btn btn-xs btn-white finduser"> {{trans('strings.accept_friend')}}</button>
-                                     <button data-id="dec_{{$rUser->id}}" class="btn btn-xs btn-white finduser"> {{trans('strings.decline_friend')}}</button>
-                                     @elseif($rUser->friend_status === 0 )
-                                     <button data-id="can_{{$rUser->id}}" class="btn btn-xs btn-white finduser"> {{trans('strings.cancel_friend')}}</button>
-                                     @elseif($rUser->user_status === 1 or $rUser->friend_status === 1)
-                                     <button data-id="fri_{{$rUser->id}}" class="btn btn-xs btn-white finduser"> {{trans('strings.friend')}}</button>
-                                     @elseif($rUser->user_status === 2 )
-                                     <button data-id="ded_{{$rUser->id}}" class="btn btn-xs btn-white"> {{trans('strings.declined')}}</button>
-                                     @elseif($rUser->friend_status === 2 )
-                                     <button data-id="ded_{{$rUser->id}}" class="btn btn-xs btn-white"> {{trans('strings.declined')}}</button>
+                                    <a href="{{route('userProfile')}}?id={{$rUser->friend_user_id}}"> {{$rUser->last_name}} {{$rUser->first_name}} </a><br/>
+                                     @if( $rUser->status === 1 )
+                                     <button data-id="acc_{{$rUser->friend_user_id}}" class="btn btn-xs btn-white finduser"> {{trans('strings.accept_friend')}}</button>
+                                     <button data-id="dec_{{$rUser->friend_user_id}}" class="btn btn-xs btn-white finduser"> {{trans('strings.decline_friend')}}</button>
+                                     @elseif( $rUser->status === 0 )
+                                     <button data-id="can_{{$rUser->friend_user_id}}" class="btn btn-xs btn-white finduser"> {{trans('strings.cancel_request')}}</button>
+                                     @elseif($rUser->status  === 2)
+                                     <button data-id="ded_{{$rUser->friend_user_id}}" class="btn btn-xs btn-white"> {{trans('strings.declined')}}</button>
                                      @else
                                      <button data-id="add_{{$rUser->id}}" class="btn btn-xs btn-white finduser"> {{trans('strings.add_friend')}}</button>
                                      @endif
