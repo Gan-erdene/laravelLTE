@@ -136,7 +136,7 @@
             </div><hr/>
             <div class="widget-body bordered-top bordered-sky form-horizontal">
               <div class="row">
-                  <p>The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.</p>
+                  <p>Монгол улсад хүчин төгөлдөр мөрдөгдөж буй ХАОАТ, НДШ, ЭМД, НӨАТ-ийн тухай хуулийн дагуу гүйлгээ хийх тул ажил гүйцэтгэгчийн гарт олгогдох цалинг болон захиалагч таниас гарах мөнгөн дүнг урьдчилан тооцоолж, Ажил гүйцэтгэгч болон Захиалагч талууд харилцан тохиролцсон байх ёстойг хүлээн зөвшөөрнө үү.</p>
                   <div class="checkbox">
                       <label>
                           <input id="salary_agreement" name="salary_agreement" type="checkbox" class="colored-blue">

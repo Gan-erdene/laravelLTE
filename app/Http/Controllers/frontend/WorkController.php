@@ -130,6 +130,7 @@ class WorkController extends Controller
       $skill = $request->input('your_skill');
       $price = $request->input('price');
       $enddate = $request->input('enddate');
+      $phone = $request->input('phone');
       $startdate = $request->input('startdate');
       $is_active = $request->input('is_active') ? $request->input('is_active') : 0;
 
@@ -142,6 +143,7 @@ class WorkController extends Controller
       $work->is_active = $is_active;
       $work->startdate = $startdate;
       $work->enddate = $enddate;
+      $work->phone = $phone;
       $work->userid = \Auth::user()->id;
       $status = $work->save();
       if($status){
@@ -212,6 +214,7 @@ class WorkController extends Controller
       $price = $request->input('price');
       $startdate = $request->input('startdate');
       $enddate = $request->input('enddate');
+      $phone = $request->input('phone');
       $is_active = $request->input('is_active') ? $request->input('is_active') : 0;
 
       $work = new Works;
@@ -224,6 +227,7 @@ class WorkController extends Controller
       $work->is_active = $is_active;
       $work->startdate = $startdate;
       $work->enddate = $enddate;
+      $work->phone = $phone;
       $work->type = 1;
       $work->userid = \Auth::user()->id;
       $status = $work->save();

@@ -13,22 +13,31 @@ use App\Works;
 use App\WorkCategories;
 use App\WorkUserProposal;
 use App\sf_guard_user;
+use App\Models\Groups;
 class NewsfeedController extends Controller
 {
     public function index(Request $request){
+      $userid = \Auth::user()->id;
       $m_s = $request->input('m_s'); // menu_section
       $m_c = $request->input('m_c'); // menu_category
       $saved = $request->input('s_d'); // saved_work
 
       $sections = Section::where('published', '1')->orderBy('order_id', 'asc')->get();
       $userSections = $this->userSections();
-      $userCategories = SfGuardUserCategory::where('user_id', \Auth::user()->id)->orderBy('catid', 'asc')->get();
+      $userCategories = SfGuardUserCategory::where('user_id', $userid)->orderBy('catid', 'asc')->get();
       $finduser = new FindUserController();
       $users = $finduser->getUnfriendList(0, 4);
+      $ungroups = $this->unGroups($userid);
       return view('frontend.newsfeed.index',[
         'userCategories'=>$userCategories,'sections'=>$sections,
-        'm_s'=>$m_s, 'm_c'=>$m_c, 'saved'=>$saved, 'right_users'=>$users,
+        'm_s'=>$m_s, 'm_c'=>$m_c, 'saved'=>$saved, 'right_users'=>$users, 'ungroups'=>$ungroups,
         'userSections'=>$userSections]);
+    }
+
+    public function unGroups($userid){
+      $sql = "select * from groups s where s.id not in (select distinct group_id from group_users u where u.user_id = $userid) order by s.updated_at";
+      $list = DB::select($sql);
+      return $list;
     }
 
     public function showWork($workid){
