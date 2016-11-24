@@ -22,10 +22,13 @@ class ProfileController extends Controller
       $sections = $this->selectUserSecions();
       $parameter = $request->input('s');
       $categories = $this->getCategoryByUser(\Auth::user()->id);
+      $fuController = new FindUserController;
+      $friends = $fuController->friendList(0, 8);
       return view('frontend.edit_profile', [])
       ->with('user',$user)
       ->with('s',$parameter)
       ->with('categories',$categories)
+      ->with('cover_right_friend',$friends)
       ->with('sections',$sections);
     }
     public function userprofile(Request $request){
@@ -99,6 +102,8 @@ class ProfileController extends Controller
         $user->first_name = $request->input('firstname');
         $user->email_address = $request->input('email');
         $user->register = $request->input('register');
+        $user->location = $request->input('location');
+        $user->about = $request->input('about');
         $user->gender = $request->input('gender');
         $user->work = $request->input('work');
         $user->ndd = $request->input('ndd');
