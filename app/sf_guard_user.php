@@ -33,6 +33,13 @@ class sf_guard_user extends Authenticatable
   public function socialProviders(){
       return $this->hasMany('App\SocialProvider','user_id','id');
   }
+
+  public function getAvatar(){
+    if($this->profile_image){
+        return "/uploads/profileimage/".$this->profile_image;
+    }
+    return "/frontend/img/Profile/default-avatar.png";
+  }
   /**
    * The attributes that should be hidden for arrays.
    *

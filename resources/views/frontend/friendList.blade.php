@@ -28,21 +28,17 @@
       @foreach($friends as $item)
             <li class="col-md-4">
               <div class="img">
-                @if($item->profile_image)
-                <img src="/uploads/profileimage/{{$item->profile_image}}" alt="">
-                @else
-                <img src="/frontend/img/Profile/default-avatar.png" alt="">
-                @endif
+                <img src="{{$item->friend->getAvatar()}}" alt="">
               </div>
               <div class="details">
                 <div class="name">
-                  <a href="{{ url('/frontend/userprofile/?id='.$item->id) }}">{{$item->first_name}} {{$item->last_name}}</a>
+                  <a href="{{ url('/frontend/userprofile/?id='.$item->friend_user_id) }}">{{$item->friend->first_name}} {{$item->friend->last_name}}</a>
                 </div>
                 <div class="time">
-                  <i class="fa fa-clock-o"></i> Last online: 5 minutes ago
+                  <i class="fa fa-clock-o"></i> {{$item->friend->work}}
                 </div>
                 <div class="m-t-xs btn-group">
-                  <button data-id="rem_{{$item->listid}}" class="btn btn-xs btn-white finduser"> {{trans('strings.remove_friend')}} </button>
+                  <button data-id="rem_{{$item->friend_user_id}}" class="btn btn-xs btn-white finduser"> {{trans('strings.remove_friend')}} </button>
                 </div>
               </div>
             </li>

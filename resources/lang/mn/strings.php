@@ -27,7 +27,7 @@ return [
     'confirm'=>'Баталгаажуулах',
     'find_friend'=>'Найз хайх',
     'add_friend'=>'Найзаар нэмэх',
-    'cancel_friend'=>'Хүсэлт цуцлах',
+    'cancel_request'=>'Хүсэлт цуцлах',
     'accept_friend'=>'Зөвшөөрөх',
     'decline_friend'=>'Татгалзах',
     'declined'=>'Татгалзсан',
