@@ -35,8 +35,9 @@
 
                 <div class="name"><a href="#">{{ $user_about->first_name }} {{ $user_about->last_name }}</a></div>
                 <ul class="cover-nav">
-                  <li ><a href="{{ url('/frontend/userabout/?id='.$user_about->id)  }}"><i class="fa fa-fw fa-user"></i> Миний тухай</a></li>
-                  <li class="active"><a href="{{route('friendsView')}}"><i class="fa fa-fw fa-users"></i> Найзууд</a></li>
+                  <li><a href="{{ url('/frontend/userabout/?id='.$user_about->id)  }}"><i class="fa fa-fw fa-user"></i> Миний тухай</a></li>
+                  <li class="active" id='friendView'><a href="{{ url('/frontend/userFriendsList/?id='.$user_about->id)}}"><i class="fa fa-fw fa-users"></i> Найзууд</a></li>
+                  <li><a href="{{ url('frontend/userPhotos/?id='.$user_about->id)}}"><i class="fa fa-fw fa-image"></i> Зураг</a></li>
                 </ul>
               </div>
             </div>

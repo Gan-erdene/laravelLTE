@@ -25,6 +25,8 @@
         $('#register').val("{{$user->register}}");
         $('#work').val("{{$user->work}}");
         $('#phone').val("{{$user->phone}}");
+        $('#location').val("{{$user->location}}");
+        $('#about').val("{{$user->about}}");
         $('#gender_{{$user->gender}}').attr('checked', true);
         $('#ndd').val("{{$user->ndd}}");
         $('#emdd').val("{{$user->emdd}}");
@@ -117,6 +119,12 @@
                           </div>
                         </div>
                         <div class="form-group row">
+                          <label class="col-sm-1">About</label>
+                          <div class="col-md-7">
+                          <textarea type="textarea" class="form-control" id="about" name="about" placeholder="Өөрийн тухай дэлгэрэнгүй"></textarea>
+                          </div>
+                        </div>
+                        <div class="form-group row">
                           <label class="col-sm-1">Мэйл</label>
                           <div class="col-md-7">
                             <input id="email" type="text" class="form-control"  name="email" placeholder="Мэйл">
@@ -126,6 +134,12 @@
                           <label class="col-sm-1">Регистр</label>
                           <div class="col-md-7">
                             <input id="register" type="text" class="form-control"  name="register" placeholder="Регистр дугаар">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-sm-1">Байршил</label>
+                          <div class="col-md-7">
+                            <input id="location" type="text" class="form-control"  name="location" placeholder="Байршил">
                           </div>
                         </div>
                         <div class="form-group row">
