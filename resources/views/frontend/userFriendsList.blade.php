@@ -49,7 +49,12 @@
           <div class="col-md-3">
               <div class="contact-box center-version">
                 <a href="#">
+                  @if(isset($friend->friend->profile_image))
                   <img alt="image" class="img-circle" src="/uploads/profileimage/{{$friend->friend->profile_image}}">
+                  @else
+                    <img alt="image" class="img-circle" src="/frontend/img/Profile/default-avatar.png" alt="people">
+                  @endif
+
                   <h3 class="m-b-xs"><strong>{{$friend->friend->first_name}}</strong></h3>
                   @if($friend->friend->work)
                   <div class="font-bold">{{$friend->friend->work}}</div>
