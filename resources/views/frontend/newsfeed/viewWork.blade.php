@@ -230,7 +230,8 @@ $(document).ready(function(){
                             <p><strong>Шаардагдах ур чадвар:</strong> <span>{{$work->skill}}</span> </p>
                             @endif
                             <p><strong>Үнэ:</strong> {{$work->price}} </p>
-                            <p><strong>Ажил оруулсан:</strong> {{$work->created_at}}</p></div>
+                            <p><strong>Ажил оруулсан:</strong> {{$work->created_at}}</p>
+                            <p><strong>Холбоо барих утас:</strong> {{$work->phone}}</p></div>
                       </div>
                       @if($work->userid === \Auth::user()->id)
                       <div class="box-footer box-comments" style="display: block;" id="proposals">
