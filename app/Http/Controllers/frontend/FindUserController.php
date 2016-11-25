@@ -195,7 +195,7 @@ class FindUserController extends Controller
             $fupdate->save();
 
             return response()->json(['dataid'=>$userid,
-                'status'=>$status, 'btntext'=>trans('strings.friend')
+                'status'=>$status, 'btntext'=>'<i class="fa fa-user-plus"></i>Зөвшөөрөх'
             ]);
           }
         }

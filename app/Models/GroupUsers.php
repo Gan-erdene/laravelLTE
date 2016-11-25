@@ -12,4 +12,7 @@ class GroupUsers extends Model
     public function group(){
       return $this->hasOne('App\Models\Groups', 'id', 'group_id');
     }
+    public function group_user(){
+      return $this->hasOne('App\sf_guard_user','id','user_id');
+    }
 }
