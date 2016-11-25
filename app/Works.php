@@ -23,4 +23,8 @@ class Works extends Model
   public function comment(){
       return $this->hasMany('App\Models\Comment_post', 'workid', 'id')->get();
   }
+
+  public function images(){
+    return $this->hasMany('App\Models\WorkImages', 'work_id', 'id')->get();
+  }
 }

@@ -13,6 +13,7 @@ return array(
     'CreateSfGuardUsersTable' => $baseDir . '/database/migrations/2016_11_07_060319_create_sf_guard_users_table.php',
     'CreateSocialProvidersTable' => $baseDir . '/database/migrations/2016_11_21_095723_create_social_providers_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2014_10_12_000000_create_users_table.php',
+    'CreateWorkImagesTable' => $baseDir . '/database/migrations/2016_11_25_163203_create_work_images_table.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
     'File_Iterator' => $vendorDir . '/phpunit/php-file-iterator/src/Iterator.php',
     'File_Iterator_Facade' => $vendorDir . '/phpunit/php-file-iterator/src/Facade.php',

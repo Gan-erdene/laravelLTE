@@ -326,6 +326,7 @@ class ComposerStaticInit8055b6b171a1c4961b93170c552f136e
         'CreateSfGuardUsersTable' => __DIR__ . '/../..' . '/database/migrations/2016_11_07_060319_create_sf_guard_users_table.php',
         'CreateSocialProvidersTable' => __DIR__ . '/../..' . '/database/migrations/2016_11_21_095723_create_social_providers_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_000000_create_users_table.php',
+        'CreateWorkImagesTable' => __DIR__ . '/../..' . '/database/migrations/2016_11_25_163203_create_work_images_table.php',
         'DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
         'File_Iterator' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Iterator.php',
         'File_Iterator_Facade' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Facade.php',

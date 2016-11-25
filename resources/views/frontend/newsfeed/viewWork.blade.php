@@ -222,7 +222,10 @@ $(document).ready(function(){
                       <div class="well with-header  with-footer with-body">
                           <div class="header bordered-blue"><small><b>Тайлбар</b></small></div>
                           <div class="body">
-                              {{$work->reference}}
+                              {!! $work->reference !!}
+                              @foreach($work->images() as $image)
+                              <img style="max-width:100%" src="/uploads/work/{{$image->timestamp}}.{{$image->extention}}" />
+                              @endforeach
                           </div><hr/>
                           <div class="footer">
                             @if($work->type === 1)
