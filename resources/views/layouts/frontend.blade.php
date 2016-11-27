@@ -19,9 +19,15 @@
     <link href="/frontend/assets/css/forms.css" rel="stylesheet">
     <link href="/frontend/assets/css/edit_profile.css" rel="stylesheet">
     <link href="/frontend/assets/css/buttons.css" rel="stylesheet">
+    <link rel="stylesheet" href="/admin/plugins/datepicker/datepicker3.css">
+    <link rel="stylesheet" href="/admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
     <script src="/frontend/assets/js/jquery.1.11.1.min.js"></script>
     <script src="/frontend/bootstrap.3.3.6/js/bootstrap.min.js"></script>
     <script src="/frontend/assets/js/custom.js"></script>
+    <script src="https://cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
+    <!-- Bootstrap WYSIHTML5 -->
+    <script src="/admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+    <script src="/admin/plugins/datepicker/bootstrap-datepicker.js"></script>
     <script>
       $.post("{{route('frontendFindUserAction')}}", {
         '_token':"{{ csrf_token() }}", action:'flist_1'
