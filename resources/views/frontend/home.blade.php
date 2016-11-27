@@ -3,6 +3,9 @@
 <link href="/frontend/assets/css/timeline.css" rel="stylesheet">
 <link href="/frontend/assets/css/file_manager.css" rel="stylesheet">
 <link href="/frontend/assets/css/user_detail.css" rel="stylesheet">
+<style>
+.datepicker{z-index:1151 !important;}
+</style>
 <script>
   @include('frontend.js.getcategory')
   $(document).ready(function () {
@@ -13,6 +16,65 @@
     }, function( data ){
       $('#posts').html( data.html );
     });
+
+    $(".textarea").wysihtml5({
+      toolbar: {
+        "font-styles": false, // Font styling, e.g. h1, h2, etc.
+        "emphasis": true, // Italics, bold, etc.
+        "lists": true, // (Un)ordered lists, e.g. Bullets, Numbers.
+        "html": false, // Button which allows you to edit the generated HTML.
+        "link": false, // Button to insert a link.
+        "image": false, // Button to insert an image.
+        "color": false, // Button to change color of font
+        "blockquote": true, // Blockquote
+      }
+    });
+
+    $('#addImage').on('click', function(){
+      var id = new Date().getTime();
+      var old = $('#workImages').html();
+      var newhtml = "<div id='div_"+id+"' class='row'><a class='col-md-11'><span class='file-input btn btn-default btn-block btn-file'><input type='file' name='workimages[]' multiple data-id='"+id+"' class='imgInp'>Зурагаа оруулна уу</span></a><a class='btn btn-default btn-sm icon-only removeimage' data-id='"+id+"' ><i class='fa fa-times'></i></a><div class='col-md-12'><img id='img_"+id+"' style='max-width:100%' src='/frontend/img/icon-edit.png' alt='Зурагаа оруулна уу.' /></div></div>";
+      $('#workImages').append(newhtml);
+
+      $(".imgInp").change(function(){
+          readURL(this);
+      });
+
+      $('.removeimage').on('click', function(){
+        var id=$(this).data('id');
+        $('#div_'+id).remove();
+      });
+    });
+
+    function readURL(input) {
+
+        if (input.files && input.files[0]) {
+          $(input.files).each(function () {
+            var reader = new FileReader();
+            reader.readAsDataURL(this);
+            reader.onload = function (e) {
+                var extention = e.target.result.split('/');
+                if('data:image' === extention[0]){
+                    $('#img_'+$(input).data('id')).attr('src', e.target.result);
+                }else{
+                  alert("Зөвхөн зурган файл оруулна уу");
+                  return;
+                }
+            }
+          });
+        }
+    }
+    $('#workfile').on('change', function(){
+      var filename = $(this).val().split('\\').pop();
+      $('#uploadfilename').html(filename);
+    });
+
+    $('.datepicker').datepicker({
+       format: 'yyyy-mm-dd'
+     }).on('changeDate', function(e){
+        $(this).datepicker('hide');
+    });
+
   });
 </script>
 <script>
