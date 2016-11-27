@@ -71,13 +71,13 @@
                         <div class="clearfix"></div>
                       </div>
                       <div class="center">
-                        <button type="submit" class="btn  btn-azure">Нэвтрэх</button>
+                        <button type="submit" class="btn  btn-azure btn-block">Нэвтрэх</button>
 
 
                       </div>
                       <div class="social-auth-links text-center">
                         <a href="" class="pull-xs-right"><small> - Эсвэл - </small></a>
-                        <a href="/frontend/facebook" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i>Facebook эрхээр нэвтрэх </a>
+                        <a href="/frontend/facebook" class="btn btn-azure btn-block"><i class="fa fa-facebook"></i>Facebook эрхээр нэвтрэх </a>
                       </div>
                     </form>
                   </div>

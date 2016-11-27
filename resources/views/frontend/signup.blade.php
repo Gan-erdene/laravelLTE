@@ -21,13 +21,13 @@
     <div class="form-group">
       <input type="password" id="repassword" name="repassword" class="form-control" placeholder="{{trans('strings.repassword')}}">
     </div>
-    <button type="submit" class="btn btn-azure">{{ trans('strings.signup') }}</button>
+    <button type="submit" class="btn btn-azure btn-block">{{ trans('strings.signup') }}</button>
   </form>
 </div>
 <script src="/frontend/assets/js/jquery.1.11.0.validate.min.js"></script>
 <script>
 $(document).ready(function () {
-  jQuery.validator.addMethod( "control-label'", function(value, element ) {
+  jQuery.validator.addMethod( "equals", function(value, element ) {
     return this.optional( element ) || value === $('#password').val();
   }, "{{trans('strings.valid_repassword')}}");
 
