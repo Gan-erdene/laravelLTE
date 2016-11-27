@@ -4,6 +4,7 @@ $(document).on('change', '.selectsection', function(){
         action:'category', section_id:this.value
       }, function(data){
           $('#cat_container').append(data.html);
+          $('.cat_container').append(data.html);
       });
   }else{
     $('.sec_'+this.value).remove();

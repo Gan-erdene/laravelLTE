@@ -25,9 +25,9 @@
       @if($work->type === 1)- Хугацаа: {{$work->startdate}}  @endif
       </small>
     </p>
-    <p> {{str_limit($work->reference, 50)}}</p>
+    <p> {!!str_limit($work->reference, 50)!!}</p>
     @else
-    <p> {{$work->reference}}</p>
+    <p> {!!$work->reference!!}</p>
     @endif
 
     <button type="button" data-id="{{$work->id}}"  class="btn btn-default btn-xs like" active><i class="fa fa-thumbs-o-up"></i> {{ \Auth::user()->likes->where('post_id',$work->id)->first() ? 'unlike' : 'like'   }}</button>

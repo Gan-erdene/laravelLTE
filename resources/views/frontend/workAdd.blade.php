@@ -1,13 +1,6 @@
 @extends('layouts.frontend')
 @section('javascripts')
 <link href="/frontend/assets/css/file_manager.css" rel="stylesheet">
-<link rel="stylesheet" href="/admin/plugins/datepicker/datepicker3.css">
-<link rel="stylesheet" href="/admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-
-<script src="https://cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
-<!-- Bootstrap WYSIHTML5 -->
-<script src="/admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
-<script src="/admin/plugins/datepicker/bootstrap-datepicker.js"></script>
 <script>
   $(document).on('change', '.selectsection', function(){
     if(this.checked){
