@@ -32,7 +32,7 @@ class LoginController extends Controller
 
      if(Auth::attempt(['email_address' => $email, 'password' => $password,'is_active' => 1]))
      {
-       return redirect('/frontend/home');
+       return redirect('/frontend/newsfeed');
      }
      else{
        return back()

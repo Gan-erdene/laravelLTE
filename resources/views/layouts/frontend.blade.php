@@ -57,7 +57,7 @@
               </a>
               <ul class="dropdown-menu">
                 <li><a href="{{ url('/frontend/file') }}">Файлууд</a></li>
-                <li><a href="{{ route('txnWork') }}">Гүйлгээний лавлагаа</a></li>
+                <li><a href="{{ route('txnWork') }}">Миний данс</a></li>
                 <li><a href="{{ url('/frontend/logout') }}">Гарах</a></li>
 
               </ul>

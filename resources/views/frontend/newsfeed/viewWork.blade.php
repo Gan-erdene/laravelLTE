@@ -222,7 +222,10 @@ $(document).ready(function(){
                       <div class="well with-header  with-footer with-body">
                           <div class="header bordered-blue"><small><b>Тайлбар</b></small></div>
                           <div class="body">
-                              {{$work->reference}}
+                              {!! $work->reference !!}
+                              @foreach($work->images() as $image)
+                              <img style="max-width:100%" src="/uploads/work/{{$image->timestamp}}.{{$image->extention}}" />
+                              @endforeach
                           </div><hr/>
                           <div class="footer">
                             @if($work->type === 1)
@@ -230,7 +233,8 @@ $(document).ready(function(){
                             <p><strong>Шаардагдах ур чадвар:</strong> <span>{{$work->skill}}</span> </p>
                             @endif
                             <p><strong>Үнэ:</strong> {{$work->price}} </p>
-                            <p><strong>Ажил оруулсан:</strong> {{$work->created_at}}</p></div>
+                            <p><strong>Ажил оруулсан:</strong> {{$work->created_at}}</p>
+                            <p><strong>Холбоо барих утас:</strong> {{$work->phone}}</p></div>
                       </div>
                       @if($work->userid === \Auth::user()->id)
                       <div class="box-footer box-comments" style="display: block;" id="proposals">

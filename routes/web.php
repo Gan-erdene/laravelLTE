@@ -33,6 +33,11 @@ Route::group(['middleware' => 'checkadmin'], function(){
     Route::post('/backend/category/create', 'backend\CategoryController@create');
     Route::post('/backend/category/action', 'backend\CategoryController@action');
 
+    Route::get('/backend/pages/help', 'backend\PagesController@help')->name('adminViewHelp');
+    Route::get('/backend/pages/help/list', 'backend\PagesController@helpList')->name('adminHelpList');
+    Route::get('/backend/pages/help/{helpid}','backend\PagesController@editHelp')->name('editHelp');
+    Route::post('/backend/pages/action', 'backend\PagesController@action')->name('adminActionPages');
+
     Route::get('/backend/content/add','backend\contentController@index');
     Route::get('/backend/logout','backend\LoginController@logout');
 
@@ -77,13 +82,19 @@ Route::group(['middleware' => 'checkuser'], function(){
 
   Route::get('/frontend/home/test','frontend\HomeController@test');
   Route::post('/like','frontend\HomeController@postLikePost');
+  Route::get('/frontend/home/photos','frontend\PhotosController@action')->name('photos');
+
 
   Route::get('/frontend/userprofile','frontend\ProfileController@userprofile')->name('userProfile');
   Route::get('/frontend/userabout','frontend\ProfileController@userabout')->name('userAbout');
   Route::get('/frontend/userFriendsList','frontend\ProfileController@userFriendsList')->name('userFriendsList');
+  Route::get('/frontend/userPhotos','frontend\PhotosController@userPhotos')->name('userPhotos');
 
   Route::post('/frontend/comment/action','frontend\CommentController@action')->name('commentAction');
   Route::post('/frontend/salary/action','frontend\SalaryController@action')->name('salaryAction');
+
+  Route::get('/frontend/pages/help', 'frontend\PagesController@help')->name('viewHelp');
+  Route::get('/frontend/pages/about', 'frontend\PagesController@about')->name('viewAbout');
 }
 
 );

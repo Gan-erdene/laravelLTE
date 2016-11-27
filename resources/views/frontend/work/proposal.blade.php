@@ -7,12 +7,14 @@
     @endif
     <div class="comment-text">
       <span class="username">
-      {{$p->user->first_name}} {{$p->user->last_name}}
-      <div class="pull-right">
-      <span class="text-muted">{{$p->created_at}}</span>
-      <a href="#" data-toggle="modal" data-propid="{{$p->id}}" data-id="{{$p->user->id}}" data-target="#salary_contract" class="btn btn-primary btn-xs salary_contract"> Цалин шилжүүлэх</a>
-      </div>
-    </span>
+        {{$p->user->first_name}} {{$p->user->last_name}}
+        <div class="pull-right">
+        <span class="text-muted">{{$p->created_at}}</span>
+        @if($p->status === 1)
+        <a href="#" data-toggle="modal" data-propid="{{$p->id}}" data-id="{{$p->user->id}}" data-target="#salary_contract" class="btn btn-primary btn-xs salary_contract"> Цалин шилжүүлэх</a>
+        @endif
+        </div>
+      </span>
       {{$p->proposal}}<br/><br/>
       @if($p->status === 0)
       <p>

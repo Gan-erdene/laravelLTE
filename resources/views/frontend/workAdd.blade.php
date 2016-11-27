@@ -2,6 +2,11 @@
 @section('javascripts')
 <link href="/frontend/assets/css/file_manager.css" rel="stylesheet">
 <link rel="stylesheet" href="/admin/plugins/datepicker/datepicker3.css">
+<link rel="stylesheet" href="/admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+
+<script src="https://cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
+<!-- Bootstrap WYSIHTML5 -->
+<script src="/admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
 <script src="/admin/plugins/datepicker/bootstrap-datepicker.js"></script>
 <script>
   $(document).on('change', '.selectsection', function(){
@@ -18,6 +23,61 @@
 
   $(document).ready(function () {
     $("#menu_add_work").addClass('active');
+    $(".textarea").wysihtml5({
+      toolbar: {
+        "font-styles": false, // Font styling, e.g. h1, h2, etc.
+        "emphasis": true, // Italics, bold, etc.
+        "lists": true, // (Un)ordered lists, e.g. Bullets, Numbers.
+        "html": false, // Button which allows you to edit the generated HTML.
+        "link": false, // Button to insert a link.
+        "image": false, // Button to insert an image.
+        "color": false, // Button to change color of font
+        "blockquote": true, // Blockquote
+      }
+    });
+
+    $('#addImage').on('click', function(){
+      var id = new Date().getTime();
+      var old = $('#workImages').html();
+      var newhtml = "<div id='div_"+id+"' class='row'><a class='col-md-11'><span class='file-input btn btn-default btn-block btn-file'><input type='file' name='workimages[]' multiple data-id='"+id+"' class='imgInp'>Зурагаа оруулна уу</span></a><a class='btn btn-default btn-sm icon-only removeimage' data-id='"+id+"' ><i class='fa fa-times'></i></a><div class='col-md-12'><img id='img_"+id+"' style='max-width:100%' src='/frontend/img/icon-edit.png' alt='Зурагаа оруулна уу.' /></div></div>";
+      $('#workImages').append(newhtml);
+
+      $(".imgInp").change(function(){
+          readURL(this);
+      });
+
+      $('.removeimage').on('click', function(){
+        var id=$(this).data('id');
+        $('#div_'+id).remove();
+      });
+    });
+
+    function readURL(input) {
+
+        if (input.files && input.files[0]) {
+          $(input.files).each(function () {
+            var reader = new FileReader();
+            reader.readAsDataURL(this);
+            reader.onload = function (e) {
+                var extention = e.target.result.split('/');
+                if('data:image' === extention[0]){
+                    $('#img_'+$(input).data('id')).attr('src', e.target.result);
+                }else{
+                  alert("Зөвхөн зурган файл оруулна уу");
+                  return;
+                }
+            }
+          });
+        }
+    }
+
+
+    $('#workfile').on('change', function(){
+      var filename = $(this).val().split('\\').pop();
+      $('#uploadfilename').html(filename);
+    });
+
+    $('.modal-backdrop').remove();
     $('.datepicker').datepicker({
        format: 'yyyy-mm-dd'
      }).on('changeDate', function(e){
@@ -39,7 +99,7 @@
               <h3 class="widget-caption">{{trans('strings.add_work')}}</h3>
             </div>
             <div class="widget-body bordered-top bordered-sky">
-              <form action="{{route('workAction')}}" method="post" id="addForm">
+              <form action="{{route('workAction')}}" enctype="multipart/form-data" method="post" id="addForm">
               <input type="hidden" name="_token" value="{{ csrf_token() }}">
               <input type="hidden" name="action" value="creatework">
               <div class="row">
@@ -58,9 +118,31 @@
                   </div>
                   <div class="col-md-9 @if($errors->add->first('reference') !== "") has-error has-feedback @endif">
                     @if($errors->add->first('reference') !== "")<label class="control-label" > {{$errors->add->first('reference')}} </label>@endif
-                    <textarea class="form-control" placeholder="{{trans('strings.reference')}}..." rows="5" id="reference" name="reference"></textarea>
+                    <textarea class="textarea" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" id="reference" name="reference"></textarea>
                   </div>
               </div>
+              <div class="row">
+                  <div class="col-md-3">
+                  </div>
+                  <div class="col-md-9 @if($errors->add->first('workimages') !== "") has-error has-feedback @endif">
+                    @if($errors->add->first('workimages') !== "")<label class="control-label" > {{$errors->add->first('workimages')}} </label><br/>@endif
+
+                    <div id="workImages">
+                    </div>
+                    <a><span class="file-input btn btn-azure btn-file" id="addImage">Зураг нэмэх</span></a>
+                  </div>
+              </div><br/>
+              <!--<div class="row">
+                  <div class="col-md-3">
+                  </div>
+                  <div class="col-md-9 @if($errors->add->first('workfile') !== "") has-error has-feedback @endif">
+                    @if($errors->add->first('workfile') !== "")<label class="control-label" > {{$errors->add->first('workfile')}} </label><br/>@endif
+                    <a><span class="file-input btn btn-azure btn-file"><input type="file" id="workfile"  name="workfile"> Файл нэмэх</span></a>&nbsp;&nbsp;&nbsp;
+                    <i class="fa fa-info"></i>
+                    <i>Файлын хэмжээ хамгийн ихдээ 20mb байна.</i><br/>
+                    <span class="text-info" id="uploadfilename"></span>
+                  </div>
+              </div>-->
               <hr/>
               <div class="row">
                   <div class="col-md-3">

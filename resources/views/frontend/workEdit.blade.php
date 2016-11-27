@@ -2,6 +2,11 @@
 @section('javascripts')
 <link href="/frontend/assets/css/file_manager.css" rel="stylesheet">
 <link rel="stylesheet" href="/admin/plugins/datepicker/datepicker3.css">
+<link rel="stylesheet" href="/admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+
+<script src="https://cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
+<!-- Bootstrap WYSIHTML5 -->
+<script src="/admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
 <script src="/frontend/assets/js/jquery.1.11.0.validate.min.js"></script>
 <script src="/admin/plugins/datepicker/bootstrap-datepicker.js"></script>
 <script>
@@ -18,6 +23,44 @@
   });
 
   $(document).ready(function () {
+
+    $('#addImage').on('click', function(){
+      var id = new Date().getTime();
+      var old = $('#workImages').html();
+      var newhtml = "<div id='div_"+id+"' class='row'><a class='col-md-11'><span class='file-input btn btn-default btn-block btn-file'><input type='file' name='workimages[]' multiple data-id='"+id+"' class='imgInp'>Зурагаа оруулна уу</span></a><a class='btn btn-default btn-sm icon-only removeimage' data-id='"+id+"' ><i class='fa fa-times'></i></a><div class='col-md-12'><img id='img_"+id+"' style='max-width:100%' src='/frontend/img/icon-edit.png' alt='Зурагаа оруулна уу.' /></div></div>";
+      $('#workImages').append(newhtml);
+
+      $(".imgInp").change(function(){
+          readURL(this);
+      });
+
+      $('.removeimage').on('click', function(){
+        var id=$(this).data('id');
+        $('#div_'+id).remove();
+      });
+    });
+
+    $(".imgInp").change(function(){
+        readURL(this);
+    });
+
+    $('.removeimage').on('click', function(){
+      var id=$(this).data('id');
+      $('#div_'+id).remove();
+    });
+
+    $(".textarea").wysihtml5({
+      toolbar: {
+        "font-styles": false, // Font styling, e.g. h1, h2, etc.
+        "emphasis": true, // Italics, bold, etc.
+        "lists": true, // (Un)ordered lists, e.g. Bullets, Numbers.
+        "html": false, // Button which allows you to edit the generated HTML.
+        "link": false, // Button to insert a link.
+        "image": false, // Button to insert an image.
+        "color": false, // Button to change color of font
+        "blockquote": true, // Blockquote
+      }
+    });
     $('#project_name').val('{{$work->project_name}}');
     $('#price').val('{{$work->price}}');
     $('#phone').val('{{$work->phone}}');
@@ -67,9 +110,23 @@
                   </div>
                   <div class="col-md-9 @if($errors->add->first('reference') !== "") has-error has-feedback @endif">
                     @if($errors->add->first('reference') !== "")<label class="control-label" > {{$errors->add->first('reference')}} </label>@endif
-                    <textarea class="form-control" placeholder="{{trans('strings.reference')}}..." rows="5" id="reference" name="reference">{{$work->reference}}</textarea>
+                    <textarea class="textarea" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"  id="reference" name="reference">{!!$work->reference!!}</textarea>
                   </div>
               </div>
+              <div class="row">
+                  <div class="col-md-3">
+                  </div>
+                  <div class="col-md-9 @if($errors->add->first('workimages') !== "") has-error has-feedback @endif">
+                    @if($errors->add->first('workimages') !== "")<label class="control-label" > {{$errors->add->first('workimages')}} </label><br/>@endif
+
+                    <div id="workImages">
+                      @foreach($work->images() as $image)
+                      <div id='div_{{$image->timestamp}}' class='row'><a class='col-md-11'><span class='file-input btn btn-default btn-block btn-file'><input type='file' name='workimages[]' multiple data-id='{{$image->timestamp}}' class='imgInp'>Зурагаа оруулна уу</span></a><a class='btn btn-default btn-sm icon-only removeimage' data-id='{{$image->timestamp}}' ><i class='fa fa-times'></i></a><div class='col-md-12'><img id='img_{{$image->timestamp}}' style='max-width:100%' src='/uploads/work/{{$image->timestamp}}.{{$image->extension}}' alt='Зурагаа оруулна уу.' /></div></div>
+                      @endforeach
+                    </div>
+                    <a><span class="file-input btn btn-azure btn-file" id="addImage">Зураг нэмэх</span></a>
+                  </div>
+              </div><br/>
               <hr/>
               <div class="row">
                   <div class="col-md-3">

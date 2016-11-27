@@ -55,7 +55,7 @@ $('#myModal').on('shown.bs.modal', function () {
                 <!-- <li class="active"><a href="profile.html"><i class="fa fa-fw fa-bars"></i> Timeline</a></li> -->
                 <li class="active"><a href="{{route('frontendEditProfile')}}"><i class="fa fa-fw fa-user"></i> Миний тухай</a></li>
                 <li id='friendView' class="active"><a href="{{route('friendsView')}}"><i class="fa fa-fw fa-users"></i> Найзууд</a></li>
-                <!-- <li class="active"><a href="photos1.html"><i class="fa fa-fw fa-image"></i> Photos</a></li> -->
+                <li class="active"><a href="{{route('photos')}}"><i class="fa fa-fw fa-image"></i> Зураг</a></li>
               </ul>
             </div>
           </div>

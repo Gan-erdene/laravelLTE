@@ -77,7 +77,7 @@ class NewsfeedController extends Controller
       $sql="select u.last_name, u.profile_image, u.first_name, l.likecount, w.* from works w
           	left join sf_guard_user u  on w.userid = u.id
             left join (select count(post_id) likecount, post_id from likes group by post_id ) l on w.id = l.post_id
-              where w.is_active = 1 and w.id in (SELECT distinct u.workid FROM work_categories u where u.catid =  $value) order by w.created_at desc";
+              where w.is_active = 1 and w.id in (SELECT distinct u.workid FROM work_categories u where u.catid =  $value) order by w.updated_at desc";
       $works = DB::select($sql);
       $html = view('frontend.newsfeed.postWork', ['works'=>$works]);
       return $html->render();
@@ -88,7 +88,7 @@ class NewsfeedController extends Controller
       $sql="select u.last_name, u.profile_image, u.first_name, l.likecount, w.* from works w
           	left join sf_guard_user u  on w.userid = u.id
             left join (select count(post_id) likecount, post_id from likes group by post_id ) l on w.id = l.post_id
-              where w.is_active = 1 and w.id in (SELECT distinct u.workid FROM work_categories u where u.section_id =  $value) order by w.created_at desc";
+              where w.is_active = 1 and w.id in (SELECT distinct u.workid FROM work_categories u where u.section_id =  $value) order by w.updated_at desc";
       $works = DB::select($sql);
       $html = view('frontend.newsfeed.postWork', ['works'=>$works]);
       return $html->render();
@@ -99,7 +99,7 @@ class NewsfeedController extends Controller
 		left join work_user_saved s on w.id = s.workid and s.is_saved = 1
           	left join sf_guard_user u  on w.userid = u.id
             left join (select count(post_id) likecount, post_id from likes group by post_id ) l on w.id = l.post_id
-              where w.is_active = 1 and s.id is not null  order by w.created_at desc";
+              where w.is_active = 1 and s.id is not null  order by w.updated_at desc";
       $works = DB::select($sql);
       $html = view('frontend.newsfeed.postWork', ['works'=>$works]);
       return $html->render();
@@ -109,7 +109,7 @@ class NewsfeedController extends Controller
       $sql="select u.last_name, u.profile_image,l.likecount, u.first_name, w.* from works w
           	left join sf_guard_user u  on w.userid = u.id
             left join (select count(post_id) likecount, post_id from likes group by post_id ) l on w.id = l.post_id
-              where w.is_active = 1 and (w.id in (SELECT distinct c.workid FROM sf_guard_user_category u left join work_categories c on u.catid = c.catid WHERE u.user_id = ".\Auth::user()->id.") or w.type <> 1)  order by w.created_at desc";
+              where w.is_active = 1 and (w.id in (SELECT distinct c.workid FROM sf_guard_user_category u left join work_categories c on u.catid = c.catid WHERE u.user_id = ".\Auth::user()->id.") or w.type <> 1)  order by w.updated_at desc";
       $works = DB::select($sql);
       $html = view('frontend.newsfeed.postWork', ['works'=>$works]);
       return $html->render();
@@ -120,7 +120,7 @@ class NewsfeedController extends Controller
       $sql="select u.last_name, u.profile_image,l.likecount, u.first_name, w.* from works w
           	left join sf_guard_user u  on w.userid = u.id
             left join (select count(post_id) likecount, post_id from likes group by post_id ) l on w.id = l.post_id
-              where w.is_active = 1 and w.userid = $userid order by w.created_at desc";
+              where w.is_active = 1 and w.userid = $userid order by w.updated_at desc";
       $works = DB::select($sql);
       $html = view('frontend.newsfeed.postWork', ['works'=>$works]);
       return $html->render();

@@ -1,6 +1,38 @@
 @extends('layouts.frontend')
 @section('javascripts')
 <link href="/frontend/assets/css/group.css" rel="stylesheet">
+<script>
+$(document).on('click', '.groupuser', function(){
+    var btn = $(this);
+    btn.prop('disabled', 'disabled');
+    $.post("{{route('groupAction')}}", {
+      action:btn.data('id'), '_token':"{{ csrf_token() }}"
+    },function(data){
+      if(data.status){
+        btn.data('id', data.dataid);
+        btn.html(data.btntext);
+        btn.prop('disabled', '');
+      }else{
+        btn.prop('disabled', '');
+        alert(data.message);
+      }
+    });
+});
+$(document).on('click', '.acceptuser', function(){
+    var btn = $(this);
+    btn.prop('disabled', 'disabled');
+    $.post("{{route('groupAction')}}", {
+      action:btn.data('id'), '_token':"{{ csrf_token() }}"
+    },function(data){
+      if(data.status){
+          btn.remove();
+      }else{
+        btn.prop('disabled', '');
+        alert(data.message);
+      }
+    });
+});
+</script>
 @endsection
 @section('content')
 <div class="container page-content">
@@ -25,13 +57,15 @@
             <!-- group posts -->
             <div class="col-md-7">
               @if($groupuser)
+              @if($groupuser->status === 2)
               <div class="box profile-info n-border-top">
                 <form>
                     <textarea class="form-control input-lg p-text-area" rows="2" placeholder="Whats in your mind today?"></textarea>
                 </form>
                 <div class="box-footer box-form">
-                  <button type="button" class="btn btn-azure pull-right">Post</button>
+                  <button type="button" class="btn btn-azure pull-right">Админ</button>
                   <ul class="nav nav-pills">
+
                     <li><a href="#"><i class="fa fa-map-marker"></i></a></li>
                     <li><a href="#"><i class="fa fa-camera"></i></a></li>
                     <li><a href="#"><i class=" fa fa-film"></i></a></li>
@@ -39,6 +73,25 @@
                   </ul>
                 </div>
               </div>
+              @elseif($groupuser->status === 1)
+              <div class="box profile-info n-border-top">
+                <form>
+                    <textarea class="form-control input-lg p-text-area" rows="2" placeholder="Whats in your mind today?"></textarea>
+                </form>
+                <div class="box-footer box-form">
+                  <button type="button" class="btn btn-azure pull-right">гишүүн</button>
+                  <ul class="nav nav-pills">
+
+                    <li><a href="#"><i class="fa fa-map-marker"></i></a></li>
+                    <li><a href="#"><i class="fa fa-camera"></i></a></li>
+                    <li><a href="#"><i class=" fa fa-film"></i></a></li>
+                    <li><a href="#"><i class="fa fa-microphone"></i></a></li>
+                  </ul>
+                </div>
+              </div>
+              @endif
+              @else
+
               @endif
               <!--  posts -->
               <div class="box box-widget">
@@ -173,12 +226,12 @@
                 <div class="widget-body bordered-top bordered-sky">
                   @if($groupuser)
                     @if($groupuser->status === 0)
-                    <button type="button" class="btn btn-azure"><i class="fa fa-user-times"></i>Хүсэлтийг зогсоох</button>
+                    <button data-id="can_{{$group->id}}" type="button" class="btn btn-azure groupuser"><i class="fa fa-user-times"></i>Хүсэлтийг зогсоох</button>
                     @else
-                    <button type="button" class="btn btn-azure"><i class="fa fa-user-times"></i>Грүппээс гарах</button>
+                    <button data-id="ext_{{$group->id}}" type="button" class="btn btn-azure groupuser"><i class="fa fa-user-times"></i>Грүппээс гарах</button>
                     @endif
                   @else
-                    <button type="button" class="btn btn-success"><i class="fa fa-user-plus"></i>Гишүүн болох</button>
+                    <button data-id="add_{{$group->id}}" type="button" class="btn btn-success groupuser"><i class="fa fa-user-plus"></i>Гишүүн болох</button>
                   @endif
                 </div>
               </div>
@@ -192,64 +245,56 @@
                 </div>
               </div>
 
+
+              @if($groupuser)
+              @if($groupuser->status === 2)
               <div class="widget widget-friends">
                 <div class="widget-header">
-                  <h3 class="widget-caption">Members</h3>
+                  <h3 class="widget-caption">Групп-д нэмэх</h3>
                 </div>
                 <div class="widget-body bordered-top  bordered-sky">
                   <div class="row">
                     <div class="col-md-12">
                       <ul class="img-grid" style="margin: 0 auto;">
+                        @foreach($list_users as $list_user)
+
                         <li>
                           <a href="#">
-                            <img src="img/Friends/guy-6.jpg" alt="image">
+                            <button data-id="acc_{{$list_user->group_user->id}}" type="button" class="btn btn-success acceptuser"><i class="fa fa-user-plus"></i>{{$list_user->group_user->first_name}}   {{$list_user->group_user->last_name}}</button>
+
                           </a>
                         </li>
-                        <li>
-                          <a href="#">
-                            <img src="img/Friends/woman-3.jpg" alt="image">
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#">
-                            <img src="img/Friends/guy-2.jpg" alt="image">
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#">
-                            <img src="img/Friends/guy-9.jpg" alt="image">
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#">
-                            <img src="img/Friends/woman-9.jpg" alt="image">
-                          </a>
-                        </li>
-                        <li class="clearfix">
-                          <a href="#">
-                            <img src="img/Friends/guy-4.jpg" alt="image">
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#">
-                            <img src="img/Friends/guy-1.jpg" alt="image">
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#">
-                            <img src="img/Friends/woman-4.jpg" alt="image">
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#">
-                            <img src="img/Friends/guy-6.jpg" alt="image">
-                          </a>
-                        </li>
+                        @endforeach
                       </ul>
                     </div>
                   </div>
                 </div>
               </div>
+              @elseif($groupuser->status === 1)
+              <div class="widget widget-friends">
+                <div class="widget-header">
+                  <h3 class="widget-caption">Гишүүд</h3>
+                </div>
+                <div class="widget-body bordered-top  bordered-sky">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <ul class="img-grid" style="margin: 0 auto;">
+
+                        <li>
+                          <a href="#">
+                          Гишүүн
+
+                          </a>
+                        </li>
+
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              @endif
+              @else
+              @endif
             </div><!-- end group about -->
           </div>
         </div>

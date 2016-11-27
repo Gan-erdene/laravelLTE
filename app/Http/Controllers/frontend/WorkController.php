@@ -16,6 +16,9 @@ use App\WorkFiles;
 use App\WorkUserProposal;
 use App\WorkUserSaved;
 use App\Models\WorkTxn;
+use App\Models\WorkImages;
+use Image;
+use File;
 
 class WorkController extends Controller
 {
@@ -159,7 +162,6 @@ class WorkController extends Controller
       $work = Works::find($workid);
       if(!$work){
         WorkCategories::where('workid', $workid)->delete();
-        WorkFiles::where('workid', $workid)->delete();
         return back()
           ->with('status', 'warnings')
           ->with('message', trans('strings.was_deleted'));
@@ -168,6 +170,12 @@ class WorkController extends Controller
       if($status_work){
         WorkCategories::where('workid', $workid)->delete();
         WorkFiles::where('workid', $workid)->delete();
+        $works = WorkImages::where('work_id', $workid)->get();
+        $destinationPath = public_path('uploads/work/');
+        foreach($works as $item){
+            File::delete($destinationPath.$item->timestamp.'.'.$item->extention);
+            $item->delete();
+          }
         return back()
           ->with('status', 'success')
           ->with('message', trans('strings.deleted'));
@@ -190,7 +198,9 @@ class WorkController extends Controller
             'project_name.required' => trans('strings.require_project_name'),
             'reference.required'  => trans('strings.require_reference'),
             'startdate.required'  => trans('strings.require_startdate'),
-            'enddate.required'  => trans('strings.require_enddate')
+            'workimages.*.mimes'  => "Зураг оруулах хэсэгт өөр файл оруулсан байна",
+            'workimages.*.max'  => "Зургийн хэмжээ 5mb-с ихгүй байх ёстой",
+            'workfile.max'  => "Файлийн хэмжээ их байна."
         ];
     }
 
@@ -200,7 +210,8 @@ class WorkController extends Controller
           'project_name' => 'required',
           'reference' => 'required',
           'startdate' => 'required',
-          'enddate' => 'required'
+          'workimages.*' => 'mimes:jpeg,jpg,png|max:5000', // max 5000kb
+          'workfile' => 'max:20000' // max 20000kb
       ], $this->messages());
 
       if ($validator->fails()) {
@@ -233,9 +244,33 @@ class WorkController extends Controller
       $status = $work->save();
       if($status){
           $this->createWorkCategory($work->id, $request->input('categories'));
+          $this->createWorkImages($work->id, $request);
           return back()->with('status', 'success')->with('message', trans('strings.add_work_success'));
       }else{
           return back()->with('status', 'error')->with('message', trans('strings.add_work_error'));
+      }
+    }
+
+    public function createWorkImages($workid, $request){
+      if( $request->hasFile('workimages') ){
+        $files = $request->file('workimages');
+        $i = 0;
+        foreach($files as $file){
+            $destinationPath = public_path('uploads/work/');
+            $ext = $file->guessClientExtension();
+            $name = $file->getClientOriginalName();
+            $workimage = new WorkImages();
+            $workimage->work_id = $workid;
+            $workimage->user_id = \Auth::user()->id;
+            $workimage->timestamp = time()+$i;
+            $workimage->extention = $ext;
+            $workimage->image_name = $name;
+            $workimage->created_at = new \DateTime();
+            $workimage->save();
+            $img = Image::make($file->getRealPath());
+            $img->save($destinationPath.'/'.$workimage->timestamp.'.'.$workimage->extention);
+            $i++;
+        }
       }
     }
 
