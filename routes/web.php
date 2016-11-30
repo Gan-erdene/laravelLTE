@@ -107,5 +107,6 @@ Route::post('/frontend/login','frontend\LoginController@login');
 Route::post('/frontend/signup','frontend\RegisterController@createUser');
 
 Route::get('/start','start\StartController@index');
+Route::get('/start/category','start\StartController@startCatView')->name('startCatView');
 
 Route::get('/frontend/logout','frontend\LoginController@logout');
