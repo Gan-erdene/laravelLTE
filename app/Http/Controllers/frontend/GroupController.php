@@ -7,7 +7,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Groups;
 use App\Models\GroupUsers;
 use App\Models\GroupPost;
+use App\Models\GroupLike;
 use Image;
+use App\sf_guard_user;
+
 class GroupController extends Controller
 {
     public function action(Request $request){
@@ -40,6 +43,32 @@ class GroupController extends Controller
           return response()->json(['status'=>true]);
 
 
+
+    }
+    public function like(Request $request)
+    {
+     $post_id = $request->input('postId');
+     $post = GroupPost::find($post_id);
+     if(!$post){
+       return response()->json(['test'=>"post uuseegui bna"]);
+     }
+
+      $user = \Auth::user();
+      $like =  GroupLike::where('user_id', $user->id)->where('post_id', $post_id)->first();
+
+      if($like){
+          $like->delete();
+          $like_count =  GroupLike::where('post_id', $post_id)->count();
+          return response()->json(['status'=>'success', 'message'=>"<i class='fa fa-thumbs-o-up'></i>"."like",'like_count'=>$like_count]);
+      }else{
+        $like = new GroupLike;
+      }
+
+      $like->user_id = $user->id;
+      $like->post_id = $post->id;
+      $like->save();
+        $like_count =  GroupLike::where('post_id', $post_id)->count();
+      return response()->json(['status'=>'success', 'message'=>"<i class='fa fa-thumbs-o-up'></i>"."unlike",'like_count'=>$like_count]);
 
     }
     public function GroupRequest($groupid){

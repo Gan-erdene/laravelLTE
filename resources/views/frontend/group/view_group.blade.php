@@ -40,13 +40,13 @@ $(document).on('click', '.group_like',function(event){
   var postId = btn.data("id");
 
 btn.prop('disabled', 'disabled');
-  $.post("{{ url('/group/like') }}", { postId: postId, _token: '{{  csrf_token() }}' }, function(data){
+  $.post("{{ url('/frontend/group/like') }}", { postId: postId, _token: '{{  csrf_token() }}' }, function(data){
       if(data.status === 'success'){
         console.log(data.message);
         console.log(btn);
         btn.html(data.message);
         btn.prop('disabled', '');
-        $('#group_like_' + postId).html(data.like_count);
+        $('#like_' + postId).html(data.like_count);
       }
   });
 });
@@ -127,8 +127,8 @@ btn.prop('disabled', 'disabled');
                   @endif
                   <p>
                   <!-- <button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share</button> -->
-                  <button type="button" data-id="{{$list->id}}" class="btn btn-default btn-xs group_like"><i class="fa fa-thumbs-o-up"></i>{{ \Auth::user()->likes->where('post_id',$work->id)->first() ? 'unlike' : 'like'   }}</button>
-                  <span class="pull-right text-muted"><span id="group_like_{{$list->id}}">{{ $list->likecount }}</span> likes</span>
+                  <button type="button" data-id="{{$list->id}}" class="btn btn-default btn-xs group_like"><i class="fa fa-thumbs-o-up"></i>{{ \Auth::user()->likes->where('post_id',$list->id)->first() ? 'unlike' : 'like'   }}</button>
+                  <span class="pull-right text-muted"><span id="like_{{$list->id}}"></span> likes</span>
                 </div>
                 <div class="box-footer box-comments" style="display: block;">
                   <div class="box-comment">

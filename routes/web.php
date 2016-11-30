@@ -74,6 +74,7 @@ Route::group(['middleware' => 'checkuser'], function(){
   Route::get('/frontend/groups/{groupid}','frontend\GroupController@viewGroup')->name('viewGroup');
   Route::post('/frontend/group/action','frontend\GroupController@action')->name('groupAction');
   Route::post('/frontend/group/post','frontend\GroupController@post')->name('groupPost');
+  Route::post('/frontend/group/like','frontend\GroupController@like');
 
   Route::get('/frontend/file','frontend\FileController@index');
   Route::post('/frontend/file/add','frontend\FileController@add');
