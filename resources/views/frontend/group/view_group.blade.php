@@ -57,38 +57,23 @@ $(document).on('click', '.acceptuser', function(){
             <!-- group posts -->
             <div class="col-md-7">
               @if($groupuser)
-              @if($groupuser->status === 2)
+              @if($groupuser->status === 2 or $groupuser->status === 1)
+
               <div class="box profile-info n-border-top">
-                <form>
-                    <textarea class="form-control input-lg p-text-area" rows="2" placeholder="Whats in your mind today?"></textarea>
-                </form>
+                <form action="{{ url('/frontend/group/post') }}"  enctype="multipart/form-data" method="POST">
+                  <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <textarea class="form-control input-lg p-text-area" id="group_text" name="group_text" rows="2" placeholder="Юу бодож байна?"></textarea>
+
                 <div class="box-footer box-form">
-                  <button type="button" class="btn btn-azure pull-right">Админ</button>
+                  <button type="submit" class="btn btn-azure pull-right">Нийтлэх</button>
                   <ul class="nav nav-pills">
 
-                    <li><a href="#"><i class="fa fa-map-marker"></i></a></li>
-                    <li><a href="#"><i class="fa fa-camera"></i></a></li>
-                    <li><a href="#"><i class=" fa fa-film"></i></a></li>
-                    <li><a href="#"><i class="fa fa-microphone"></i></a></li>
+                    <li><a onclick="document.getElementById('group_upload').click(); return true"><i class="fa fa-image"> </i><input type="file" id="group_upload" name="group_upload" style="visibility: hidden; width: 1px; height: 1px" multiple /></a></li>
+                     <li><a href="#"><i class=" fa fa-film"></i></a></li>
                   </ul>
                 </div>
               </div>
-              @elseif($groupuser->status === 1)
-              <div class="box profile-info n-border-top">
-                <form>
-                    <textarea class="form-control input-lg p-text-area" rows="2" placeholder="Whats in your mind today?"></textarea>
-                </form>
-                <div class="box-footer box-form">
-                  <button type="button" class="btn btn-azure pull-right">гишүүн</button>
-                  <ul class="nav nav-pills">
-
-                    <li><a href="#"><i class="fa fa-map-marker"></i></a></li>
-                    <li><a href="#"><i class="fa fa-camera"></i></a></li>
-                    <li><a href="#"><i class=" fa fa-film"></i></a></li>
-                    <li><a href="#"><i class="fa fa-microphone"></i></a></li>
-                  </ul>
-                </div>
-              </div>
+              </form>
               @endif
               @else
 
@@ -273,7 +258,7 @@ $(document).on('click', '.acceptuser', function(){
               @elseif($groupuser->status === 1)
               <div class="widget widget-friends">
                 <div class="widget-header">
-                  <h3 class="widget-caption">Гишүүд</h3>
+                  <h3 class="widget-caption">Гишүү</h3>
                 </div>
                 <div class="widget-body bordered-top  bordered-sky">
                   <div class="row">

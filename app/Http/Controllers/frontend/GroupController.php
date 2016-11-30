@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Groups;
 use App\Models\GroupUsers;
+use App\Models\GroupPost;
+use Image;
 class GroupController extends Controller
 {
     public function action(Request $request){
@@ -138,6 +140,27 @@ return view('frontend.group.view_group', ['group'=>$group, 'groupuser'=>$groupUs
         $groupuser->save();
         return redirect()->route('viewGroup',['groupid'=>$group->id]);
       }
+    }
+
+    public function post(Request $request){
+      $group_post = new GroupPost;
+
+      $group_post->body = $request->input('group_text');
+      if(isset($request->group_upload)){
+        $upload = $request->file('group_upload');
+              $input['group_upload'] = time().'.'.$upload->getClientOriginalName();
+              $destinationPath = public_path('uploads/grouppost');
+              $img = Image::make($upload->getRealPath());
+              $img->resize(660, null, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+          })->save($destinationPath.'/'.$input['group_upload']);
+        $group_post->image = $input['group_upload'];
+      }
+      $group_post->user_id = \Auth::user()->id;
+      $group_post->save();
+
+      return back();
     }
 
 
