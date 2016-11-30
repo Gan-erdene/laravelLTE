@@ -9,24 +9,23 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-content">
                     <div class="file-manager">
-                      <div class="row">
                         @foreach($sections as $section)
-                        <div class="col-md-4">
-                          <div class="file-manager">
-                              <div class="hr-line-dashed"></div>
-                              <button class="btn btn-azure btn-block">{{$section->secTrans('mn')->name}}</button>
-                              <div class="hr-line-dashed"></div>
-                              <h5>Type</h5>
-                              <ul class="folder-list" style="padding: 0">
-                                  <li><a href=""><i class="fa fa-camera"></i> Videos</a></li>
-                                  <li><a href=""><i class="fa fa-image"></i> Pictures</a></li>
-                                  <li><a href=""><i class="fa fa-music"></i> Sounds</a></li>
-                              </ul>
-                              <div class="clearfix"></div>
+                        @if(($loop->index )%3 === 0)<div class="row">@endif
+                          <div class="col-md-4">
+                            <div class="file-manager">
+                                <div class="hr-line-dashed"></div>
+                                <h5 class="attachment-heading"><i class="fa fa-navicon"></i> {{$section->secTrans('mn')->name}}</h5>
+                                <div class="hr-line-dashed"></div>
+                                <ul class="folder-list" style="padding: 0">
+                                    @foreach($section->categories() as $category)
+                                    <li><a href="{{route('startCatView')}}?id={{$category->id}}"><i class="fa fa-angle-right"></i> {{$category->catTrans('mn')->name}}</a></li>
+                                    @endforeach
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
                           </div>
-                        </div>
+                          @if(($loop->index + 1)%3 === 0)</div>@endif
                         @endforeach
-                      </div>
                     </div>
                   </div>
               </div>

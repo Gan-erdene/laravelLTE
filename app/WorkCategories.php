@@ -13,4 +13,8 @@ class WorkCategories extends Model
   public function category(){
     return $this->hasOne('App\Category', 'id', 'catid');
   }
+
+  public function work(){
+    return $this->hasOne('App\Works', 'id', 'workid');
+  }
 }
