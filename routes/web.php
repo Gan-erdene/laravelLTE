@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return redirect('/frontend/index');
+    return redirect('/start');
 });
 
 Route::get('/backend/login',function(){
@@ -94,9 +94,6 @@ Route::group(['middleware' => 'checkuser'], function(){
 
   Route::post('/frontend/comment/action','frontend\CommentController@action')->name('commentAction');
   Route::post('/frontend/salary/action','frontend\SalaryController@action')->name('salaryAction');
-
-  Route::get('/frontend/pages/help', 'frontend\PagesController@help')->name('viewHelp');
-  Route::get('/frontend/pages/about', 'frontend\PagesController@about')->name('viewAbout');
 }
 
 );
@@ -109,5 +106,7 @@ Route::post('/frontend/signup','frontend\RegisterController@createUser');
 
 Route::get('/start','start\StartController@index');
 Route::get('/start/category','start\StartController@startCatView')->name('startCatView');
+Route::get('/frontend/pages/help', 'frontend\PagesController@help')->name('viewHelp');
+Route::get('/frontend/pages/about', 'frontend\PagesController@about')->name('viewAbout');
 
 Route::get('/frontend/logout','frontend\LoginController@logout');

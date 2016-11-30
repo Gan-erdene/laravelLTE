@@ -27,4 +27,8 @@ class Works extends Model
   public function images(){
     return $this->hasMany('App\Models\WorkImages', 'work_id', 'id')->get();
   }
+
+  public function userAvatar(){
+    return $this->hasOne('App\sf_guard_user', 'id', 'userid');
+  }
 }

@@ -40,7 +40,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="{{route('newsfeedIndex')}}"><b><img src="/frontend/img/logo.png" /></b></a>
+          <a class="navbar-brand" href="/start"><b><img src="/frontend/img/logo.png" /></b></a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li class="actives"><a href="{{route('frontendHome')}}"><i class="fa fa-user"></i> Нэвтрэх &nbsp;&nbsp;|&nbsp;&nbsp; <i class="fa fa-user-plus"></i> {{trans('strings.signup')}} </a></li>
+          </ul>
         </div>
       </div>
     </nav>

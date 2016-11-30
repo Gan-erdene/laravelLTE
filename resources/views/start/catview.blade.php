@@ -36,29 +36,38 @@
         </div>
         <div class="col-md-9">
           <div class="row">
-              <div class="col-md-12">
+              <div class="col-md-11">
                 @foreach($works as $work)
-                  <div class="file-box">
-                      <div class="file">
-                          <a href="#">
-                              <span class="corner"></span>
-
-                              <div class="image">
-                                @if(isset($work->work->images()[0]))
-                                <img alt="image" class="img-responsive" src="/uploads/work/{{$work->work->images()[0]->timestamp}}.{{$work->work->images()[0]->extention}}">
-                                @else
-                                  <img alt="image" class="img-responsive" src="/frontend/img/Photos/3.jpg">
-                                  @endif
-                              </div>
-                              <div class="file-name">
-                                {{ str_limit($work->work->project_name, 20) }}
-                                  <br>
-                                  <small>Оруулсан: {{date('Y.m.d', strtotime($work->work->created_at))}}</small>
-                              </div>
-                          </a>
-
-                      </div>
+                @if($work->work->userAvatar)
+                <div class="box box-widget">
+                  <div class="box-header with-border">
+                    <div class="user-block">
+                      <img class="img-circle" src="{{$work->work->userAvatar->getAvatar()}}" alt="User Image">
+                      <span class="username"><a href="#">{{$work->work->userAvatar->first_name}} {{$work->work->userAvatar->last_name}}</a></span>
+                      <span class="description">Нийтэлсэн - {{$work->work->created_at}}</span>
+                    </div>
                   </div>
+                  <div class="box-body">
+
+                    <div class="attachment-block clearfix">
+                      @if(isset($work->work->images()[0]))
+                      <img class="attachment-img show-in-modal" src="/uploads/work/{{$work->work->images()[0]->timestamp}}.{{$work->work->images()[0]->extention}}" alt="Attachment Image">
+                      @else
+                      <img class="attachment-img show-in-modal" src="/frontend/img/Photos/3.jpg" alt="Attachment Image">
+                      @endif
+                      <div class="attachment-pushed">
+                      <h5 class="attachment-heading"><a href="#">{{$work->work->project_name}}</a></h5>
+                      <div class="attachment-text">
+                      {!!str_limit($work->work->reference, 50)!!}
+                      </div>
+                      </div>
+                    </div>
+                    <b>Үнэ: </b> {{$work->work->price}}
+                    <br/>
+                    <b>Хугацаа: </b> {{$work->work->startdate}} - {{$work->work->enddate}}
+                  </div>
+                </div>
+                @endif
                 @endforeach
               </div>
           </div>
