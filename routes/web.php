@@ -105,4 +105,6 @@ Route::get('/frontend/index','frontend\LoginController@index');
 Route::post('/frontend/login','frontend\LoginController@login');
 Route::post('/frontend/signup','frontend\RegisterController@createUser');
 
+Route::get('/start','start\StartController@index');
+
 Route::get('/frontend/logout','frontend\LoginController@logout');
