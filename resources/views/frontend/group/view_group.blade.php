@@ -33,6 +33,24 @@ $(document).on('click', '.acceptuser', function(){
     });
 });
 </script>
+<script>
+$(document).on('click', '.group_like',function(event){
+  event.preventDefault();
+  var btn = $(this);
+  var postId = btn.data("id");
+
+btn.prop('disabled', 'disabled');
+  $.post("{{ url('/group/like') }}", { postId: postId, _token: '{{  csrf_token() }}' }, function(data){
+      if(data.status === 'success'){
+        console.log(data.message);
+        console.log(btn);
+        btn.html(data.message);
+        btn.prop('disabled', '');
+        $('#group_like_' + postId).html(data.like_count);
+      }
+  });
+});
+</script>
 @endsection
 @section('content')
 <div class="container page-content">
@@ -78,23 +96,39 @@ $(document).on('click', '.acceptuser', function(){
               @else
 
               @endif
-              <!--  posts -->
+            @foreach($post_lists as $list)
               <div class="box box-widget">
                 <div class="box-header with-border">
                   <div class="user-block">
-                    <img class="img-circle" src="img/Friends/guy-3.jpg" alt="User Image">
-                    <span class="username"><a href="#">John Breakgrow jr.</a></span>
-                    <span class="description">Shared publicly - 7:30 PM Today</span>
+                    @if($list->postUser->profile_image)
+
+                        <img class="img-circle" src="/uploads/profileimage/{{$list->postUser->profile_image}}" alt="User Image">
+
+
+                    @else
+
+                        <img class="img-circle"  src="/frontend/img/Profile/default-avatar.png" alt="User Image">
+
+                    @endif
+
+                    <span class="username"><a href="#">{{$list->postUser->first_name}}{{$list->postUser->last_name}}</a></span>
+                    <span class="description">Нийтэлсэн: {{date('Y.m.d H:i:s', strtotime($list->created_at))}}</span>
                   </div>
                 </div>
 
                 <div class="box-body" style="display: block;">
                   <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ac iaculis ligula, eget efficitur nisi. In vel rutrum orci. Etiam ut orci volutpat, maximus quam vel, euismod orci. Nunc in urna non lectus malesuada aliquet. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam dignissim mi ac metus consequat, a pharetra neque molestie. Maecenas condimentum lorem quis vulputate volutpat. Etiam sapien diam
+                      {{$list->body}}
                   </p>
-                  <button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share</button>
-                  <button type="button" class="btn btn-default btn-xs"><i class="fa fa-thumbs-o-up"></i> Like</button>
-                  <span class="pull-right text-muted">127 likes - 3 comments</span>
+                  <p>
+                  @if($list->image)
+                   <img class="img-responsive show-in-modal" src="/uploads/grouppost/{{$list->image}}" alt="Photo">
+                  @else
+                  @endif
+                  <p>
+                  <!-- <button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share</button> -->
+                  <button type="button" data-id="{{$list->id}}" class="btn btn-default btn-xs group_like"><i class="fa fa-thumbs-o-up"></i>{{ \Auth::user()->likes->where('post_id',$work->id)->first() ? 'unlike' : 'like'   }}</button>
+                  <span class="pull-right text-muted"><span id="group_like_{{$list->id}}">{{ $list->likecount }}</span> likes</span>
                 </div>
                 <div class="box-footer box-comments" style="display: block;">
                   <div class="box-comment">
@@ -109,17 +143,6 @@ $(document).on('click', '.acceptuser', function(){
                     </div>
                   </div>
 
-                  <div class="box-comment">
-                    <img class="img-circle img-sm" src="img/Friends/guy-3.jpg" alt="User Image">
-                    <div class="comment-text">
-                      <span class="username">
-                      Luna Stark
-                      <span class="text-muted pull-right">8:03 PM Today</span>
-                      </span>
-                      It is a long established fact that a reader will be distracted
-                      by the readable content of a page when looking at its layout.
-                    </div>
-                  </div>
                 </div>
                 <div class="box-footer" style="display: block;">
                   <form action="#" method="post">
@@ -130,75 +153,7 @@ $(document).on('click', '.acceptuser', function(){
                   </form>
                 </div>
               </div><!--  end posts -->
-
-              <!-- post -->
-              <div class="box box-widget">
-                <div class="box-header with-border">
-                  <div class="user-block">
-                    <img class="img-circle" src="img/Friends/guy-3.jpg" alt="User Image">
-                    <span class="username"><a href="#">Jonathan Burke Jr.</a></span>
-                    <span class="description">Shared publicly - 7:30 PM Today</span>
-                  </div>
-                </div>
-                <div class="box-body">
-                  <p>Far far away, behind the word mountains, far from the
-                  countries Vokalia and Consonantia, there live the blind
-                  texts. Separated they live in Bookmarksgrove right at</p>
-
-                  <p>the coast of the Semantics, a large language ocean.
-                  A small river named Duden flows by their place and supplies
-                  it with the necessary regelialia. It is a paradisematic
-                  country, in which roasted parts of sentences fly into
-                  your mouth.</p>
-
-                  <div class="attachment-block clearfix">
-                    <img class="attachment-img show-in-modal" src="img/Photos/2.jpg" alt="Attachment Image">
-                    <div class="attachment-pushed">
-                    <h4 class="attachment-heading"><a href="http://www.bootdey.com/">Lorem ipsum text generator</a></h4>
-                    <div class="attachment-text">
-                    Description about the attachment can be placed here.
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry... <a href="#">more</a>
-                    </div>
-                    </div>
-                  </div>
-                  <button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share</button>
-                  <button type="button" class="btn btn-default btn-xs"><i class="fa fa-thumbs-o-up"></i> Like</button>
-                  <span class="pull-right text-muted">45 likes - 2 comments</span>
-                </div>
-                <div class="box-footer box-comments">
-                  <div class="box-comment">
-                    <img class="img-circle img-sm" src="img/Friends/guy-5.jpg" alt="User Image">
-                    <div class="comment-text">
-                      <span class="username">
-                      Maria Gonzales
-                      <span class="text-muted pull-right">8:03 PM Today</span>
-                      </span>
-                      It is a long established fact that a reader will be distracted
-                      by the readable content of a page when looking at its layout.
-                    </div>
-                  </div>
-                  <div class="box-comment">
-                    <img class="img-circle img-sm" src="img/Friends/guy-6.jpg" alt="User Image">
-                    <div class="comment-text">
-                      <span class="username">
-                      Nora Havisham
-                      <span class="text-muted pull-right">8:03 PM Today</span>
-                      </span>
-                      The point of using Lorem Ipsum is that it has a more-or-less
-                      normal distribution of letters, as opposed to using
-                      'Content here, content here', making it look like readable English.
-                    </div>
-                  </div>
-                </div>
-                <div class="box-footer">
-                  <form action="#" method="post">
-                    <img class="img-responsive img-circle img-sm" src="img/Friends/guy-3.jpg" alt="Alt Text">
-                    <div class="img-push">
-                      <input type="text" class="form-control input-sm" placeholder="Press enter to post comment">
-                    </div>
-                  </form>
-                </div>
-              </div><!-- end post -->
+              @endforeach
             </div><!-- end group posts -->
 
 

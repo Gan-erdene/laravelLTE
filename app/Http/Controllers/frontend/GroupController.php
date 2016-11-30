@@ -59,28 +59,23 @@ class GroupController extends Controller
 
 
       $groupUser = GroupUsers::where('user_id',\Auth::user()->id)->where('group_id',$groupid)->first();
+      $post_lists = GroupPost::all();
       if($groupUser){
         if($groupUser->status === 2){
 
                   $list_users = GroupUsers::where('group_id',$groupid)->where('status',0)->get();
-              return view('frontend.group.view_group',['group'=>$group,'groupuser'=>$groupUser,'list_users'=>$list_users]);
+              return view('frontend.group.view_group',['group'=>$group,'groupuser'=>$groupUser,'list_users'=>$list_users,'post_lists'=>$post_lists]);
 
 
         }
         elseif($groupUser->status === 1){
-          return view('frontend.group.view_group', ['group'=>$group, 'groupuser'=>$groupUser]);
+          return view('frontend.group.view_group', ['group'=>$group, 'groupuser'=>$groupUser,'post_lists'=>$post_lists]);
         }
         else{
-return view('frontend.group.view_group', ['group'=>$group, 'groupuser'=>$groupUser]);
+return view('frontend.group.view_group', ['group'=>$group, 'groupuser'=>$groupUser,'post_lists'=>$post_lists]);
         }
-
       }
-
-
-    return view('frontend.group.view_group', ['group'=>$group, 'groupuser'=>$groupUser]);
-
-
-
+    return view('frontend.group.view_group', ['group'=>$group, 'groupuser'=>$groupUser, 'post_lists'=>$post_lists]);
 
     }
     public function addGroupUser($groupid){
