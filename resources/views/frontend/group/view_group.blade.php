@@ -52,6 +52,10 @@ btn.prop('disabled', 'disabled');
 });
 </script>
 <script>
+$(document).on('click', '#btnCommentSend', function(){
+  commentSend($(this).data('id'));
+});
+
 $(document).on('keypress', '.comment', function (e) {
        if(e.which === 13){
           commentSend($(this).data('id'));
@@ -67,10 +71,10 @@ function commentSend(postid){
   var comment = input.val();
   input.val("");
   input.prop('disabled', 'disabled');
-  $.post("{{route('/frontend/group/commit')}}", {
+  $.post("{{ url('/frontend/group/commet')}}", {
     action:'add_post', postid:postid, _token:"{{csrf_token()}}", comment:comment
   }, function(data){
-    $('#coms_'+data.workid).html(data.comments);
+    $('#coms_'+data.postid).html(data.comments);
     input.prop('disabled', '');
   })
 
@@ -156,7 +160,7 @@ function commentSend(postid){
                   <button type="button" data-id="{{$list->id}}" class="btn btn-default btn-xs group_like"><i class="fa fa-thumbs-o-up"></i>{{ $list->likes->where('post_id',$list->id)->first() ? 'unlike' : 'like'   }}</button>
                   <span class="pull-right text-muted"><span id="like_{{$list->id}}">{{$list->likecount()}}</span> likes</span>
                 </div>
-                <div class="box-footer box-comments" style="display: block;">
+                <!-- <div class="box-footer box-comments" style="display: block;">
                   <div class="box-comment">
                     <img class="img-circle img-sm" src="img/Friends/guy-2.jpg" alt="User Image">
                     <div class="comment-text">
@@ -169,11 +173,11 @@ function commentSend(postid){
                     </div>
                   </div>
 
-                </div>
+                </div> -->
                 <p><div class="input-group">
-                        <input type="text" data-id="{{$p->id}}" id="comm_{{$p->id}}" class="form-control comment" placeholder="Сэтгэгдэл...">
+                        <input type="text" data-id="{{$list->id}}" id="comm_{{$list->id}}" class="form-control comment" placeholder="Сэтгэгдэл...">
                         <span class="input-group-btn">
-                            <button class="btn btn-default" data-id="{{$p->id}}" id="btnCommentSend" type="button">Илгээх</button>
+                            <button class="btn btn-default" data-id="{{$list->id}}" id="btnCommentSend" type="button">Илгээх</button>
                         </span>
                     </div></p>
               </div><!--  end posts -->

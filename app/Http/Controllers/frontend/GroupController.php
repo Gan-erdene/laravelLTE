@@ -10,6 +10,7 @@ use App\Models\GroupPost;
 use App\Models\GroupLike;
 use Image;
 use App\sf_guard_user;
+use App\Models\GroupCommit;
 
 class GroupController extends Controller
 {
@@ -45,6 +46,24 @@ class GroupController extends Controller
 
 
     }
+    public function getComments($postid){
+      $comments = GroupCommit::where('post_id', $postid)->orderBy('created_at','asc')->get();
+      return $comments;
+    }
+    public function commet(Request $request){
+
+      $postid = $request->input('postid');
+      $text = $request->input('comment');
+      $comment = new GroupCommit;
+      $comment->post_id = $postid;
+      $comment->text = $text;
+      $comment->user_id = \Auth::user()->id;
+      $comment->save();
+      $comments = view('frontend.group.view_group', ['comments'=>$this->getComments($postid)]);
+      return response()->json(['comments'=>$comments->render(), 'postid'=>$postid]);
+    }
+
+
     public function like(Request $request)
     {
      $post_id = $request->input('postId');
@@ -89,6 +108,7 @@ class GroupController extends Controller
 
       $groupUser = GroupUsers::where('user_id',\Auth::user()->id)->where('group_id',$groupid)->first();
       $post_lists = GroupPost::where('group_id',$groupid)->get();
+
       if($groupUser){
         if($groupUser->status === 2){
 
