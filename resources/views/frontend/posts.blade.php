@@ -10,6 +10,7 @@
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
         <textarea class="form-control input-lg p-text-area" id="fulltext" name="fulltext" rows="body" placeholder="Юу бодож байна?"></textarea>
+        <img id="myPostimage" style="max-width:100%">
         <div class="box-footer box-form">
           <button type="submit" class="btn btn-azure pull-right">Нийтлэх</button>
           <ul class="nav nav-pills">

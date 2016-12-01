@@ -20,4 +20,8 @@ class Section extends Model
   public function isPublished(){
     return $this->published == 1 ? ' fa-eye' : 'fa-eye-slash';
   }
+
+  public function categories(){
+    return $this->hasMany('App\Category', 'section_id', 'id')->where('published', 1)->get();
+  }
 }

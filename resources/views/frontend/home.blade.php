@@ -46,6 +46,13 @@
       });
     });
 
+    $('#upload').on('change',function(){
+      alert("hi");
+      $("#myPostimage").change(function(){
+          readPostURL(this);
+      });
+    });
+
     function readURL(input) {
 
         if (input.files && input.files[0]) {
@@ -64,6 +71,26 @@
           });
         }
     }
+
+    function readPostURL(input) {
+
+        if (input.files && input.files[0]) {
+          $(input.files).each(function () {
+            var reader = new FileReader();
+            reader.readAsDataURL(this);
+            reader.onload = function (e) {
+                var extention = e.target.result.split('/');
+                if('data:image' === extention[0]){
+                    $('.myPostimage').attr('src', e.target.result);
+                }else{
+                  alert("Зөвхөн зурган файл оруулна уу");
+                  return;
+                }
+            }
+          });
+        }
+    }
+
     $('#workfile').on('change', function(){
       var filename = $(this).val().split('\\').pop();
       $('#uploadfilename').html(filename);

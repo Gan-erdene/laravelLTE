@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return redirect('/frontend/index');
+    return redirect('/start');
 });
 
 Route::get('/backend/login',function(){
@@ -73,6 +73,8 @@ Route::group(['middleware' => 'checkuser'], function(){
 
   Route::get('/frontend/groups/{groupid}','frontend\GroupController@viewGroup')->name('viewGroup');
   Route::post('/frontend/group/action','frontend\GroupController@action')->name('groupAction');
+  Route::post('/frontend/group/post','frontend\GroupController@post')->name('groupPost');
+  Route::post('/frontend/group/like','frontend\GroupController@like');
 
   Route::get('/frontend/file','frontend\FileController@index');
   Route::post('/frontend/file/add','frontend\FileController@add');
@@ -92,9 +94,6 @@ Route::group(['middleware' => 'checkuser'], function(){
 
   Route::post('/frontend/comment/action','frontend\CommentController@action')->name('commentAction');
   Route::post('/frontend/salary/action','frontend\SalaryController@action')->name('salaryAction');
-
-  Route::get('/frontend/pages/help', 'frontend\PagesController@help')->name('viewHelp');
-  Route::get('/frontend/pages/about', 'frontend\PagesController@about')->name('viewAbout');
 }
 
 );
@@ -104,5 +103,10 @@ Route::get('frontend/facebook/callback', 'frontend\LoginController@handleProvide
 Route::get('/frontend/index','frontend\LoginController@index');
 Route::post('/frontend/login','frontend\LoginController@login');
 Route::post('/frontend/signup','frontend\RegisterController@createUser');
+
+Route::get('/start','start\StartController@index');
+Route::get('/start/category','start\StartController@startCatView')->name('startCatView');
+Route::get('/frontend/pages/help', 'frontend\PagesController@help')->name('viewHelp');
+Route::get('/frontend/pages/about', 'frontend\PagesController@about')->name('viewAbout');
 
 Route::get('/frontend/logout','frontend\LoginController@logout');

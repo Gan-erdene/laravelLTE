@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Groups;
 use App\Models\GroupUsers;
+use App\Models\GroupPost;
+use App\Models\GroupLike;
+use Image;
+use App\sf_guard_user;
+
 class GroupController extends Controller
 {
     public function action(Request $request){
@@ -40,6 +45,32 @@ class GroupController extends Controller
 
 
     }
+    public function like(Request $request)
+    {
+     $post_id = $request->input('postId');
+     $post = GroupPost::find($post_id);
+     if(!$post){
+       return response()->json(['test'=>"post uuseegui bna"]);
+     }
+
+      $user = \Auth::user();
+      $like =  GroupLike::where('user_id', $user->id)->where('post_id', $post_id)->first();
+
+      if($like){
+          $like->delete();
+          $like_count =  GroupLike::where('post_id', $post_id)->count();
+          return response()->json(['status'=>'success', 'message'=>"<i class='fa fa-thumbs-o-up'></i>"."like",'like_count'=>$like_count]);
+      }else{
+        $like = new GroupLike;
+      }
+
+      $like->user_id = $user->id;
+      $like->post_id = $post->id;
+      $like->save();
+        $like_count =  GroupLike::where('post_id', $post_id)->count();
+      return response()->json(['status'=>'success', 'message'=>"<i class='fa fa-thumbs-o-up'></i>"."unlike",'like_count'=>$like_count]);
+
+    }
     public function GroupRequest($groupid){
         $oldhist = GroupUsers::where('user_id', \Auth::user()->id)->where('group_id', $groupid)->first();
 
@@ -57,28 +88,23 @@ class GroupController extends Controller
 
 
       $groupUser = GroupUsers::where('user_id',\Auth::user()->id)->where('group_id',$groupid)->first();
+      $post_lists = GroupPost::all();
       if($groupUser){
         if($groupUser->status === 2){
 
                   $list_users = GroupUsers::where('group_id',$groupid)->where('status',0)->get();
-              return view('frontend.group.view_group',['group'=>$group,'groupuser'=>$groupUser,'list_users'=>$list_users]);
+              return view('frontend.group.view_group',['group'=>$group,'groupuser'=>$groupUser,'list_users'=>$list_users,'post_lists'=>$post_lists]);
 
 
         }
         elseif($groupUser->status === 1){
-          return view('frontend.group.view_group', ['group'=>$group, 'groupuser'=>$groupUser]);
+          return view('frontend.group.view_group', ['group'=>$group, 'groupuser'=>$groupUser,'post_lists'=>$post_lists]);
         }
         else{
-return view('frontend.group.view_group', ['group'=>$group, 'groupuser'=>$groupUser]);
+return view('frontend.group.view_group', ['group'=>$group, 'groupuser'=>$groupUser,'post_lists'=>$post_lists]);
         }
-
       }
-
-
-    return view('frontend.group.view_group', ['group'=>$group, 'groupuser'=>$groupUser]);
-
-
-
+    return view('frontend.group.view_group', ['group'=>$group, 'groupuser'=>$groupUser, 'post_lists'=>$post_lists]);
 
     }
     public function addGroupUser($groupid){
@@ -138,6 +164,27 @@ return view('frontend.group.view_group', ['group'=>$group, 'groupuser'=>$groupUs
         $groupuser->save();
         return redirect()->route('viewGroup',['groupid'=>$group->id]);
       }
+    }
+
+    public function post(Request $request){
+      $group_post = new GroupPost;
+
+      $group_post->body = $request->input('group_text');
+      if(isset($request->group_upload)){
+        $upload = $request->file('group_upload');
+              $input['group_upload'] = time().'.'.$upload->getClientOriginalName();
+              $destinationPath = public_path('uploads/grouppost');
+              $img = Image::make($upload->getRealPath());
+              $img->resize(660, null, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+          })->save($destinationPath.'/'.$input['group_upload']);
+        $group_post->image = $input['group_upload'];
+      }
+      $group_post->user_id = \Auth::user()->id;
+      $group_post->save();
+
+      return back();
     }
 
 
