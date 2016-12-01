@@ -26,7 +26,7 @@
                       <div class="hr-line-dashed"></div>
                       <ul class="folder-list" style="padding: 0">
                         @foreach($categories as $cat)
-                          @if($cat->id === $category->id)<li class="catselected"  >@else <li> @endif <a href=""> <i class="fa fa-angle-right"></i> {{$cat->catTrans('mn')->name}}</a></li>
+                          @if($cat->id === $category->id)<li class="catselected"  >@else <li> @endif <a href="{{route('startCatView')}}?id={{$cat->id}}"> <i class="fa fa-angle-right"></i> {{$cat->catTrans('mn')->name}}</a></li>
                           @endforeach
                       </ul>
                       <div class="clearfix"></div>

@@ -108,5 +108,6 @@ Route::get('/start','start\StartController@index');
 Route::get('/start/category','start\StartController@startCatView')->name('startCatView');
 Route::get('/frontend/pages/help', 'frontend\PagesController@help')->name('viewHelp');
 Route::get('/frontend/pages/about', 'frontend\PagesController@about')->name('viewAbout');
+Route::get('/frontend/pages/member', 'frontend\PagesController@member')->name('viewMember');
 
 Route::get('/frontend/logout','frontend\LoginController@logout');

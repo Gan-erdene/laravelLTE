@@ -20,4 +20,8 @@ class WorkUserProposal extends Model
   public function txns(){
     return $this->hasMany('App\Models\WorkTxn', 'proposalid', 'id')->get();
   }
+
+  public function rates(){
+    return $this->hasOne('App\Models\Poll', 'proposalid', 'id');
+  }
 }

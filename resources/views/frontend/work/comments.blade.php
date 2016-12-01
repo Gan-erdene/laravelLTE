@@ -1,4 +1,5 @@
 @foreach($comments as $comment)
+<div class="box-comment">
   @if($comment->user->profile_image)
       <img class="img-circle img-sm" src="/uploads/profileimage/{{$comment->user->profile_image}}" alt="">
   @else
@@ -10,5 +11,6 @@
     <span class="text-muted pull-right">{{$comment->created_at}}</span>
     </span>
     {{$comment->comment_text}}
-  </div><hr/>
+  </div>
+</div>
 @endforeach
