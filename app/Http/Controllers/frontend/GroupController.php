@@ -88,7 +88,7 @@ class GroupController extends Controller
 
 
       $groupUser = GroupUsers::where('user_id',\Auth::user()->id)->where('group_id',$groupid)->first();
-      $post_lists = GroupPost::all();
+      $post_lists = GroupPost::where('group_id',$groupid)->get();
       if($groupUser){
         if($groupUser->status === 2){
 
@@ -182,6 +182,7 @@ return view('frontend.group.view_group', ['group'=>$group, 'groupuser'=>$groupUs
         $group_post->image = $input['group_upload'];
       }
       $group_post->user_id = \Auth::user()->id;
+      $group_post->group_id = $request->input('group_id');
       $group_post->save();
 
       return back();

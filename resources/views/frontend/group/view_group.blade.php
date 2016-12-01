@@ -46,7 +46,7 @@ btn.prop('disabled', 'disabled');
         console.log(btn);
         btn.html(data.message);
         btn.prop('disabled', '');
-        $('#like_' + postId).html(data.like_count);
+        $('#like_' + postId).html(data.likecount);
       }
   });
 });
@@ -80,6 +80,7 @@ btn.prop('disabled', 'disabled');
               <div class="box profile-info n-border-top">
                 <form action="{{ url('/frontend/group/post') }}"  enctype="multipart/form-data" method="POST">
                   <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                  <input type="hidden" name="group_id" value="{{$group->id}}">
                     <textarea class="form-control input-lg p-text-area" id="group_text" name="group_text" rows="2" placeholder="Юу бодож байна?"></textarea>
 
                 <div class="box-footer box-form">
@@ -127,8 +128,8 @@ btn.prop('disabled', 'disabled');
                   @endif
                   <p>
                   <!-- <button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share</button> -->
-                  <button type="button" data-id="{{$list->id}}" class="btn btn-default btn-xs group_like"><i class="fa fa-thumbs-o-up"></i>{{ \Auth::user()->likes->where('post_id',$list->id)->first() ? 'unlike' : 'like'   }}</button>
-                  <span class="pull-right text-muted"><span id="like_{{$list->id}}"></span> likes</span>
+                  <button type="button" data-id="{{$list->id}}" class="btn btn-default btn-xs group_like"><i class="fa fa-thumbs-o-up"></i>{{ $list->likes->where('post_id',$list->id)->first() ? 'unlike' : 'like'   }}</button>
+                  <span class="pull-right text-muted"><span id="like_{{$list->id}}"></span>{{$list->likecount}} likes</span>
                 </div>
                 <div class="box-footer box-comments" style="display: block;">
                   <div class="box-comment">
