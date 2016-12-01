@@ -17,6 +17,7 @@ use App\Like;
 use App\Works;
 use Image;
 use App\Models\GroupUsers;
+use App\Models\Groups;
 
 class HomeController extends Controller
 {
@@ -27,7 +28,7 @@ class HomeController extends Controller
     $sections = Section::where('published', '1')->orderBy('order_id', 'asc')->get();
     $fuController = new FindUserController;
     $friends = $fuController->friendList(0, 8);
-    $groups = GroupUsers::where('user_id',$userid)->get();
+    $groups = Groups::where('created_by',$userid)->get();
     return view('frontend.home')
     ->with('user',$user)
     ->with('groups', $groups)

@@ -271,7 +271,7 @@ $('#myModal').on('shown.bs.modal', function () {
                   <div class="file-manager">
                     <ul class="folder-list" style="padding: 0">
                       @foreach($groups as $group)
-                        <li> <a href="{{route('viewGroup', ['groupid'=>$group->id])}}"> <i class="fa fa-users"></i> {{str_limit($group->group->group_name, 30)}}</a></li>
+                        <li> <a href="{{route('viewGroup', ['group_id'=>$group->id])}}"> <i class="fa fa-users"></i> {{str_limit($group->group_name, 30)}}</a></li>
                       @endforeach
                     </ul>
                   </div>

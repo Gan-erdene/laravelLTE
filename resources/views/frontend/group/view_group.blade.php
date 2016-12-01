@@ -51,6 +51,35 @@ btn.prop('disabled', 'disabled');
   });
 });
 </script>
+<script>
+$(document).on('click', '#btnCommentSend', function(){
+  commentSend($(this).data('id'));
+});
+
+$(document).on('keypress', '.comment', function (e) {
+       if(e.which === 13){
+          commentSend($(this).data('id'));
+       }
+ });
+
+function commentSend(postid){
+  if($('#comm_'+postid).val().trim().length === 0){
+    alert("Хоосон сэтгэгдэл игээх боломжгүй");
+    return;
+  }
+  var input = $('#comm_'+postid);
+  var comment = input.val();
+  input.val("");
+  input.prop('disabled', 'disabled');
+  $.post("{{ url('/frontend/group/commet')}}", {
+    action:'add_post', postid:postid, _token:"{{csrf_token()}}", comment:comment
+  }, function(data){
+    $('#coms_'+data.postid).html(data.comments);
+    input.prop('disabled', '');
+  })
+
+}
+</script>
 @endsection
 @section('content')
 <div class="container page-content">
@@ -80,6 +109,7 @@ btn.prop('disabled', 'disabled');
               <div class="box profile-info n-border-top">
                 <form action="{{ url('/frontend/group/post') }}"  enctype="multipart/form-data" method="POST">
                   <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                  <input type="hidden" name="group_id" value="{{$group->id}}">
                     <textarea class="form-control input-lg p-text-area" id="group_text" name="group_text" rows="2" placeholder="Юу бодож байна?"></textarea>
 
                 <div class="box-footer box-form">
@@ -127,10 +157,10 @@ btn.prop('disabled', 'disabled');
                   @endif
                   <p>
                   <!-- <button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share</button> -->
-                  <button type="button" data-id="{{$list->id}}" class="btn btn-default btn-xs group_like"><i class="fa fa-thumbs-o-up"></i>{{ \Auth::user()->likes->where('post_id',$list->id)->first() ? 'unlike' : 'like'   }}</button>
-                  <span class="pull-right text-muted"><span id="like_{{$list->id}}"></span> likes</span>
+                  <button type="button" data-id="{{$list->id}}" class="btn btn-default btn-xs group_like"><i class="fa fa-thumbs-o-up"></i>{{ $list->likes->where('post_id',$list->id)->first() ? 'unlike' : 'like'   }}</button>
+                  <span class="pull-right text-muted"><span id="like_{{$list->id}}">{{$list->likecount()}}</span> likes</span>
                 </div>
-                <div class="box-footer box-comments" style="display: block;">
+                <!-- <div class="box-footer box-comments" style="display: block;">
                   <div class="box-comment">
                     <img class="img-circle img-sm" src="img/Friends/guy-2.jpg" alt="User Image">
                     <div class="comment-text">
@@ -143,15 +173,13 @@ btn.prop('disabled', 'disabled');
                     </div>
                   </div>
 
-                </div>
-                <div class="box-footer" style="display: block;">
-                  <form action="#" method="post">
-                    <img class="img-responsive img-circle img-sm" src="img/Friends/guy-3.jpg" alt="Alt Text">
-                    <div class="img-push">
-                      <input type="text" class="form-control input-sm" placeholder="Press enter to post comment">
-                    </div>
-                  </form>
-                </div>
+                </div> -->
+                <p><div class="input-group">
+                        <input type="text" data-id="{{$list->id}}" id="comm_{{$list->id}}" class="form-control comment" placeholder="Сэтгэгдэл...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" data-id="{{$list->id}}" id="btnCommentSend" type="button">Илгээх</button>
+                        </span>
+                    </div></p>
               </div><!--  end posts -->
               @endforeach
             </div><!-- end group posts -->

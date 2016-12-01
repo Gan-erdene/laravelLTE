@@ -14,7 +14,7 @@ class GroupPost extends Model
   }
   public function likes()
   {
-    return $this->hasMany('App\Models\GroupLike');
+    return $this->hasMany('App\Models\GroupLike','post_id','id');
   }
   public function likecount(){
     return GroupLike::where('post_id',$this->id)->count();

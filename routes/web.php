@@ -75,6 +75,7 @@ Route::group(['middleware' => 'checkuser'], function(){
   Route::post('/frontend/group/action','frontend\GroupController@action')->name('groupAction');
   Route::post('/frontend/group/post','frontend\GroupController@post')->name('groupPost');
   Route::post('/frontend/group/like','frontend\GroupController@like');
+  Route::post('/frontend/group/commet','frontend\GroupController@commet')->name('groupCommit');
 
   Route::get('/frontend/file','frontend\FileController@index');
   Route::post('/frontend/file/add','frontend\FileController@add');
@@ -108,5 +109,6 @@ Route::get('/start','start\StartController@index');
 Route::get('/start/category','start\StartController@startCatView')->name('startCatView');
 Route::get('/frontend/pages/help', 'frontend\PagesController@help')->name('viewHelp');
 Route::get('/frontend/pages/about', 'frontend\PagesController@about')->name('viewAbout');
+Route::get('/frontend/pages/member', 'frontend\PagesController@member')->name('viewMember');
 
 Route::get('/frontend/logout','frontend\LoginController@logout');

@@ -21,17 +21,17 @@
 }
 </style>
 <script>
+$(document).ready(function(){
+  $('#page_{{$_page}}').addClass('active');
+});
 var oldContent = null;
 $(document).on ('click', '.expand_header', function () {
 
     $header = $(this);
     //getting the next element
       $content = $header.next();
-    //open up the content needed - toggle the slide- if visible, slide up, if not slidedown.
+    
     $content.slideToggle(400, function () {
-      if($content.is(":visible") && oldContent !== null){
-        oldContent.slideToggle(400);
-      }
       oldContent = $content;
     });
   } );
@@ -41,18 +41,9 @@ $(document).on ('click', '.expand_header', function () {
 <div class="container page-content">
   <div class="row">
     <div class="col-md-3">
-      <div class="profile-nav">
-        <div class="widget">
-            <div class="widget-body">
-              <ul class="nav nav-pills nav-stacked">
-                <li class="active"><a style="padding: 5px 10px;" href="#"> <i class="fa fa-question-circle purple"></i>  Тусламж </a></li>
-                <li><a style="padding: 5px 10px;" href="{{route('viewAbout')}}"> <i class="fa fa-info-circle"></i>  Бидний тухай</a></li>
-              </ul>
-            </div>
-        </div>
-      </div>
+      @include('frontend.pages.menu')
     </div>
-    <div class="col-md-6">
+    <div class="col-md-9">
       <div class="widget">
             <div class="widget-body">
                 <div class="expand_container">

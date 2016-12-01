@@ -17,6 +17,7 @@ use App\WorkUserProposal;
 use App\WorkUserSaved;
 use App\Models\WorkTxn;
 use App\Models\WorkImages;
+use App\Models\Poll;
 use Image;
 use File;
 
@@ -40,8 +41,31 @@ class WorkController extends Controller
         case 'my_prop':return $this->myProposal($request);
         case 'confirm_proposal': return $this->confirmProposal($request);
         case 'reject_proposal': return $this->rejectProposal($request);
+        case 'rate':return $this->setRate($request);
         default: break;
       }
+    }
+
+    public function setRate($request){
+      $myuserid = \Auth::user()->id;
+      $user_id = $request->input('user_id');
+      $prop_id = $request->input('prop_id');
+      $rate = $request->input('rate');
+
+      $poll = Poll::where('user_id', $user_id)->where('proposalid', $prop_id)->where('created_by', $myuserid)->first();
+      if($poll){
+        $poll->rate = $rate;
+        $poll->update();
+      }else{
+        $poll = new Poll();
+        $poll->created_by = $myuserid;
+        $poll->user_id = $user_id;
+        $poll->rate = $rate;
+        $poll->proposalid = $prop_id;
+        $poll->save();
+      }
+      $html = view('frontend.work.rates', ['pid'=>$prop_id, 'user_id'=>$user_id, 'rate'=>$rate]);
+      return response()->json(['status'=>true, 'html'=>$html->render()]);
     }
 
     public function myProposal($request){
