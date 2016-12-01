@@ -46,10 +46,35 @@ btn.prop('disabled', 'disabled');
         console.log(btn);
         btn.html(data.message);
         btn.prop('disabled', '');
-        $('#like_' + postId).html(data.likecount);
+        $('#like_' + postId).html(data.like_count);
       }
   });
 });
+</script>
+<script>
+$(document).on('keypress', '.comment', function (e) {
+       if(e.which === 13){
+          commentSend($(this).data('id'));
+       }
+ });
+
+function commentSend(postid){
+  if($('#comm_'+postid).val().trim().length === 0){
+    alert("Хоосон сэтгэгдэл игээх боломжгүй");
+    return;
+  }
+  var input = $('#comm_'+postid);
+  var comment = input.val();
+  input.val("");
+  input.prop('disabled', 'disabled');
+  $.post("{{route('/frontend/group/commit')}}", {
+    action:'add_post', postid:postid, _token:"{{csrf_token()}}", comment:comment
+  }, function(data){
+    $('#coms_'+data.workid).html(data.comments);
+    input.prop('disabled', '');
+  })
+
+}
 </script>
 @endsection
 @section('content')
@@ -129,7 +154,7 @@ btn.prop('disabled', 'disabled');
                   <p>
                   <!-- <button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share</button> -->
                   <button type="button" data-id="{{$list->id}}" class="btn btn-default btn-xs group_like"><i class="fa fa-thumbs-o-up"></i>{{ $list->likes->where('post_id',$list->id)->first() ? 'unlike' : 'like'   }}</button>
-                  <span class="pull-right text-muted"><span id="like_{{$list->id}}"></span>{{$list->likes->count()}} likes</span>
+                  <span class="pull-right text-muted"><span id="like_{{$list->id}}">{{$list->likecount()}}</span> likes</span>
                 </div>
                 <div class="box-footer box-comments" style="display: block;">
                   <div class="box-comment">
@@ -145,14 +170,12 @@ btn.prop('disabled', 'disabled');
                   </div>
 
                 </div>
-                <div class="box-footer" style="display: block;">
-                  <form action="#" method="post">
-                    <img class="img-responsive img-circle img-sm" src="img/Friends/guy-3.jpg" alt="Alt Text">
-                    <div class="img-push">
-                      <input type="text" class="form-control input-sm" placeholder="Press enter to post comment">
-                    </div>
-                  </form>
-                </div>
+                <p><div class="input-group">
+                        <input type="text" data-id="{{$p->id}}" id="comm_{{$p->id}}" class="form-control comment" placeholder="Сэтгэгдэл...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" data-id="{{$p->id}}" id="btnCommentSend" type="button">Илгээх</button>
+                        </span>
+                    </div></p>
               </div><!--  end posts -->
               @endforeach
             </div><!-- end group posts -->
