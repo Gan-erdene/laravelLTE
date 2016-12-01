@@ -10,6 +10,10 @@
 <script src="/admin/plugins/datepicker/bootstrap-datepicker.js"></script>
 <style>
 .datepicker{z-index:1151 !important;}
+.setrate{cursor: pointer;}
+.setrate:hover {
+    color: #427fed;
+}
 </style>
 <script>
 $(document).on('click', '#save_proposal', function(){
@@ -31,6 +35,17 @@ $(document).on('click', '#save_proposal', function(){
 $(document).on("click", ".confirm_proposal", function () {
      var proposalid = $(this).data('id');
      $(".modal-body #confirm_proposalid").val( proposalid );
+});
+
+$(document).on("click", ".setrate", function () {
+     var rate = $(this).data('id');
+     var user_id = $(this).data('userid');
+     var prop_id = $(this).data('propid');
+     $.post("{{route('workAction')}}", {
+       action:'rate', rate:rate, _token:"{{csrf_token()}}", user_id:user_id, prop_id:prop_id
+     }, function(data){
+       $('#rate_'+prop_id).html(data.html);
+     });
 });
 
 $(document).on("click", ".reject_proposal", function () {
