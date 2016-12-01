@@ -129,7 +129,7 @@ btn.prop('disabled', 'disabled');
                   <p>
                   <!-- <button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share</button> -->
                   <button type="button" data-id="{{$list->id}}" class="btn btn-default btn-xs group_like"><i class="fa fa-thumbs-o-up"></i>{{ $list->likes->where('post_id',$list->id)->first() ? 'unlike' : 'like'   }}</button>
-                  <span class="pull-right text-muted"><span id="like_{{$list->id}}"></span>{{$list->likecount}} likes</span>
+                  <span class="pull-right text-muted"><span id="like_{{$list->id}}"></span>{{$list->likes->count()}} likes</span>
                 </div>
                 <div class="box-footer box-comments" style="display: block;">
                   <div class="box-comment">
