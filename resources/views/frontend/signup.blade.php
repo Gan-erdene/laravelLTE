@@ -16,7 +16,7 @@
       <input type="email" name="email" class="form-control" placeholder="{{trans('strings.email_address')}}">
     </div>
     <div class="form-group">
-      <input type="password" name="password" id="password" class="form-control" placeholder="{{trans('strings.password')}}">
+      <input type="password" name="password" id="_password" class="form-control" placeholder="{{trans('strings.password')}}">
     </div>
     <div class="form-group">
       <input type="password" id="repassword" name="repassword" class="form-control" placeholder="{{trans('strings.repassword')}}">
@@ -28,7 +28,8 @@
 <script>
 $(document).ready(function () {
   jQuery.validator.addMethod( "equals", function(value, element ) {
-    return this.optional( element ) || value === $('#password').val();
+    console.log($('#_password').val())
+    return this.optional( element ) || value === $('#_password').val();
   }, "{{trans('strings.valid_repassword')}}");
 
   $('#signupForm').validate({ // initialize the plugin
