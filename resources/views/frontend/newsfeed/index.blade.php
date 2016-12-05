@@ -144,7 +144,7 @@ $(document).ready(function(){
                                   <div class="col-xs-3">
                                       <div class="avatar">
                                         @if($rUser->profile_image)
-                                            <img class="img-circle img-no-padding img-responsive" src="/uploads/profileimage/{{$item->profile_image}}" alt="">
+                                            <img class="img-circle img-no-padding img-responsive" src="/uploads/profileimage/{{$rUser->profile_image}}" alt="">
                                         @else
                                             <img  class="img-circle img-no-padding img-responsive" src="/frontend/img/Profile/default-avatar.png" alt="">
                                         @endif
