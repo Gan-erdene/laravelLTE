@@ -59,7 +59,7 @@ $(document).ready(function(){
           <div class="cover profile">
             <div class="wrapper">
 
-                @if ($user_show->coverName)
+                @if (isset($user_show->coverName))
                 <div class="image">
                   <img src="\uploads\coverimage\{{$user_show->coverName}}" class="show-in-modal" alt="people">
                 </div>
