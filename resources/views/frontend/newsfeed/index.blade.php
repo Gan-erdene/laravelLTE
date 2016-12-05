@@ -151,7 +151,7 @@ $(document).ready(function(){
                                       </div>
                                   </div>
                                   <div class="col-xs-9">
-                                    <a href="{{route('userProfile')}}?id={{$rUser->friend_user_id}}"> {{$rUser->last_name}} {{$rUser->first_name}} </a><br/>
+                                    <a href="{{route('userProfile')}}?id={{$rUser->id}}"> {{$rUser->last_name}} {{$rUser->first_name}} </a><br/>
                                      @if( $rUser->status === 1 )
                                      <button data-id="acc_{{$rUser->friend_user_id}}" class="btn btn-xs btn-white finduser"> {{trans('strings.accept_friend')}}</button>
                                      <button data-id="dec_{{$rUser->friend_user_id}}" class="btn btn-xs btn-white finduser"> {{trans('strings.decline_friend')}}</button>
