@@ -17,7 +17,7 @@
           </div>
         </span>
         <span class="description" id="rate_{{$p->id}}">
-          @include('frontend.work.rates',['pid'=>$p->id,'rate'=>$p->rates->rate, 'user_id'=>$p->user_id])
+          @include('frontend.work.rates',['pid'=>$p->id,'rate'=>$p->rates ? $p->rates->rate:null, 'user_id'=>$p->user_id])
         </span>
       </div>
     </div>
