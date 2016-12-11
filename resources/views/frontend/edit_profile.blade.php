@@ -107,44 +107,65 @@
                       <div class="basic-info">
                         <h3><i class="fa fa-square"></i> Үндсэн мэдээлэл</h3>
                         <div class="form-group row">
-                          <label class="col-sm-1">Овог</label>
-                          <div class="col-md-7">
+                          <label class="col-sm-3">Овог</label>
+                          <div class="col-sm-6">
                             <input id="lastname" type="text" class="form-control"  name="lastname" placeholder="Овог">
                           </div>
                         </div>
                         <div class="form-group row">
-                          <label class="col-sm-1">Нэр</label>
-                          <div class="col-md-7">
+                          <label class="col-sm-3">Нэр</label>
+                          <div class="col-sm-6">
                             <input id="firstname" type="text" class="form-control"  name="firstname" placeholder="Нэр">
                           </div>
                         </div>
                         <div class="form-group row">
-                          <label class="col-sm-1">About</label>
-                          <div class="col-md-7">
-                          <textarea type="textarea" class="form-control" id="about" name="about" placeholder="Өөрийн тухай дэлгэрэнгүй"></textarea>
+                          <label class="col-sm-3">About</label>
+                          <div class="col-sm-6">
+                              <textarea type="textarea" class="form-control col-xs-5" id="about" name="about" placeholder="Өөрийн тухай дэлгэрэнгүй"></textarea>
                           </div>
                         </div>
                         <div class="form-group row">
-                          <label class="col-sm-1">Мэйл</label>
-                          <div class="col-md-7">
+                          <label class="col-sm-3">Мэйл</label>
+                          <div class="col-sm-6">
                             <input id="email" type="text" class="form-control"  name="email" placeholder="Мэйл">
                           </div>
+                          <div class="col-sm-3">
+                            <select name="config_email">
+                              <option value="me">Зөвхөн би харна</option>
+                              <option value="friends">Зөвхөн найзууд харна</option>
+                              <option value="all">Бүх хүн харна</option>
+                            </select>
+                          </div>
                         </div>
                         <div class="form-group row">
-                          <label class="col-sm-1">Регистр</label>
-                          <div class="col-md-7">
+                          <label class="col-sm-3">Регистр</label>
+                          <div class="col-sm-6">
                             <input id="register" type="text" class="form-control"  name="register" placeholder="Регистр дугаар">
                           </div>
-                        </div>
-                        <div class="form-group row">
-                          <label class="col-sm-1">Байршил</label>
-                          <div class="col-md-7">
-                            <input id="location" type="text" class="form-control"  name="location" placeholder="Байршил">
+                          <div class="col-sm-3">
+                            <select name="config_regnum">
+                              <option value="me">Зөвхөн би харна</option>
+                              <option value="friends">Зөвхөн найзууд харна</option>
+                              <option value="all">Бүх хүн харна</option>
+                            </select>
                           </div>
                         </div>
                         <div class="form-group row">
-                          <label class="col-sm-1">Хүйс</label>
-                          <div class="col-md-7">
+                          <label class="col-sm-3">Байршил</label>
+                          <div class="col-sm-6">
+                            <input id="location" type="text" class="form-control"  name="location" placeholder="Байршил">
+                          </div>
+                          <div class="col-sm-3">
+                            <select name="config_location">
+                              <option value="me">Зөвхөн би харна</option>
+                              <option value="friends">Зөвхөн найзууд харна</option>
+                              <option value="all">Бүх хүн харна</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-sm-3">Хүйс</label>
+                          <div class="col-sm-6">
 
                             <label>
                               <input type="radio" id="gender_1" name="gender" value="1">
@@ -159,38 +180,62 @@
                           </div>
                         </div>
                         <div class="form-group row">
-                          <label class="col-sm-1">Ажил</label>
-                          <div class="col-md-7">
+                          <label class="col-sm-3">Мэргэжил</label>
+                          <div class="col-sm-6">
                             <input type="text" class="form-control" id="work" name="work" placeholder="Ажил ">
+                          </div>
+                          <div class="col-sm-3">
+                            <select name="config_email">
+                              <option value="me">Зөвхөн би харна</option>
+                              <option value="friends">Зөвхөн найзууд харна</option>
+                              <option value="all">Бүх хүн харна</option>
+                            </select>
                           </div>
                         </div>
                         <div class="form-group row">
-                          <label class="col-sm-1">Ур чадвар</label>
-                          <div class="col-md-7">
+                          <label class="col-sm-3">Ур чадвар</label>
+                          <div class="col-sm-6">
                             <textarea type="textarea" class="form-control" id="zadvar" name="zadvar" placeholder="Ур чадвар аа оруулна уу"></textarea>
                           </div>
                         </div>
                         <div class="form-group row">
-                          <label class="col-sm-1">НДД</label>
-                          <div class="col-md-7">
+                          <label class="col-sm-3">НДД</label>
+                          <div class="col-sm-6">
                             <input type="text" class="form-control" id="ndd" name="ndd" placeholder="Нийгмийн даатгалын дэвтрийн дугаар">
                           </div>
+                          <div class="col-sm-3">
+                            <select name="config_ndd">
+                              <option value="me">Зөвхөн би харна</option>
+                            </select>
+                          </div>
                         </div>
                         <div class="form-group row">
-                          <label class="col-sm-1">ЭМДД</label>
-                          <div class="col-md-7">
+                          <label class="col-sm-3">ЭМДД</label>
+                          <div class="col-sm-6">
                             <input type="text" class="form-control" id="emdd" name="emdd" placeholder="Эрүүл мэндийн даатгалын дэвтрийн дугаар">
                           </div>
-                        </div>
-                        <div class="form-group row">
-                          <label class="col-sm-1">Утас</label>
-                          <div class="col-md-7">
-                            <input id="phone" type="text" class="form-control" name="phone" placeholder="Утас">
+                          <div class="col-sm-3">
+                            <select name="config_emdd">
+                              <option value="me">Зөвхөн би харна</option>
+                            </select>
                           </div>
                         </div>
                         <div class="form-group row">
-                          <label class="col-sm-1">Төрсөн өдөр</label>
-                          <div class="col-md-7">
+                          <label class="col-sm-3">Утас</label>
+                          <div class="col-sm-6">
+                            <input id="phone" type="text" class="form-control" name="phone" placeholder="Утас">
+                          </div>
+                          <div class="col-sm-3">
+                            <select name="config_phone">
+                              <option value="me">Зөвхөн би харна</option>
+                              <option value="friends">Зөвхөн найзууд харна</option>
+                              <option value="all">Бүх хүн харна</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-sm-3">Төрсөн өдөр</label>
+                          <div class="col-sm-6">
                             <div class="input-group date">
                               <div class="input-group-addon">
                                 <i class="fa fa-calendar"></i>
@@ -198,11 +243,25 @@
                               <input type="text" class="form-control pull-right" id="datepicker" name="birthday" placeholder="Төрсөн Он, Сар, Өдөр">
                             </div>
                           </div>
+                          <div class="col-sm-3">
+                            <select name="config_birth">
+                              <option value="me">Зөвхөн би харна</option>
+                              <option value="friends">Зөвхөн найзууд харна</option>
+                              <option value="all">Бүх хүн харна</option>
+                            </select>
+                          </div>
                         </div>
                         <div class="form-group row">
-                          <label class="col-sm-1">Хаяг</label>
-                          <div class="col-md-7">
+                          <label class="col-sm-3">Хаяг</label>
+                          <div class="col-sm-6">
                             <textarea type="textarea" class="form-control" id="address" name="address" placeholder="Оршин суугаа хаяг оруулна уу"></textarea>
+                          </div>
+                          <div class="col-sm-3">
+                            <select name="config_address">
+                              <option value="me">Зөвхөн би харна</option>
+                              <option value="friends">Зөвхөн найзууд харна</option>
+                              <option value="all">Бүх хүн харна</option>
+                            </select>
                           </div>
                         </div>
 
