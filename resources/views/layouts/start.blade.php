@@ -20,6 +20,7 @@
     <link href="/frontend/assets/css/edit_profile.css" rel="stylesheet">
     <link href="/frontend/assets/css/buttons.css" rel="stylesheet">
     <link rel="stylesheet" href="/admin/plugins/datepicker/datepicker3.css">
+    @yield('css')
     <script src="/frontend/assets/js/jquery.1.11.1.min.js"></script>
     <script src="/frontend/bootstrap.3.3.6/js/bootstrap.min.js"></script>
     <script src="/frontend/assets/js/custom.js"></script>
