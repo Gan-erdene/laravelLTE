@@ -51,9 +51,15 @@
                         class="btn btn-warning btn-xs confirmUser"> {{trans('strings.confirm')}} </button>
                     </td>
                   @elseif( $item->is_active == 1 )
-                    <td><span class="badge bg-green"> {{trans('strings.active')}} </span></td>
+                    <td><button data-id="{{$item->id}}" data-toggle="modal"
+                      data-target="#inactive" type="button" class="btn btn-warning btn-xs bg-green confirmUser"> {{trans('strings.active')}}</button>
+                </td>
                   @elseif( $item->is_active == 2 )
-                    <td><span class="badge bg-red"> {{trans('strings.inactive')}} </span></td>
+                    <td>
+                      <button data-id="{{$item->id}}" data-toggle="modal"
+                        data-target="#confirmmodal" type="button"
+                        class="btn btn-warning btn-xs bg-red confirmUser"> {{trans('strings.inactive')}} </button>
+                      </td>
                   @endif
                 </tr>
                 @endforeach
@@ -74,6 +80,7 @@
 
     </div>
     @include('backend.user.confirmModal')
+    @include('backend.user.inactive')
   </section>
 
 </div>
