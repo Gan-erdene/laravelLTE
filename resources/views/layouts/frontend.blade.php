@@ -8,8 +8,7 @@
     <meta name="description" content="">
     <meta name="keywords" content="">
     <meta name="author" content="">
-    <link rel="shortcut icon" href="/frontend/img/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="/frontend/img/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/frontend/img/logo_no_bg.ico" type="image/x-icon">
     <title>Ажилсаг залуусын сошиал сүлжээ</title>
     <link href="/frontend/bootstrap.3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <link href="/frontend/font-awesome.4.6.1/css/font-awesome.min.css" rel="stylesheet">
