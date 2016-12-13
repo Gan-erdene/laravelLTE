@@ -1,8 +1,8 @@
 <div class="box profile-info n-border-top">
   <ul class="nav nav-tabs">
     <li class="active"><a href="#tab-post" data-toggle="tab">Мэдээ</a></li>
-    <li><a href="#tab-timeline" data-toggle="tab">Хийх ажлаа оруулах</a></li>
-    <li><a href="#_addwork" data-toggle="tab">Шинэ ажил оруулах</a></li>
+    <li><a href="#tab-timeline" data-toggle="tab">Гүйцэтгэх ажлаа оруулах</a></li>
+    <li><a href="#_addwork" data-toggle="tab">Ажил гүйцэтгүүлэх</a></li>
   </ul>
   <div class="tab-content">
     <div class="tab-pane fade in active" id="tab-post">

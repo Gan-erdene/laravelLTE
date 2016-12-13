@@ -19,6 +19,7 @@ class UserController extends Controller
     public function action(Request $request){
       switch ($request->input('action')) {
         case 'confirm': return $this->confirm($request);
+        case 'inactive': return $this->inactive($request);
         default: break;
       }
     }
@@ -31,5 +32,14 @@ class UserController extends Controller
         return back()
           ->with('status', 'success')
           ->with('message', 'Бүртгэлийг амжилттай баталгаажуулав');
+    }
+    public function inactive($request){
+        $userid = $request->input('userid');
+        $user = sf_guard_user::find($userid);
+        $user->is_active = '2';
+        $user->save();
+        return back()
+          ->with('status', 'success')
+          ->with('message', 'Хэрэглэгч идэвхгүй болсон');
     }
 }
