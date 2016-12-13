@@ -210,53 +210,24 @@ $('#myModal').on('shown.bs.modal', function () {
             <div class="widget-body bordered-top  bordered-sky">
               <div class="row">
                 <div class="col-md-12">
-                  <ul class="img-grid" style="margin: 0 auto;">
-                    <li>
-                      <a href="#">
-                        <img src="/frontend/img/Friends/guy-6.jpg" alt="image">
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <img src="/frontend/img/Friends/woman-3.jpg" alt="image">
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <img src="/frontend/img/Friends/guy-2.jpg" alt="image">
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <img src="/frontend/img/Friends/guy-9.jpg" alt="image">
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <img src="/frontend/img/Friends/woman-9.jpg" alt="image">
-                      </a>
-                    </li>
-                    <li class="clearfix">
-                      <a href="#">
-                        <img src="/frontend/img/Friends/guy-4.jpg" alt="image">
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <img src="/frontend/img/Friends/guy-1.jpg" alt="image">
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <img src="/frontend/img/Friends/woman-4.jpg" alt="image">
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <img src="/frontend/img/Friends/guy-6.jpg" alt="image">
-                      </a>
-                    </li>
-                  </ul>
+                  <img src="/frontend/img/sponsor/sponsor-1.jpg" width="482" /><br>
+
+                </div>
+              </div>
+            </div>
+            <div class="widget-body bordered-top  bordered-sky">
+              <div class="row">
+                <div class="col-md-12">
+                  <img src="/frontend/img/sponsor/sponsor-1.jpg" width="482" /><br>
+
+                </div>
+              </div>
+            </div>
+            <div class="widget-body bordered-top  bordered-sky">
+              <div class="row">
+                <div class="col-md-12">
+                  <img src="/frontend/img/sponsor/sponsor-1.jpg" width="482" /><br>
+
                 </div>
               </div>
             </div>

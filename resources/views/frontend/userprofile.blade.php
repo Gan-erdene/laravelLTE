@@ -145,125 +145,34 @@ $(document).ready(function(){
           </div>
 
           <div class="widget widget-friends">
-            <div class="widget-header">
-              <h3 class="widget-caption">Friends</h3>
+
+            <div class="widget-body bordered-top  bordered-sky">
+              <div class="row">
+                <div class="col-md-12">
+                  <img src="/frontend/img/sponsor/sponsor-1.jpg" width="482" />
+                </br>
+                </div>
+              </div>
             </div>
             <div class="widget-body bordered-top  bordered-sky">
               <div class="row">
                 <div class="col-md-12">
-                  <ul class="img-grid" style="margin: 0 auto;">
-                    <li>
-                      <a href="#">
-                        <img src="/frontend/img/Friends/guy-6.jpg" alt="image">
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <img src="/frontend/img/Friends/woman-3.jpg" alt="image">
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <img src="/frontend/img/Friends/guy-2.jpg" alt="image">
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <img src="/frontend/img/Friends/guy-9.jpg" alt="image">
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <img src="/frontend/img/Friends/woman-9.jpg" alt="image">
-                      </a>
-                    </li>
-                    <li class="clearfix">
-                      <a href="#">
-                        <img src="/frontend/img/Friends/guy-4.jpg" alt="image">
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <img src="/frontend/img/Friends/guy-1.jpg" alt="image">
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <img src="/frontend/img/Friends/woman-4.jpg" alt="image">
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <img src="/frontend/img/Friends/guy-6.jpg" alt="image">
-                      </a>
-                    </li>
-                  </ul>
+                  <img src="/frontend/img/sponsor/sponsor-1.jpg" width="482" />
+                </br>
+                </div>
+              </div>
+            </div>
+            <div class="widget-body bordered-top  bordered-sky">
+              <div class="row">
+                <div class="col-md-12">
+                  <img src="/frontend/img/sponsor/sponsor-1.jpg" width="482" />
+                </br>
                 </div>
               </div>
             </div>
           </div>
 
-          <div class="widget">
-            <div class="widget-header">
-              <h3 class="widget-caption">Groups</h3>
-            </div>
-            <div class="widget-body bordered-top bordered-sky">
-              <div class="card">
-                <div class="content">
-                  <ul class="list-unstyled team-members">
-                    <li>
-                      <div class="row">
-                          <div class="col-xs-3">
-                              <div class="avatar">
-                                  <img src="/frontend/img/Likes/likes-1.png" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                              </div>
-                          </div>
-                          <div class="col-xs-6">
-                             Github
-                          </div>
-
-                          <div class="col-xs-3 text-right">
-                              <btn class="btn btn-sm btn-azure btn-icon"><i class="fa fa-user"></i></btn>
-                          </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="row">
-                          <div class="col-xs-3">
-                              <div class="avatar">
-                                  <img src="/frontend/img/Likes/likes-3.png" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                              </div>
-                          </div>
-                          <div class="col-xs-6">
-                              Css snippets
-                          </div>
-
-                          <div class="col-xs-3 text-right">
-                              <btn class="btn btn-sm btn-azure btn-icon"><i class="fa fa-user"></i></btn>
-                          </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="row">
-                          <div class="col-xs-3">
-                              <div class="avatar">
-                                  <img src="/frontend/img/Likes/likes-2.png " alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                              </div>
-                          </div>
-                          <div class="col-xs-6">
-                              Html Action
-                          </div>
-
-                          <div class="col-xs-3 text-right">
-                              <btn class="btn btn-sm btn-azure btn-icon"><i class="fa fa-user"></i></btn>
-                          </div>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
+          
         </div>
 
 
