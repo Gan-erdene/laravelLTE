@@ -164,6 +164,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
+        LaravelCaptcha\Providers\LaravelCaptchaServiceProvider::class,
 
         /*
          * Package Service Providers...

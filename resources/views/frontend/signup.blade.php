@@ -22,6 +22,8 @@
       <input type="password" id="repassword" name="repassword" class="form-control" placeholder="{{trans('strings.repassword')}}">
     </div>
     <button type="submit" class="btn btn-azure btn-block">{{ trans('strings.signup') }}</button>
+    {!! captcha_image_html('ExampleCaptcha') !!}
+  <input type="text" id="CaptchaCode" name="CaptchaCode">
   </form>
 </div>
 <script src="/frontend/assets/js/jquery.1.11.0.validate.min.js"></script>
