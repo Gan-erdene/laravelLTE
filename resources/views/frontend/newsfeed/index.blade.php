@@ -9,6 +9,12 @@
 <script>
 $(document).ready(function(){
 
+  $.post("{{route('newsfeedAction')}}", {
+    action:'user_rate', _token:"{{csrf_token()}}"
+  }, function(data){
+    $("#userrate").html(data.rate);
+  })
+
   $(".textarea").wysihtml5({
     toolbar: {
       "font-styles": false, // Font styling, e.g. h1, h2, etc.

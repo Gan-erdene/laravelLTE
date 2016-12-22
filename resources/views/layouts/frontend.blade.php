@@ -53,6 +53,16 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
+            <li>
+              <a>
+                @if(\Auth::user()->profile_image)
+                    <img style="width:30px; height:30px; object-fit: cover;" src="/uploads/profileimage/{{\Auth::user()->profile_image}}" alt="">
+                @else
+                    <img style="width:30px; height:30px; object-fit: cover;"  src="/frontend/img/Profile/default-avatar.png" alt="">
+                @endif
+                {{\Auth::user()->first_name}}
+              </a>
+            </li>
             <li class="actives"><a href="{{route('frontendHome')}}">{{trans('strings.profile')}}</a></li>
             <li class="actives"><a href="{{route('frontendFindUser')}}">{{trans('strings.find_friend')}}</a></li>
             <li class="actives"><a href="{{route('addWork')}}">{{trans('strings.add_work')}}</a></li>
