@@ -38,12 +38,6 @@ NOCAPTCHA_SITEKEY=[site-key]
 {!! app('captcha')->display(); !!}
 ```
 
-With custom attributes and language support:
-
-```
-{!! app('captcha')->display($attributes = [], $lang = null); !!}
-```
-
 ##### Validation
 
 Add `'g-recaptcha-response' => 'required|captcha'` to rules array.
