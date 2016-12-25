@@ -21,12 +21,9 @@
     <script src="/frontend/assets/js/jquery.1.11.1.min.js"></script>
     <script src="/frontend/bootstrap.3.3.6/js/bootstrap.min.js"></script>
     <script src="/frontend/assets/js/custom.js"></script>
-  
 
     <script>
-          window.Laravel = <?php echo json_encode([
-              'csrfToken' => csrf_token(),
-          ]); ?>
+          window.Laravel = <?php echo json_encode(['csrfToken' => csrf_token(), ]); ?>
     </script>
   </head>
 
@@ -49,7 +46,7 @@
       <div class="parallax filter-black">
           <div class="parallax-image"></div>
           <div class="small-info">
-            <div class="col-sm-10 col-sm-push-1 col-md-6 col-md-push-3 col-lg-6 col-lg-push-3">
+            <div class="col-sm-10 col-sm-push-1 col-md-8 col-md-push-2 col-lg-8 col-lg-push-2">
               <div class="card-group animated flipInX">
                 <div class="card">
                   <div class="card-block">

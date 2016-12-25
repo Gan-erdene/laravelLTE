@@ -12,6 +12,9 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 
+/**
+ * @mixin \Illuminate\Database\Query\Builder
+ */
 class Builder
 {
     /**
@@ -371,9 +374,17 @@ class Builder
      */
     public function chunk($count, callable $callback)
     {
-        $results = $this->forPage($page = 1, $count)->get();
+        $page = 1;
 
-        while (! $results->isEmpty()) {
+        do {
+            $results = $this->forPage($page, $count)->get();
+
+            $countResults = $results->count();
+
+            if ($countResults == 0) {
+                break;
+            }
+
             // On each chunk result set, we will pass them to the callback and then let the
             // developer take care of everything within the callback, which allows us to
             // keep the memory low for spinning through large result sets for working.
@@ -382,9 +393,7 @@ class Builder
             }
 
             $page++;
-
-            $results = $this->forPage($page, $count)->get();
-        }
+        } while ($countResults == $count);
 
         return true;
     }
@@ -399,19 +408,25 @@ class Builder
      */
     public function chunkById($count, callable $callback, $column = 'id')
     {
-        $lastId = null;
+        $lastId = 0;
 
-        $results = $this->forPageAfterId($count, 0, $column)->get();
+        do {
+            $clone = clone $this;
 
-        while (! $results->isEmpty()) {
+            $results = $clone->forPageAfterId($count, $lastId, $column)->get();
+
+            $countResults = $results->count();
+
+            if ($countResults == 0) {
+                break;
+            }
+
             if (call_user_func($callback, $results) === false) {
                 return false;
             }
 
             $lastId = $results->last()->{$column};
-
-            $results = $this->forPageAfterId($count, $lastId, $column)->get();
-        }
+        } while ($countResults == $count);
 
         return true;
     }
@@ -425,7 +440,7 @@ class Builder
      */
     public function each(callable $callback, $count = 1000)
     {
-        if (is_null($this->query->orders) && is_null($this->query->unionOrders)) {
+        if (empty($this->query->orders) && empty($this->query->unionOrders)) {
             $this->orderBy($this->model->getQualifiedKeyName(), 'asc');
         }
 
@@ -484,7 +499,9 @@ class Builder
 
         $total = $query->getCountForPagination();
 
-        $results = $total ? $this->forPage($page, $perPage)->get($columns) : new Collection;
+        $results = $total
+            ? $this->forPage($page, $perPage)->get($columns)
+            : $this->model->newCollection();
 
         return new LengthAwarePaginator($results, $total, $perPage, $page, [
             'path' => Paginator::resolveCurrentPath(),
@@ -1115,9 +1132,17 @@ class Builder
             // constraints have been specified for the eager load and we'll just put
             // an empty Closure with the loader so that we can treat all the same.
             if (is_numeric($name)) {
-                $f = function () {
-                    //
-                };
+                if (Str::contains($constraints, ':')) {
+                    list($constraints, $columns) = explode(':', $constraints);
+
+                    $f = function ($q) use ($columns) {
+                        $q->select(explode(',', $columns));
+                    };
+                } else {
+                    $f = function () {
+                        //
+                    };
+                }
 
                 list($name, $constraints) = [$constraints, $f];
             }

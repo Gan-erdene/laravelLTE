@@ -165,6 +165,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
         LaravelCaptcha\Providers\LaravelCaptchaServiceProvider::class,
+        Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
 
         /*
          * Package Service Providers...

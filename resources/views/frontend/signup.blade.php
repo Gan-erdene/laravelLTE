@@ -15,6 +15,14 @@
     <div class="form-group">
       <input type="email" name="email" class="form-control" placeholder="{{trans('strings.email_address')}}">
     </div>
+    <div class="form-group has-error">
+        {!! app('captcha')->display(); !!}
+        @if(isset($errors) and $errors->has('g-recaptcha-response'))
+        <label class="error control-label">
+          Заавал сонгоно уу
+        </label>
+        @endif
+    </div>
     <div class="form-group">
       <input type="password" name="password" id="_password" class="form-control" placeholder="{{trans('strings.password')}}">
     </div>
@@ -22,8 +30,6 @@
       <input type="password" id="repassword" name="repassword" class="form-control" placeholder="{{trans('strings.repassword')}}">
     </div>
     <button type="submit" class="btn btn-azure btn-block">{{ trans('strings.signup') }}</button>
-    {!! captcha_image_html('ExampleCaptcha') !!}
-  <input type="text" id="CaptchaCode" name="CaptchaCode">
   </form>
 </div>
 <script src="/frontend/assets/js/jquery.1.11.0.validate.min.js"></script>
