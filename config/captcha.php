@@ -1,4 +1,7 @@
-<?php if (!class_exists('CaptchaConfiguration')) { return; }
+<?php
+
+
+/*if (!class_exists('CaptchaConfiguration')) { return; }
 
 // BotDetect PHP Captcha configuration options
 
@@ -10,4 +13,10 @@ return [
     'ImageHeight' => 50,
   ],
 
+];
+*/
+
+return [
+    'secret' => env('NOCAPTCHA_SECRET'),
+    'sitekey' => env('NOCAPTCHA_SITEKEY'),
 ];
