@@ -14,6 +14,7 @@ use App\WorkCategories;
 use App\WorkUserProposal;
 use App\sf_guard_user;
 use App\Models\Groups;
+use App\Models\Poll;
 class NewsfeedController extends Controller
 {
     public function index(Request $request){
@@ -68,8 +69,32 @@ class NewsfeedController extends Controller
         case 'post_saved': return response()->json(['html'=>$this->savedPostWorks()]);
         case 'post_category': return response()->json(['html'=>$this->postByCategory($request)]);
         case 'post_section': return response()->json(['html'=>$this->postBySection($request)]);
+        case 'user_rate' :return response()->json(['rate'=>$this->userRate()]);
         default: break;
       }
+    }
+
+    public function userRate(){
+      $userid = \Auth::user()->id;
+      $poll = Poll::where('user_id', $userid);
+      $star = 0;
+      $count = 0;
+      if($poll->first()){
+        $count = $poll->count();
+        $rate = $poll->sum('rate');
+        $star = intval($rate/$count);
+      }
+      $html = "";
+      for($i=1; $i<=5; $i++){
+        if($i<=$star){
+            $html .="<i  class='fa fa-star'></i>";
+        }else{
+            $html .="<i style='color:#999' class='fa fa-star'></i>";
+        }
+      }
+
+
+      return $html."<span> &nbsp; &nbsp; &nbsp; ".number_format($count)." &nbsp;</span><i class='fa fa-user'></i>";
     }
 
     public function postByCategory($request){

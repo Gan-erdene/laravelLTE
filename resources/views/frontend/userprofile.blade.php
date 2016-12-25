@@ -122,12 +122,17 @@ $(document).ready(function(){
                     @endif
                   </div>
                 </li>
-                <li class="padding-v-5">
-                  <div class="row">
-                    <div class="col-sm-4"><span class="text-muted">Имэйл</span></div>
-                    <div class="col-sm-8">{{$user_show->email_address}}</div>
-                  </div>
-                </li>
+                @if($user_settings->where('field_name', 'config_email')->first())
+                  <?php $__email = $user_settings->where('field_name', 'config_email')->first(); ?>
+                  @if($__email->status === 'all')
+                  <li class="padding-v-5">
+                    <div class="row">
+                      <div class="col-sm-4"><span class="text-muted">Имэйл</span></div>
+                      <div class="col-sm-8">{{$user_show->email_address}}</div>
+                    </div>
+                  </li>
+                  @endif
+                @endif
                 <li class="padding-v-5">
                   <div class="row">
                     <div class="col-sm-4"><span class="text-muted">Утас</span></div>
@@ -172,7 +177,7 @@ $(document).ready(function(){
             </div>
           </div>
 
-          
+
         </div>
 
 

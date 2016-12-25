@@ -112,3 +112,6 @@ Route::get('/frontend/pages/about', 'frontend\PagesController@about')->name('vie
 Route::get('/frontend/pages/member', 'frontend\PagesController@member')->name('viewMember');
 
 Route::get('/frontend/logout','frontend\LoginController@logout');
+
+Route::get('/frontend/captcha', 'CaptchaController@index');
+Route::post('/frontend/captcha', 'CaptchaController@login');

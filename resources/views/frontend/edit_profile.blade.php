@@ -35,6 +35,10 @@
         $('#zadvar').val("{{$user->ur_zadvar}}");
 
        @endif
+
+       @foreach($settings as $item)
+       $("#{{$item->field_name}}").val("{{$item->status}}");
+       @endforeach
    $(document).on('change', '.selectsection', function(){
      if(this.checked){
          $.post("{{route('workAction')}}", {'_token':"{{ csrf_token() }}",
@@ -123,6 +127,13 @@
                           <div class="col-sm-6">
                               <textarea type="textarea" class="form-control col-xs-5" id="about" name="about" placeholder="Өөрийн тухай дэлгэрэнгүй"></textarea>
                           </div>
+                          <div class="col-sm-3">
+                            <select name="config_about" id="config_about">
+                              <option value="me">Зөвхөн би харна</option>
+                              <option value="friends">Зөвхөн найзууд харна</option>
+                              <option value="all">Бүх хүн харна</option>
+                            </select>
+                          </div>
                         </div>
                         <div class="form-group row">
                           <label class="col-sm-3">Мэйл</label>
@@ -130,7 +141,7 @@
                             <input id="email" type="text" class="form-control"  name="email" placeholder="Мэйл">
                           </div>
                           <div class="col-sm-3">
-                            <select name="config_email">
+                            <select name="config_email" id="config_email">
                               <option value="me">Зөвхөн би харна</option>
                               <option value="friends">Зөвхөн найзууд харна</option>
                               <option value="all">Бүх хүн харна</option>
@@ -143,7 +154,7 @@
                             <input id="register" type="text" class="form-control"  name="register" placeholder="Регистр дугаар">
                           </div>
                           <div class="col-sm-3">
-                            <select name="config_regnum">
+                            <select name="config_regnum" id="config_regnum">
                               <option value="me">Зөвхөн би харна</option>
                               <option value="friends">Зөвхөн найзууд харна</option>
                               <option value="all">Бүх хүн харна</option>
@@ -156,7 +167,7 @@
                             <input id="location" type="text" class="form-control"  name="location" placeholder="Байршил">
                           </div>
                           <div class="col-sm-3">
-                            <select name="config_location">
+                            <select name="config_location" id="config_location">
                               <option value="me">Зөвхөн би харна</option>
                               <option value="friends">Зөвхөн найзууд харна</option>
                               <option value="all">Бүх хүн харна</option>
@@ -185,7 +196,7 @@
                             <input type="text" class="form-control" id="work" name="work" placeholder="Ажил ">
                           </div>
                           <div class="col-sm-3">
-                            <select name="config_email">
+                            <select name="config_work" id="config_work">
                               <option value="me">Зөвхөн би харна</option>
                               <option value="friends">Зөвхөн найзууд харна</option>
                               <option value="all">Бүх хүн харна</option>
@@ -204,7 +215,7 @@
                             <input type="text" class="form-control" id="ndd" name="ndd" placeholder="Нийгмийн даатгалын дэвтрийн дугаар">
                           </div>
                           <div class="col-sm-3">
-                            <select name="config_ndd">
+                            <select name="config_ndd" id="config_ndd">
                               <option value="me">Зөвхөн би харна</option>
                             </select>
                           </div>
@@ -215,7 +226,7 @@
                             <input type="text" class="form-control" id="emdd" name="emdd" placeholder="Эрүүл мэндийн даатгалын дэвтрийн дугаар">
                           </div>
                           <div class="col-sm-3">
-                            <select name="config_emdd">
+                            <select name="config_emdd" id="config_emdd">
                               <option value="me">Зөвхөн би харна</option>
                             </select>
                           </div>
@@ -226,7 +237,7 @@
                             <input id="phone" type="text" class="form-control" name="phone" placeholder="Утас">
                           </div>
                           <div class="col-sm-3">
-                            <select name="config_phone">
+                            <select name="config_phone" id="config_phone">
                               <option value="me">Зөвхөн би харна</option>
                               <option value="friends">Зөвхөн найзууд харна</option>
                               <option value="all">Бүх хүн харна</option>
@@ -244,7 +255,7 @@
                             </div>
                           </div>
                           <div class="col-sm-3">
-                            <select name="config_birth">
+                            <select name="config_birth" id="config_birth">
                               <option value="me">Зөвхөн би харна</option>
                               <option value="friends">Зөвхөн найзууд харна</option>
                               <option value="all">Бүх хүн харна</option>
@@ -257,7 +268,7 @@
                             <textarea type="textarea" class="form-control" id="address" name="address" placeholder="Оршин суугаа хаяг оруулна уу"></textarea>
                           </div>
                           <div class="col-sm-3">
-                            <select name="config_address">
+                            <select name="config_address" id="config_address">
                               <option value="me">Зөвхөн би харна</option>
                               <option value="friends">Зөвхөн найзууд харна</option>
                               <option value="all">Бүх хүн харна</option>

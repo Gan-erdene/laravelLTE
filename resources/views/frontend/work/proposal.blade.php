@@ -38,14 +38,6 @@
       <div class="box-footer box-comments">
       @include('frontend.work.comment_prop')
       </div>
-      <div class="box-footer">
-          <div class="input-group">
-              <input type="text" data-id="{{$p->id}}" id="comm_{{$p->id}}" class="form-control comment" placeholder="Сэтгэгдэл...">
-              <span class="input-group-btn">
-                  <button class="btn btn-default" data-id="{{$p->id}}" id="btnCommentSend" type="button">Илгээх</button>
-              </span>
-          </div>
-      </div>
       @elseif($p->status === 2)
       <p><i class="fa fa-remove" ></i> Саналыг татгалзсан</p>
       @endif

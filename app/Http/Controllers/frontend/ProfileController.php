@@ -13,6 +13,7 @@ use Validator;
 use DB;
 use Image;
 use App\Friends;
+use App\Models\SfGuardUserSettings;
 
 class ProfileController extends Controller
 {
@@ -24,9 +25,11 @@ class ProfileController extends Controller
       $categories = $this->getCategoryByUser(\Auth::user()->id);
       $fuController = new FindUserController;
       $friends = $fuController->friendList(0, 8);
+      $settings = SfGuardUserSettings::where('user_id', \Auth::user()->id)->get();
       return view('frontend.edit_profile', [])
       ->with('user',$user)
       ->with('s',$parameter)
+      ->with('settings', $settings)
       ->with('categories',$categories)
       ->with('cover_right_friend',$friends)
       ->with('sections',$sections);
@@ -39,11 +42,12 @@ class ProfileController extends Controller
           $posts = Works::where('userid',$id)->orderBy('created_at','desc')->get();
           $finduser = new FindUserController;
           $cover_right_friend = $finduser->friendList(0, 8, $id);
-
+          $user_settings = SfGuardUserSettings::where('user_id', $id);
         return view('frontend.userprofile')
           ->with('user_show',$user_show)
           ->with('sections',$sections)
           ->with('cover_right_friend', $cover_right_friend)
+          ->with('user_settings', $user_settings)
           ->with('posts',$posts);
 
     }
@@ -113,13 +117,34 @@ class ProfileController extends Controller
         $user->phone = $request->input('phone');
         $user->address  = $request->input('address');
         $user->update();
-
+        $this->saveSettings($request);
 
 
       return back()
         ->with('success','Амжилттай хадгалагдлаа.')
         ;
     }
+
+    public function saveSettings($request){
+      $user_id = \Auth::user()->id;
+      foreach($request->all() as $key=>$value){
+        $has = str_is('config_*', $key);
+        if($has){
+            $sett = SfGuardUserSettings::where('user_id', $user_id)->where('field_name', $key)->first();
+            if($sett){
+              $sett->status = $value;
+              $sett->update();
+            }else{
+              $d = new SfGuardUserSettings();
+              $d->user_id = $user_id;
+              $d->status = $value;
+              $d->field_name = $key;
+              $d->save();
+            }
+        }
+      }
+    }
+
     public function Cover(Request $request)
     {
         $user = sf_guard_user::find(\Auth::user()->id);
