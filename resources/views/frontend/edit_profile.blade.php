@@ -153,11 +153,6 @@
                           <div class="col-sm-6">
                             <input id="register" type="text" class="form-control"  name="register" placeholder="Регистр дугаар">
                           </div>
-                          <div class="col-sm-3">
-                            <select name="config_regnum" id="config_regnum">
-                              <option value="me">Зөвхөн би харна</option>
-                            </select>
-                          </div>
                         </div>
                         <div class="form-group row">
                           <label class="col-sm-3">Байршил</label>
@@ -212,21 +207,11 @@
                           <div class="col-sm-6">
                             <input type="text" class="form-control" id="ndd" name="ndd" placeholder="Нийгмийн даатгалын дэвтрийн дугаар">
                           </div>
-                          <div class="col-sm-3">
-                            <select name="config_ndd" id="config_ndd">
-                              <option value="me">Зөвхөн би харна</option>
-                            </select>
-                          </div>
                         </div>
                         <div class="form-group row">
                           <label class="col-sm-3">ЭМДД</label>
                           <div class="col-sm-6">
                             <input type="text" class="form-control" id="emdd" name="emdd" placeholder="Эрүүл мэндийн даатгалын дэвтрийн дугаар">
-                          </div>
-                          <div class="col-sm-3">
-                            <select name="config_emdd" id="config_emdd">
-                              <option value="me">Зөвхөн би харна</option>
-                            </select>
                           </div>
                         </div>
                         <div class="form-group row">
