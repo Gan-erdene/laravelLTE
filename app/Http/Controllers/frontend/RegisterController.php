@@ -16,10 +16,10 @@ class RegisterController extends Controller
       }
 
       $validate = Validator::make($request->all(), [
-        'g-recaptcha-response' => 'required|captcha'
+        'g-recaptcha-response' => 'required'
     ]);
 
-    if ($validate->fails()) {
+		if ($validate->fails()) {
             return redirect('/frontend/index')
                         ->withErrors($validate)
                         ->withInput();
