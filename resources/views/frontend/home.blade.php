@@ -161,77 +161,66 @@ $('#myModal').on('shown.bs.modal', function () {
               <ul class="list-unstyled profile-about margin-none">
                 <li class="padding-v-5">
                   <div class="row">
-                    <div class="col-sm-4"><span class="text-muted">Төрсөн өдөр</span></div>
-                    <div class="col-sm-8">{{$user->birthday}}</div>
+                    <div class="col-sm-5"><span class="text-muted">Товч танилцуулга</span></div>
+                    <div class="col-sm-7">{{$user->about}}</div>
                   </div>
                 </li>
                 <li class="padding-v-5">
                   <div class="row">
-                    <div class="col-sm-4"><span class="text-muted">Ажил</span></div>
-                    <div class="col-sm-8">{{$user->work}}</div>
+                    <div class="col-sm-5"><span class="text-muted">Имэйл хаяг</span></div>
+                    <div class="col-sm-7">{{$user->email_address}}</div>
                   </div>
                 </li>
                 <li class="padding-v-5">
                   <div class="row">
-                    <div class="col-sm-4"><span class="text-muted">Хүйс</span></div>
+                    <div class="col-sm-5"><span class="text-muted">Байршил</span></div>
+                    <div class="col-sm-7">{{$user->location}}</div>
+                  </div>
+                </li>
+                <li class="padding-v-5">
+                  <div class="row">
+                    <div class="col-sm-5"><span class="text-muted">Хүйс</span></div>
                     @if($user->gender  === 1)
-                    <div class="col-sm-8">Эрэгтэй</div>
+                    <div class="col-sm-7">Эрэгтэй</div>
                     @else
-                      <div class="col-sm-8">Эмэгтэй</div>
+                      <div class="col-sm-7">Эмэгтэй</div>
                     @endif
                   </div>
                 </li>
                 <li class="padding-v-5">
                   <div class="row">
-                    <div class="col-sm-4"><span class="text-muted">Имэйл</span></div>
-                    <div class="col-sm-8">{{$user->email_address}}</div>
+                    <div class="col-sm-5"><span class="text-muted">Мэргэжил</span></div>
+                    <div class="col-sm-7">{{$user->work}}</div>
                   </div>
                 </li>
                 <li class="padding-v-5">
                   <div class="row">
-                    <div class="col-sm-4"><span class="text-muted">Утас</span></div>
-                    <div class="col-sm-8">{{$user->phone}}</div>
+                    <div class="col-sm-5"><span class="text-muted">Ур чадвар</span></div>
+                    <div class="col-sm-7">{{$user->ur_zadvar}}</div>
                   </div>
                 </li>
                 <li class="padding-v-5">
                   <div class="row">
-                    <div class="col-sm-4"><span class="text-muted">Ур чадвар</span></div>
-                    <div class="col-sm-8">{{$user->ur_zadvar}}</div>
+                    <div class="col-sm-5"><span class="text-muted">Утас</span></div>
+                    <div class="col-sm-7">{{$user->phone}}</div>
+                  </div>
+                </li>
+                <li class="padding-v-5">
+                  <div class="row">
+                    <div class="col-sm-5"><span class="text-muted">Төрсөн өдөр</span></div>
+                    <div class="col-sm-7">{{$user->birthday}}</div>
+                  </div>
+                </li>
+                <li class="padding-v-5">
+                  <div class="row">
+                    <div class="col-sm-5"><span class="text-muted">Гэрийн хаяг</span></div>
+                    <div class="col-sm-7">{{$user->address}}</div>
                   </div>
                 </li>
               </ul>
             </div>
           </div>
 
-          <div class="widget widget-friends">
-            <div class="widget-header">
-              <h3 class="widget-caption">Найзууд</h3>
-            </div>
-            <div class="widget-body bordered-top  bordered-sky">
-              <div class="row">
-                <div class="col-md-12">
-                  <img src="/frontend/img/sponsor/sponsor-1.jpg" width="482" /><br>
-
-                </div>
-              </div>
-            </div>
-            <div class="widget-body bordered-top  bordered-sky">
-              <div class="row">
-                <div class="col-md-12">
-                  <img src="/frontend/img/sponsor/sponsor-1.jpg" width="482" /><br>
-
-                </div>
-              </div>
-            </div>
-            <div class="widget-body bordered-top  bordered-sky">
-              <div class="row">
-                <div class="col-md-12">
-                  <img src="/frontend/img/sponsor/sponsor-1.jpg" width="482" /><br>
-
-                </div>
-              </div>
-            </div>
-          </div>
           @if(sizeof($groups) > 0)
           <div class="widget">
             <div class="widget-header">

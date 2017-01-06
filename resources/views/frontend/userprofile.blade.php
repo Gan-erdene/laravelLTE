@@ -53,6 +53,7 @@ $(document).ready(function(){
 @section('content')
 
     <div class="row page-content">
+      @if($user_show)
     <div class="col-md-8 col-md-offset-2">
       <div class="row">
         <div class="col-md-12">
@@ -72,7 +73,7 @@ $(document).ready(function(){
               @include('frontend.home.cover_right_friends',['cover_right_friend'=>$cover_right_friend])
             </div>
             <div class="cover-info">
-              @if($user_show->profile_image)
+              @if(isset($user_show->profile_image) and $user_show->profile_image)
               <div class="avatar">
                   <img src="/uploads/profileimage/{{$user_show->profile_image}}" alt="people">
               </div>
@@ -102,81 +103,65 @@ $(document).ready(function(){
               <ul class="list-unstyled profile-about margin-none">
                 <li class="padding-v-5">
                   <div class="row">
-                    <div class="col-sm-4"><span class="text-muted">Төрсөн өдөр</span></div>
-                    <div class="col-sm-8">{{$user_show->birthday}}</div>
+                    <div class="col-sm-5"><span class="text-muted">Товч танилцуулга</span></div>
+                    <div class="col-sm-7">{{$user_show->about}}</div>
                   </div>
                 </li>
                 <li class="padding-v-5">
                   <div class="row">
-                    <div class="col-sm-4"><span class="text-muted">Ажил</span></div>
-                    <div class="col-sm-8">{{$user_show->work}}</div>
+                    <div class="col-sm-5"><span class="text-muted">Имэйл хаяг</span></div>
+                    <div class="col-sm-7">{{$user_show->email_address}}</div>
                   </div>
                 </li>
                 <li class="padding-v-5">
                   <div class="row">
-                    <div class="col-sm-4"><span class="text-muted">Хүйс</span></div>
+                    <div class="col-sm-5"><span class="text-muted">Байршил</span></div>
+                    <div class="col-sm-7">{{$user_show->location}}</div>
+                  </div>
+                </li>
+                <li class="padding-v-5">
+                  <div class="row">
+                    <div class="col-sm-5"><span class="text-muted">Хүйс</span></div>
                     @if($user_show->gender  === 1)
-                    <div class="col-sm-8">Эрэгтэй</div>
+                    <div class="col-sm-7">Эрэгтэй</div>
                     @else
-                      <div class="col-sm-8">Эмэгтэй</div>
+                      <div class="col-sm-7">Эмэгтэй</div>
                     @endif
                   </div>
                 </li>
-                @if($user_settings->where('field_name', 'config_email')->first())
-                  <?php $__email = $user_settings->where('field_name', 'config_email')->first(); ?>
-                  @if($__email->status === 'all')
-                  <li class="padding-v-5">
-                    <div class="row">
-                      <div class="col-sm-4"><span class="text-muted">Имэйл</span></div>
-                      <div class="col-sm-8">{{$user_show->email_address}}</div>
-                    </div>
-                  </li>
-                  @endif
-                @endif
                 <li class="padding-v-5">
                   <div class="row">
-                    <div class="col-sm-4"><span class="text-muted">Утас</span></div>
-                    <div class="col-sm-8">{{$user_show->phone}}</div>
+                    <div class="col-sm-5"><span class="text-muted">Мэргэжил</span></div>
+                    <div class="col-sm-7">{{$user_show->work}}</div>
                   </div>
                 </li>
                 <li class="padding-v-5">
                   <div class="row">
-                    <div class="col-sm-4"><span class="text-muted">Ур чадвар</span></div>
-                    <div class="col-sm-8">{{$user_show->ur_zadvar}}</div>
+                    <div class="col-sm-5"><span class="text-muted">Ур чадвар</span></div>
+                    <div class="col-sm-7">{{$user_show->ur_zadvar}}</div>
+                  </div>
+                </li>
+                <li class="padding-v-5">
+                  <div class="row">
+                    <div class="col-sm-5"><span class="text-muted">Утас</span></div>
+                    <div class="col-sm-7">{{$user_show->phone}}</div>
+                  </div>
+                </li>
+                <li class="padding-v-5">
+                  <div class="row">
+                    <div class="col-sm-5"><span class="text-muted">Төрсөн өдөр</span></div>
+                    <div class="col-sm-7">{{$user_show->birthday}}</div>
+                  </div>
+                </li>
+                <li class="padding-v-5">
+                  <div class="row">
+                    <div class="col-sm-5"><span class="text-muted">Гэрийн хаяг</span></div>
+                    <div class="col-sm-7">{{$user_show->address}}</div>
                   </div>
                 </li>
               </ul>
             </div>
           </div>
-
-          <div class="widget widget-friends">
-
-            <div class="widget-body bordered-top  bordered-sky">
-              <div class="row">
-                <div class="col-md-12">
-                  <img src="/frontend/img/sponsor/sponsor-1.jpg" width="482" />
-                </br>
-                </div>
-              </div>
-            </div>
-            <div class="widget-body bordered-top  bordered-sky">
-              <div class="row">
-                <div class="col-md-12">
-                  <img src="/frontend/img/sponsor/sponsor-1.jpg" width="482" />
-                </br>
-                </div>
-              </div>
-            </div>
-            <div class="widget-body bordered-top  bordered-sky">
-              <div class="row">
-                <div class="col-md-12">
-                  <img src="/frontend/img/sponsor/sponsor-1.jpg" width="482" />
-                </br>
-                </div>
-              </div>
-            </div>
-          </div>
-
 
         </div>
 
@@ -230,13 +215,12 @@ $(document).ready(function(){
                     <div class="box-body" style="display: block;">
                       <p>{{$post->reference}}</p>
                       @if($post->filename)
-                      <img src="/uploads/post/{{$post->filename}}" alt="">
+                      <img src="/uploads/post/{{$post->filename}}" class="img-responsive">
                       @else
 
                       @endif
                       <p></p>
                       <button type="button" data-id="{{$post->id}}"  class="btn btn-default btn-xs like" active><i class="fa fa-thumbs-o-up"></i> {{ $user_show->likes->where('post_id',$post->id)->first() ? 'unlike' : 'like'   }}</button>
-                      <button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share</button>
                       <span class="pull-right text-muted"><span id="like_{{$post->id}}">{{$post->Likecount()}}</span> </span>
                     </div>
 
@@ -254,14 +238,13 @@ $(document).ready(function(){
                     <div class="box-body" style="display: block;">
                       <p>{{$post->project_name}}</p>
                       @if($post->filename)
-                      <img src="/uploads/post/{{$post->filename}}" alt="">
+                      <img  src="/uploads/post/{{$post->filename}}" class="img-responsive">
                       @else
 
                       @endif
-                      <p>{{$post->reference}}</p>
+                      <p>{!!$post->reference!!}</p>
                       <p>{{$post->price}}</p>
                       <button type="button" data-id="{{$post->id}}"  class="btn btn-default btn-xs like" active><i class="fa fa-thumbs-o-up"></i> {{ $user_show->likes->where('post_id',$post->id)->first() ? 'unlike' : 'like'   }}</button>
-                      <button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share</button>
                       <span class="pull-right text-muted"><span id="like_{{$post->id}}">{{$post->Likecount()}}</span> </span>
                     </div>
 
@@ -279,5 +262,14 @@ $(document).ready(function(){
         </div><!-- end timeline posts-->
       </div>
     </div>
+    @else
+    <section class="error-container text-center">
+        <h1 class="animated fadeInDown" style="color:#39bbdb">404</h1>
+        <div class="error-divider animated fadeInUp">
+            <h2 style="color:#39bbdb">УУЧЛААРАЙ ХУУДАС ОЛДСОГҮЙ.</h2>
+            <p class="description">Холбогдох мэдээлэл олдсонгүй</p>
+        </div>
+    </section>
+    @endif
     </div>
 @endsection

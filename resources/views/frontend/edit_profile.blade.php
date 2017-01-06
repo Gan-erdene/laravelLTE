@@ -123,7 +123,7 @@
                           </div>
                         </div>
                         <div class="form-group row">
-                          <label class="col-sm-3">About</label>
+                          <label class="col-sm-3">Товч танилцуулга</label>
                           <div class="col-sm-6">
                               <textarea type="textarea" class="form-control col-xs-5" id="about" name="about" placeholder="Өөрийн тухай дэлгэрэнгүй"></textarea>
                           </div>
@@ -156,8 +156,6 @@
                           <div class="col-sm-3">
                             <select name="config_regnum" id="config_regnum">
                               <option value="me">Зөвхөн би харна</option>
-                              <option value="friends">Зөвхөн найзууд харна</option>
-                              <option value="all">Бүх хүн харна</option>
                             </select>
                           </div>
                         </div>
@@ -263,7 +261,7 @@
                           </div>
                         </div>
                         <div class="form-group row">
-                          <label class="col-sm-3">Хаяг</label>
+                          <label class="col-sm-3">Гэрийн хаяг</label>
                           <div class="col-sm-6">
                             <textarea type="textarea" class="form-control" id="address" name="address" placeholder="Оршин суугаа хаяг оруулна уу"></textarea>
                           </div>
