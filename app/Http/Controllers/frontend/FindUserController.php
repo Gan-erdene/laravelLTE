@@ -26,7 +26,8 @@ class FindUserController extends Controller
       $page = $this->pageNumber( $request->input("page") );
       $start = ($page - 1) * 16 + 1;
       $end = $page * 16;
-      $users = $this->getUnfriendList($start, $end);
+      //$users = $this->getUnfriendList($start, $end);
+      $users = Friends::where("user_id","<>", \Auth::user()->id)->where("friend_user_id", "<>", \Auth::user()->id)->paginate(16);
       return view('frontend.find_user')
         ->with('page', $page)
         ->with('users', $users);
@@ -40,7 +41,7 @@ class FindUserController extends Controller
     }
 
     public function getUnfriendList($start, $end){
-      $sql = "select S.id, f.friend_user_id, S.last_name, S.first_name, S.email_address, F.status, S.work, S.profile_image  from sf_guard_user S
+      $sql = "select S.id, f.friend_user_id, S.last_name, S.ur_zadvar, S.first_name, S.email_address, F.status, S.work, S.profile_image  from sf_guard_user S
         left join friends f on S.id = f.friend_user_id
         where ( f.friend_user_id <> ".\Auth::user()->id. " and f.status not in ( 2, 6, 4, 5 ) ) or  f.user_id is null  order by S.first_name limit $start, $end";
       $list = DB::select($sql);
