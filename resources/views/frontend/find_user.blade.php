@@ -1,13 +1,23 @@
 @extends('layouts.frontend')
 @section('javascripts')
+<link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
 <link href="/frontend/assets/css/friends.css" rel="stylesheet">
+<link href="/css/simply-tag.css" rel="stylesheet">
+<script src="/js/simply-tag.js"></script>
 <script>
   @include('frontend.js.friend_request')
+  $(function(){
+    $('#test').simplyTag(
+    {
+        forMultiple: true,
+        dataSource: JSON.parse('[{ "key": 1, "value": "Value1" }, { "key": 2, "value": "value2" }, { "key": 3, "value": "value3" }]')
+    });
+  });
 </script>
 @endsection
 @section('content')
 <div class="row page-content">
-  <div class="col-md-8 col-md-offset-2">
+  <div class="col-md-7 col-md-offset-1">
     <div class="row">
         <div class="col">
           <div class="widget">
@@ -32,7 +42,7 @@
                   <td>
                     {{str_limit($item->friend->ur_zadvar, 100)}}
                   </td>
-                  <td style="width: 20%;">
+                  <td>
                     <div class="m-t-xs btn-group">
                       @if( $item->status === 1 )
                       <button data-id="acc_{{$item->friend_user_id}}" class="btn btn-xs btn-white finduser"> {{trans('strings.accept_friend')}}</button>
@@ -56,6 +66,22 @@
       </div>
     <div>
       {{ $users->links() }}
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="widget">
+      <div class="widget-header">
+        <h3 class="widget-caption"> Та сонирхолоор хайж үзэхүү </h3>
+      </div>
+      <div class="widget-body bordered-top bordered-sky">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="container">
+              <div id='test'></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
