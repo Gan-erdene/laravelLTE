@@ -12,6 +12,7 @@
     action:'lista', '_token':"{{ csrf_token() }}"
   },function(data){
     $("#searchlist").append(data.trlist);
+    $("#readmore").data('id', data.limit);
   });
   $(function(){
     var cities = new Bloodhound({
@@ -64,7 +65,7 @@
     </div>
     <div class="row">
       <div class="col-md-2 col-md-offset-5">
-        <button class="btn btn-xs btn-white"> Цааш үргэлжлүүлэх <i class="glyphicon glyphicon-chevron-down"></i> </button>
+        <button id="readmore" data-id="0" class="btn btn-xs btn-white"> Цааш үргэлжлүүлэх <i class="glyphicon glyphicon-chevron-down"></i> </button>
       </div>
     </div>
   </div>
