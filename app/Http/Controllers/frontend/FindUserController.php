@@ -26,7 +26,7 @@ class FindUserController extends Controller
       $page = $this->pageNumber( $request->input("page") );
       $start = ($page - 1) * 16 + 1;
       $end = $page * 16;
-      //$users = $this->getUnfriendList($start, $end);
+
       $users = Friends::where("user_id","<>", \Auth::user()->id)->where("friend_user_id", "<>", \Auth::user()->id)->paginate(16);
       return view('frontend.find_user')
         ->with('page', $page)
@@ -58,6 +58,7 @@ class FindUserController extends Controller
       $string = $request->input('action');
       $action = explode('_', $string);
       switch ($action[0]) {
+        case 'lista': return $this->aList();
         case 'add': return $this->friendRequest($action[1]);
         case 'acc': return $this->acceptRequest($action[1]);
         case 'can': return $this->cancelRequest($action[1]);
@@ -69,6 +70,15 @@ class FindUserController extends Controller
         return response()->json(['html'=>$html->render()]);
         default:break;
       }
+    }
+
+    // Naiz haih hesegt orhod ene tses duudagdana
+    public function aList(){
+      $userlist = sf_guard_user::where('id', '<>', \Auth::user()->id)->get();
+      $html = view('frontend.friend.search_friend',['list'=>$userlist])->render();
+      return response()->json([
+          'trlist'=>$html
+      ]);
     }
 
     public function removeFriend($friend_user_id){

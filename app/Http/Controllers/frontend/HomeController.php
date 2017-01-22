@@ -94,12 +94,25 @@ class HomeController extends Controller
   }
   public function action(Request $request){
     switch ($request->input('action')) {
+      case 'category_json': return $this->jsonCategories();
       case 'category': return $this->getCategoryBySetion($request);
       case 'creatework' : return $this->createWork($request);
       case 'delete': return $this->deleteWork($request->input('workid'));
       case 'save': return $this->saveWork($request);
       default: break;
     }
+  }
+
+  public function jsonCategories(){
+    $json = array();
+    $sections = Section::where('published', 1)->get();
+    foreach($sections as $section){
+        foreach($section->categories() as $cat){
+            array_push($json, array('value'=>$cat->id, 'text'=>$cat->catTrans('mn')->name, 'continent'=>$section->secTrans('mn')->name));
+        }
+
+    }
+    return response()->json($json);
   }
 
   public function getCategoryBySetion($request){
