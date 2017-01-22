@@ -59,7 +59,7 @@ class FindUserController extends Controller
       $action = explode('_', $string);
       switch ($action[0]) {
         case 'lista': return $this->aList();
-        case 'search_lista': return $this->searchAlist($request);
+        case 'searchlista': return $this->searchAlist($request);
         case 'add': return $this->friendRequest($action[1]);
         case 'acc': return $this->acceptRequest($action[1]);
         case 'can': return $this->cancelRequest($action[1]);
@@ -73,7 +73,12 @@ class FindUserController extends Controller
       }
     }
     public function searchAlist($request){
-
+      $limit = $request->input('limit');
+      $userlist = sf_guard_user::where('id', '<>', \Auth::user()->id)->offset($limit)->take(5)->get();
+      $html = view('frontend.friend.search_friend',['list'=>$userlist])->render();
+      return response()->json([
+          'trlist'=>$html, 'limit'=>$limit+5
+      ]);
     }
     // Naiz haih hesegt orhod ene tses duudagdana
     public function aList(){

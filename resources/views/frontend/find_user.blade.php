@@ -14,6 +14,23 @@
     $("#searchlist").append(data.trlist);
     $("#readmore").data('id', data.limit);
   });
+
+  function loadMore(){
+    var items = elt.tagsinput('items');
+    var limit = $("#readmore").data('id');
+    $.post("{{route('frontendFindUserAction')}}", {
+      action:'searchlista', '_token':"{{ csrf_token() }}", limit:limit, items:items
+    },function(data){
+      $("#searchlist").append(data.trlist);
+      $("#readmore").data('id', data.limit);
+    });
+  }
+
+  $(document).on('click', '#readmore', function(){
+    loadMore();
+  });
+
+
   $(function(){
     var cities = new Bloodhound({
       datumTokenizer: Bloodhound.tokenizers.obj.whitespace('text'),
@@ -76,7 +93,9 @@
       </div>
       <div class="widget-body bordered-top bordered-sky">
         <div class="row">
+
           <div class="col-xs-12 example_objects_as_tags">
+            <p>Та зөвхөн крилл үсгээр хайлтаа хийнэ үү</p>
             <div class="bs-example">
               <input type="text" />
             </div>
