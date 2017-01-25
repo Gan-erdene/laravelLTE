@@ -31,14 +31,25 @@
       {{ csrf_field() }}
           <div class="form-group has-feedback{{ $errors->has('email_address') ? ' has-error' : '' }}">
       <input id="email_address" type="email" class="form-control" placeholder="Мэйл хаяг" name="email_address" value="{{ old('email_address') }}" required autofocus>
-    @if ($errors->has('email_address'))
-              <span class="glyphicon glyphicon-envelope form-control-feedback">{{ $errors->first('email_address') }}</span>
-        @endif
     </div>
     <div class="form-group has-feedback{{ $errors->has('password') ? ' has-error' : '' }}" >
       <input id="password" type="password" class="form-control" placeholder="Нууц үг" name="password" required>
       @if ($errors->has('password'))
-            <span class="glyphicon glyphicon-lock form-control-feedback">{{ $errors->first('password') }}</span>
+            <div class="box-body">
+                <div class="alert alert-warning alert-dismissible">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                  <h4><i class="icon fa fa-warning"></i> Санамж!</h4>
+                  {{ $errors->first('password') }}
+                </div>
+              </div>
+      @elseif ($errors->has('email_address'))
+        <div class="box-body">
+          <div class="alert alert-warning alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h4><i class="icon fa fa-warning"></i> Санамж!</h4>
+            {{ $errors->first('email_address') }}
+          </div>
+        </div>
       @endif
 
     </div>
@@ -57,7 +68,6 @@
 
     </div>
   </form>
-
   <!-- <a href="{{ url('/password/reset') }}">Нууц үг сэргээх</a><br> -->
   <a href="{{ url('/register') }}" class="text-center">Шинээр бүртгүүлэх</a>
 
