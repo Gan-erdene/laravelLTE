@@ -69,7 +69,7 @@
     </div>
   </form>
   <!-- <a href="{{ url('/password/reset') }}">Нууц үг сэргээх</a><br> -->
-  <a href="{{ url('/register') }}" class="text-center">Шинээр бүртгүүлэх</a>
+  <!-- <a href="{{ url('/register') }}" class="text-center">Шинээр бүртгүүлэх</a> -->
 
 </div>
 </div>
