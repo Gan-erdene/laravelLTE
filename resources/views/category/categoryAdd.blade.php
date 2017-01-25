@@ -9,7 +9,7 @@
     </h1>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Мэдээ</a></li>
-      <li><a href="#">Ангилал</a></li>
+      <li><a href="#">Мэргэжил</a></li>
       <li class="active">Шинээр үүсгэх</li>
     </ol>
   </section>
