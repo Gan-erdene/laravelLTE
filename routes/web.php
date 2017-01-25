@@ -15,11 +15,14 @@ Route::get('/', function () {
     return redirect('/start');
 });
 
-Route::get('/backend/login',function(){
-  return view('/Auth/login');
+Route::get('/backend', function () {
+    return redirect('/backend/login');
 });
 
+Route::get('/backend/login',['uses'=>'backend\LoginController@getLogin']);
+
 Route::post('/backend/login','backend\LoginController@login');
+Route::get('/backend/logout',['uses'=>'App\Http\Controllers\backend\LoginController@logout']);
 
 Route::group(['middleware' => 'checkadmin'], function(){
 

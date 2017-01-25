@@ -29,10 +29,10 @@
 
   <form class="form-horizontal" role="form" method="POST" action="{{ url('/backend/login') }}">
       {{ csrf_field() }}
-          <div class="form-group has-feedback{{ $errors->has('email') ? ' has-error' : '' }}">
-      <input id="email" type="email" class="form-control" placeholder="Мэйл хаяг" name="email" value="{{ old('email') }}" required autofocus>
-    @if ($errors->has('email'))
-              <span class="glyphicon glyphicon-envelope form-control-feedback">{{ $errors->first('email') }}</span>
+          <div class="form-group has-feedback{{ $errors->has('email_address') ? ' has-error' : '' }}">
+      <input id="email_address" type="email" class="form-control" placeholder="Мэйл хаяг" name="email_address" value="{{ old('email_address') }}" required autofocus>
+    @if ($errors->has('email_address'))
+              <span class="glyphicon glyphicon-envelope form-control-feedback">{{ $errors->first('email_address') }}</span>
         @endif
     </div>
     <div class="form-group has-feedback{{ $errors->has('password') ? ' has-error' : '' }}" >
@@ -58,15 +58,7 @@
     </div>
   </form>
 
-  <div class="social-auth-links text-center">
-    <p>- Эсвэл -</p>
-    <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in using
-      Facebook</a>
-    <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in using
-      Google+</a>
-  </div>
-
-  <a href="{{ url('/password/reset') }}">Нууц үг сэргээх</a><br>
+  <!-- <a href="{{ url('/password/reset') }}">Нууц үг сэргээх</a><br> -->
   <a href="{{ url('/register') }}" class="text-center">Шинээр бүртгүүлэх</a>
 
 </div>

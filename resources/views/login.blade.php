@@ -51,18 +51,18 @@
 
       </div>
     </form>
-
-    <div class="social-auth-links text-center">
+<!--
+    <div style="display:none" class="social-auth-links text-center">
       <p>- Эсвэл -</p>
       <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in using
         Facebook</a>
       <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in using
         Google+</a>
-    </div>
+    </div> -->
 
 
-    <a href="#">Нууц үг сэргээх</a><br>
-    <a href="register.html" class="text-center">Шинээр бүртгүүлэх</a>
+    <!-- <a href="#">Нууц үг сэргээх</a><br> -->
+    <a href="/frontend/index" class="text-center">Шинээр бүртгүүлэх</a>
 
   </div>
 

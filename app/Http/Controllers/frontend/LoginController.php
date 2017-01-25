@@ -16,8 +16,8 @@ class LoginController extends Controller
 {
     public function index(Request $request)
     {
-      if (Auth::check()) {
-          return redirect('/frontend/home');
+      if ( isset(\Auth::user()->id) and \Auth::user()->id) {
+          return redirect('/frontend/newsfeed');
       }
       return view('frontend.login');
 
@@ -25,7 +25,6 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-
 
       $email = $request->input('email');
       $password = $request->input('password');
