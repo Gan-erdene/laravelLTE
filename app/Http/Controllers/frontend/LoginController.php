@@ -29,14 +29,14 @@ class LoginController extends Controller
       $email = $request->input('email');
       $password = $request->input('password');
 
-     if(Auth::attempt(['email_address' => $email, 'password' => $password,'is_active' => 1]))
+     if(Auth::attempt(['email_address' => $email, 'password' => $password]))
      {
        return redirect('/frontend/newsfeed');
      }
      else{
        return back()
-         ->with('status', 'success')
-         ->with('message', 'Тань эрх идэвхгүй төлөвт байна. Менежер идэвхжүүлсний дараа нэвтэрч орно уу');
+         ->with('status', 'warning')
+         ->with('message', 'Уучлаарай таны нэвтрэх нэр эсвэл нууц үг буруу байна');
      }
     }
     public function redirectToProvider()
