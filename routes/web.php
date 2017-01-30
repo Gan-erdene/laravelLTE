@@ -44,6 +44,9 @@ Route::group(['middleware' => 'checkadmin'], function(){
     Route::get('/backend/content/add','backend\contentController@index');
     Route::get('/backend/logout','backend\LoginController@logout');
 
+    Route::get('/backend/banner', 'backend\BannerController@addView')->name('bannerAdd');
+    Route::post('/backend/banner/action', 'backend\BannerController@action')->name('bannerAction');
+
 
 });
 Route::group(['middleware' => 'checkuser'], function(){

@@ -6,45 +6,7 @@
 
     <div class="row page-content">
       <div class="col-md-8 col-md-offset-2">
-
-        <div class="row">
-          <div class="col-md-12">
-            <div class="cover profile">
-              <div class="wrapper">
-                @if ($user_about->coverName)
-                <div class="image">
-                  <img src="\uploads\coverimage\{{$user_about->coverName}}" class="show-in-modal" alt="people">
-                </div>
-                  @else
-                   <div class="image">
-                     <img src="/frontend/img/Cover/profile-cover.jpg" class="show-in-modal" alt="people">
-                   </div>
-                  @endif
-                @include('frontend.home.cover_right_friends',['cover_right_friend'=>$cover_right_friend])
-              </div>
-              <div class="cover-info">
-                @if( $user_about->profile_image)
-                <div class="avatar">
-                    <img src="/uploads/profileimage/{{ $user_about->profile_image}}" alt="people">
-                </div>
-                @else
-                <div class="avatar">
-                    <img src="/frontend/img/Profile/default-avatar.png" alt="people">
-                </div>
-                @endif
-
-                <div class="name"><a href="#">{{ $user_about->first_name }} {{ $user_about->last_name }}</a></div>
-                <ul class="cover-nav">
-                  <li class="active"><a href="{{route('frontendEditProfile')}}"><i class="fa fa-fw fa-user"></i> Миний тухай</a></li>
-                  <li id='friendView' class="active"><a href="{{route('friendsView')}}"><i class="fa fa-fw fa-users"></i> Найзууд</a></li>
-                  <li class="active"><a href="{{route('photos')}}"><i class="fa fa-fw fa-image"></i> Зураг</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
+        @include('frontend.user.cover', ['user'=>$user_about])
       <div class="row">
         @foreach($friends as $friend)
           <div class="col-md-3">

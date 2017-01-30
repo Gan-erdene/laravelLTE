@@ -58,6 +58,7 @@
       <li id="_work_list"><a href="{{route('workOrders')}}"><i class="fa fa-angle-double-right"></i> Захиалгын жагсаалт</a></li>
     </ul>
   </li>
+  <li id="_banner"><a href="{{route('bannerAdd')}}"><i class="fa fa-tags"></i> <span>Сурталчилгаа</span></a></li>
   <li id="_help" class="treeview">
     <a href="#">
       <i class="fa fa-question-circle"></i> <span>Тусламж</span>
