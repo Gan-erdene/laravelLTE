@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="/admin/dist/css/AdminLTE.min.css">
   <link rel="stylesheet" href="/admin/plugins/iCheck/all.css">
   <link rel="stylesheet" href="/admin/dist/css/skins/_all-skins.min.css">
+  @yield('css')
   <script>
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
