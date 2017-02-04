@@ -33,12 +33,30 @@
       }, function(data){
         $('#friendList').html(data.html);
       });
+      $(document).on('ready', function(){
+        $('#mdSearch').keypress(function (e) {
+           var key = e.which;
+           if(key == 13)  // the enter key code
+            {
+              if($("#mdSearch").val()){
+                  window.location = "/frontend/newsfeed?search="+$("#mdSearch").val();
+                  return false;
+              }
+              window.location = "/frontend/newsfeed";
+              return false;
+            }
+        });
+
+        @if(isset($search) and $search)
+        $("#mdSearch").val("{{str_replace('%2F', '/', $search)}}")
+        @endif
+      });
+
     </script>
     @yield('javascripts')
   </head>
 
   <body class="animated fadeIn">
-
     <!-- Fixed navbar -->
     <nav class="navbar navbar-white navbar-fixed-top">
       <div class="container">
@@ -52,6 +70,7 @@
           <a class="navbar-brand" href="{{route('newsfeedIndex')}}"><b><img src="/frontend/img/logo.png" /></b></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
+            <input placeholder="Хайлт..." name="search" id="mdSearch"  style="margin-top: 25px;width: 30%;">
           <ul class="nav navbar-nav navbar-right">
             <li>
               <a href="{{route('frontendHome')}}">

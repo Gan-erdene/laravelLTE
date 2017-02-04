@@ -84,6 +84,7 @@ $(document).ready(function(){
   $.post('{{route("newsfeedAction")}}', {
     action:
       @if($saved) 'post_saved'
+      @elseif($search) 'post_search', value:"{{$search}}"
       @elseif($m_c) 'post_category', value:"{{$m_c}}"
       @elseif($m_s) 'post_section', value:"{{$m_s}}"
       @else 'post_work' @endif , _token:"{{csrf_token()}}"
