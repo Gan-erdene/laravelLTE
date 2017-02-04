@@ -80,7 +80,7 @@ class LoginController extends Controller
       else
       $user = $socialProvider->user;
       Auth::login($user, true);
-      return redirect('/frontend/home');
+      return redirect('/frontend/newsfeed');
 
     //  return $user->getEmail;
 
