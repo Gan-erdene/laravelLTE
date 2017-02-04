@@ -18,6 +18,11 @@ class sf_guard_user extends Authenticatable
   protected $fillable = [
       'email_address', 'password', 'last_name', 'first_name', 'username','phone','phone2','address','zone_id','gender','created_at','profileName','username_canonical','email_canonical','confirmation_token','roles'
   ];
+
+  public function friend(){
+      return $this->hasMany('App\Friends', 'friend_user_id', 'id')->where('user_id', \Auth::user()->id)->first();
+  }
+
   public function posts()
   {
     return $this->hasMany('App\post');

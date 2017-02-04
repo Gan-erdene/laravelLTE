@@ -30,6 +30,20 @@
       <div class="ibox-content">
           <div class="file-manager">
               <div class="hr-line-dashed"></div>
+              <ul class="folder-list" style="padding: 0">
+                  <li><a href="{{route('frontendHome')}}">{{trans('strings.profile')}}</a></li>
+                  <li><a href="{{route('frontendFindUser')}}">{{trans('strings.find_friend')}}</a></li>
+                  <li><a href="{{route('addWork')}}">{{trans('strings.add_work')}}</a></li>
+              </ul>
+              <div class="clearfix"></div>
+          </div>
+      </div>
+  </div>
+
+    <div class="ibox float-e-margins">
+      <div class="ibox-content">
+          <div class="file-manager">
+              <div class="hr-line-dashed"></div>
               <h5>{{trans('strings.section')}} <a href="/frontend/profile?s=c" class="btn btn-default pull-right btn-xs icon-only"><i class="fa fa-cog"></i></a></h5>
               <ul class="folder-list" style="padding: 0">
                 @foreach($userSections as $section)

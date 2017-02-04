@@ -54,11 +54,11 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             <li>
-              <a>
+              <a href="{{route('frontendHome')}}">
                 @if(\Auth::user()->profile_image)
-                    <img style="width:30px; height:30px; object-fit: cover;" src="/uploads/profileimage/{{\Auth::user()->profile_image}}" alt="">
+                    <img style="width:20px; height:20px; object-fit: cover;" src="/uploads/profileimage/{{\Auth::user()->profile_image}}" alt="">
                 @else
-                    <img style="width:30px; height:30px; object-fit: cover;"  src="/frontend/img/Profile/default-avatar.png" alt="">
+                    <img style="width:20px; height:20px; object-fit: cover;"  src="/frontend/img/Profile/default-avatar.png" alt="">
                 @endif
                 {{\Auth::user()->first_name}}
               </a>

@@ -177,7 +177,7 @@ $(document).ready(function(){
               </div>
             </div>
           </div><!-- End people yout may know -->
-
+          @include('frontend.user.banner')
           @include('frontend.newsfeed.groups')
           @include('frontend.group.create_group')
         </div><!-- end right posts -->

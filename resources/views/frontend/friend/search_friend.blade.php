@@ -18,13 +18,13 @@
   </td>
   <td>
     <div class="m-t-xs btn-group">
-      @if( isset($item->status) and $item->status === 1 )
-      <button data-id="acc_{{$item->friend_user_id}}" class="btn btn-xs btn-white finduser"> {{trans('strings.accept_friend')}}</button>
-      <button data-id="dec_{{$item->friend_user_id}}" class="btn btn-xs btn-white finduser"> {{trans('strings.decline_friend')}}</button>
-      @elseif( isset($item->status) and $item->status === 0 )
-      <button data-id="can_{{$item->friend_user_id}}" class="btn btn-xs btn-white finduser"> {{trans('strings.cancel_request')}}</button>
-      @elseif( isset($item->status) and $item->status  === 2)
-      <button data-id="ded_{{$item->friend_user_id}}" class="btn btn-xs btn-white"> {{trans('strings.declined')}}</button>
+      @if( isset($item->friend()->status) and $item->friend()->status === 1 )
+      <button data-id="acc_{{$item->id}}" class="btn btn-xs btn-white finduser"> {{trans('strings.accept_friend')}}</button>
+      <button data-id="dec_{{$item->id}}" class="btn btn-xs btn-white finduser"> {{trans('strings.decline_friend')}}</button>
+      @elseif( isset($item->friend()->status) and $item->friend()->status === 0 )
+      <button data-id="can_{{$item->id}}" class="btn btn-xs btn-white finduser"> {{trans('strings.cancel_request')}}</button>
+      @elseif( isset($item->friend()->status) and $item->friend()->status  === 2)
+      <button data-id="ded_{{$item->id}}" class="btn btn-xs btn-white"> {{trans('strings.declined')}}</button>
       @else
       <button data-id="add_{{$item->id}}" class="btn btn-xs btn-white finduser"> {{trans('strings.add_friend')}}</button>
       @endif
