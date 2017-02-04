@@ -98,16 +98,14 @@ class FindUserController extends Controller
         ]);
       }
       if( $friend->status === 2 or $friend->status === 6 ){
-        $friend->status = 7; //naizaas hassan
-        $friend->update();
+        $friend->delete();
 
         $_friend = Friends::where('friend_user_id', \Auth::user()->id)->where('user_id', $friend_user_id)->first();
-        $_friend->status = 3;
-        $_friend->update();
+        $_friend->delete();
 
         $fupdate = new FriendUpdates();
         $fupdate->created_at = new \DateTime();
-        $fupdate->status = $friend->status;
+        $fupdate->status = 3; //naizaas ustgasan
         $fupdate->user_id = \Auth::user()->id;
         $fupdate->save();
 
@@ -129,21 +127,19 @@ class FindUserController extends Controller
             'status'=>false, 'message'=>'Хэрэглэгч найзын хүсэлтээ буцаасан байна.'
         ]);
       }
-      $user = Friends::find($checkeduser[0]->id);
-      $user->status = 2;
-      $status = $user->update();
+      $friend = Friends::where('user_id', \Auth::user()->id)->where( 'friend_user_id', $userid )->first();
+      $friend->delete();
+      $_friend = Friends::where('friend_user_id', \Auth::user()->id)->where('user_id', $userid)->first();
+      $_friend->delete();
 
-      if($status){
-        $fupdate = new FriendUpdates();
-        $fupdate->friend_id = $user->id;
-        $fupdate->created_at = new \DateTime();
-        $fupdate->status = $user->status;
-        $fupdate->user_id = \Auth::user()->id;
-        $fupdate->save();
-      }
+      $fupdate = new FriendUpdates();
+      $fupdate->created_at = new \DateTime();
+      $fupdate->status = 2;
+      $fupdate->user_id = \Auth::user()->id;
+      $fupdate->save();
 
       return response()->json(['dataid'=>$userid,
-          'status'=>$status, 'btntext'=>trans('strings.declined')
+          'status'=>"true", 'btntext'=>trans('strings.declined')
       ]);
     }
 
@@ -165,13 +161,13 @@ class FindUserController extends Controller
     public function cancelRequest($friendid){
         $friend = Friends::where('user_id', \Auth::user()->id)->where('friend_user_id', $friendid)->first();
         if($friend->status === 0 or $friend->status === 1 or $friend->status === 8 or $friend->status === 9){
-          $friend->status = 8; //huselt butsaasan
-          $friend->update();
+          //$friend->status = 8; //huselt butsaasan
+          $friend->delete();
           $_friend = Friends::where('friend_user_id', \Auth::user()->id)->where('user_id', $friendid)->first();
-          $_friend->status = 9; //huselt butsaagdsan
-          $_friend->update();
+          //$_friend->status = 9; //huselt butsaagdsan
+          $_friend->delete();
 
-          $this->createHistory($friend->status);
+          $this->createHistory(8);
 
           return response()->json(['dataid'=>"add_".$friendid,
               'status'=>true, 'btntext'=>trans('strings.add_friend')

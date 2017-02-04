@@ -23,8 +23,8 @@
       <button data-id="dec_{{$item->id}}" class="btn btn-xs btn-white finduser"> {{trans('strings.decline_friend')}}</button>
       @elseif( isset($item->friend()->status) and $item->friend()->status === 0 )
       <button data-id="can_{{$item->id}}" class="btn btn-xs btn-white finduser"> {{trans('strings.cancel_request')}}</button>
-      @elseif( isset($item->friend()->status) and $item->friend()->status  === 2)
-      <button data-id="ded_{{$item->id}}" class="btn btn-xs btn-white"> {{trans('strings.declined')}}</button>
+      @elseif( isset($item->friend()->status) and ( $item->friend()->status  === 2 or $item->friend()->status  === 6 ) )
+      <button data-id="rem_{{$item->id}}" class="btn btn-xs btn-white finduser"> {{trans('strings.remove_friend')}}</button>
       @else
       <button data-id="add_{{$item->id}}" class="btn btn-xs btn-white finduser"> {{trans('strings.add_friend')}}</button>
       @endif

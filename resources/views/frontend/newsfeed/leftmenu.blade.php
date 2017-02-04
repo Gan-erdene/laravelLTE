@@ -34,6 +34,7 @@
                   <li><a href="{{route('frontendHome')}}">{{trans('strings.profile')}}</a></li>
                   <li><a href="{{route('frontendFindUser')}}">{{trans('strings.find_friend')}}</a></li>
                   <li><a href="{{route('addWork')}}">{{trans('strings.add_work')}}</a></li>
+                  <li id="_eventd"><a href="{{route('eventListFrontend')}}"> Арга хэмжээ </a></li>
               </ul>
               <div class="clearfix"></div>
           </div>

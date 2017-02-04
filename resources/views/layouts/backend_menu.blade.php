@@ -59,6 +59,7 @@
     </ul>
   </li>
   <li id="_banner"><a href="{{route('bannerAdd')}}"><i class="fa fa-tags"></i> <span>Сурталчилгаа</span></a></li>
+  <li id="_eventx"><a href="{{route('eventList')}}"><i class="fa fa-calendar-check-o "></i> <span>Арга хэмжээ</span></a></li>
   <li id="_help" class="treeview">
     <a href="#">
       <i class="fa fa-question-circle"></i> <span>Тусламж</span>

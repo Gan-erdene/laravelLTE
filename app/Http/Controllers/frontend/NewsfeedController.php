@@ -22,6 +22,11 @@ class NewsfeedController extends Controller
       $m_s = $request->input('m_s'); // menu_section
       $m_c = $request->input('m_c'); // menu_category
       $saved = $request->input('s_d'); // saved_work
+      $search = $request->input('search');
+
+      if($search){
+        $search = str_replace("/", "%2F", $search);
+      }
 
       $sections = Section::where('published', '1')->orderBy('order_id', 'asc')->get();
       $userSections = $this->userSections();
@@ -31,7 +36,7 @@ class NewsfeedController extends Controller
       $ungroups = $this->unGroups($userid);
       return view('frontend.newsfeed.index',[
         'userCategories'=>$userCategories,'sections'=>$sections,
-        'm_s'=>$m_s, 'm_c'=>$m_c, 'saved'=>$saved, 'right_users'=>$users, 'ungroups'=>$ungroups,
+        'm_s'=>$m_s, 'm_c'=>$m_c, 'saved'=>$saved, 'right_users'=>$users, 'ungroups'=>$ungroups,'search'=>$search,
         'userSections'=>$userSections]);
     }
 
@@ -70,8 +75,17 @@ class NewsfeedController extends Controller
         case 'post_category': return response()->json(['html'=>$this->postByCategory($request)]);
         case 'post_section': return response()->json(['html'=>$this->postBySection($request)]);
         case 'user_rate' :return response()->json(['rate'=>$this->userRate()]);
+        case 'post_search': return response()->json(['html'=>$this->postSearch($request)]);
         default: break;
       }
+    }
+
+    public function postSearch($request){
+      $posts = Works::where('project_name', 'like', '%'.$request->input('value').'%')
+         ->orWhere('reference', 'like', '%' . $request->input('value') . '%')
+         ->orWhere('skill', 'like', '%' . $request->input('value') . '%')->get();
+      $html = view('frontend.newsfeed.search', ['posts'=>$posts]);
+      return $html->render();
     }
 
     public function userRate(){

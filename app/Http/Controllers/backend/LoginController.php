@@ -38,6 +38,12 @@ class LoginController extends Controller
      $credentials = $this->credentials($request);
 
      if ($this->guard()->attempt($credentials, $request->has('remember'))) {
+          if( \Auth::user()->is_super_admin <= 0 ){
+            $this->guard()->logout();
+            $request->session()->flush();
+            $request->session()->regenerate();
+            return redirect('/backend/login')->with("isadmin", "Уучлаарай та админ эрхтэй хэрэглэгч биш байна");
+          }
          return $this->sendLoginResponse($request);
      }
 

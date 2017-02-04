@@ -34,6 +34,15 @@
     </div>
     <div class="form-group has-feedback{{ $errors->has('password') ? ' has-error' : '' }}" >
       <input id="password" type="password" class="form-control" placeholder="Нууц үг" name="password" required>
+      @if( Session::has('isadmin') )
+            <div class="box-body">
+                <div class="alert alert-warning alert-dismissible">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                  <h4><i class="icon fa fa-warning"></i> Санамж!</h4>
+                  {{ Session::get('isadmin') }}
+                </div>
+              </div>
+      @endif
       @if ($errors->has('password'))
             <div class="box-body">
                 <div class="alert alert-warning alert-dismissible">

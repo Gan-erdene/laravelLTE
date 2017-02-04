@@ -46,6 +46,9 @@ Route::group(['middleware' => 'checkadmin'], function(){
 
     Route::get('/backend/banner', 'backend\BannerController@addView')->name('bannerAdd');
     Route::post('/backend/banner/action', 'backend\BannerController@action')->name('bannerAction');
+    Route::get('/backend/event/list', 'backend\EventController@index')->name('eventList');
+    Route::get('/backend/event/add', 'backend\EventController@addView')->name('eventAdd');
+    Route::post('/backend/event/action', 'backend\EventController@action')->name('eventAction');
 
 
 });
@@ -101,6 +104,8 @@ Route::group(['middleware' => 'checkuser'], function(){
 
   Route::post('/frontend/comment/action','frontend\CommentController@action')->name('commentAction');
   Route::post('/frontend/salary/action','frontend\SalaryController@action')->name('salaryAction');
+  Route::get('/frontend/events','backend\EventController@events')->name('eventListFrontend');
+  Route::get('/frontend/events/{id}','backend\EventController@viewEvent')->name('eventViewFrontend');
 }
 
 );
