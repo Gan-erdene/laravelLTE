@@ -23,7 +23,7 @@ Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
 
 ### Configuration
 
-Add `NOCAPTCHA_SECRET` and `NOCAPTCHA_SITEKEY` in **.env** file:
+Add `NOCAPTCHA_SECRET` and `NOCAPTCHA_SITEKEY` in **.env** file (without brackets):
 
 ```
 NOCAPTCHA_SECRET=[secret-key]
@@ -36,6 +36,12 @@ NOCAPTCHA_SITEKEY=[site-key]
 
 ```php
 {!! app('captcha')->display(); !!}
+```
+
+With custom attributes and language support:
+
+```
+{!! app('captcha')->display($attributes = [], $lang = null); !!}
 ```
 
 ##### Validation

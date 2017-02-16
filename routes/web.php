@@ -110,8 +110,8 @@ Route::group(['middleware' => 'checkuser'], function(){
 
 );
 
-Route::get('frontend/facebook', 'frontend\LoginController@redirectToProvider');
-Route::get('frontend/facebook/callback', 'frontend\LoginController@handleProviderCallback');
+Route::get('/frontend/facebook', 'frontend\LoginController@redirectToProvider');
+Route::get('/frontend/facebook/callback', 'frontend\LoginController@handleProviderCallback');
 Route::get('/frontend/index','frontend\LoginController@index');
 Route::post('/frontend/login','frontend\LoginController@login');
 Route::post('/frontend/signup','frontend\RegisterController@createUser');

@@ -51,41 +51,24 @@ class LoginController extends Controller
   */
  public function handleProviderCallback()
   {
-      try{
+		
           $socialUser = Socialite::driver('facebook')->user();
-            //return $user->getEmail();
-      }
-      catch(\Exception $e)
-      {
-        return redirect('/frontend/index');
-      }
-      $socialProvider = SocialProvider::where('provider_id',$socialUser->getId())->first();
-      if(!$socialProvider)
-      {
-          $user = sf_guard_user::firstOrcreate(
-            ['email_address' => $socialUser->getEmail()],
-            ['first_name' => $socialUser->getName()],
-            ['profile_image' => $socialUser->getAvatar()]
-          #  ['gender' => $socialUser->getGender()],
-          #  ['phone' => $socialUser->getPhone()],
-          # ['address' => $socialUser->getRaw()]
-      #      ['work' => $socialUser->getWork()],
-
-
-          );
-          $user->socialProviders()->create(
-            ['provider_id'=>$socialUser->getId(),'provider' => 'facebook' ]
-          );
-      }
-      else
-      $user = $socialProvider->user;
-      Auth::login($user, true);
-      return redirect('/frontend/home');
-
-    //  return $user->getEmail;
-
-
-
+		  //return dd($socialUser);
+		  if($socialUser){
+			  $email = $socialUser->getEmail();
+			  $user = sf_guard_user::where("email_address",$email)->first();
+			  if($user){
+				 Auth::loginUsingId($user->id, true); 
+			  }else{
+				  $newuser = new sf_guard_user();
+				  $newuser->email_address = $socialUser->getEmail();
+				  $newuser->first_name = $socialUser->getName();
+				  $newuser->save();
+				   Auth::loginUsingId($newuser->id, true); 
+			  }
+			  
+			  return redirect('/frontend/newsfeed');
+		  }
     }
     public function logout(Request $request){
           Auth::logout();

@@ -36,8 +36,8 @@ return [
     ],
 
     'facebook' => [
-    'client_id' => '161899500945608',
-    'client_secret' => '5b77ccd2980a1a791b41a9d8b7867e03',
+    'client_id' => '225396041199711',
+    'client_secret' => '6a7603176672a85b2d13dbd987cf3fbf',
     'redirect' => 'http://ezn.mn/frontend/facebook/callback',
     ],
 

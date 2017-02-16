@@ -3,11 +3,10 @@
 namespace Anhskohbo\NoCaptcha;
 
 use Symfony\Component\HttpFoundation\Request;
+use GuzzleHttp\Client;
 
 class NoCaptcha
 {
-    const VERSION = '2.1.2';
-
     const CLIENT_API = 'https://www.google.com/recaptcha/api.js';
     const VERIFY_URL = 'https://www.google.com/recaptcha/api/siteverify';
 
@@ -26,6 +25,11 @@ class NoCaptcha
     protected $sitekey;
 
     /**
+     * @var \GuzzleHttp\Client
+     */
+    protected $http;
+
+    /**
      * NoCaptcha.
      *
      * @param string $secret
@@ -35,10 +39,14 @@ class NoCaptcha
     {
         $this->secret = $secret;
         $this->sitekey = $sitekey;
+        $this->http = new Client([ 'timeout' => 2.0 ]);
     }
 
     /**
      * Render HTML captcha.
+     *
+     * @param array  $attributes
+     * @param string $lang
      *
      * @return string
      */
@@ -93,6 +101,8 @@ class NoCaptcha
     /**
      * Get recaptcha js link.
      *
+     * @param string $lang
+     *
      * @return string
      */
     public function getJsLink($lang = null)
@@ -109,22 +119,11 @@ class NoCaptcha
      */
     protected function sendRequestVerify(array $query = [])
     {
-        // This taken from: https://github.com/google/recaptcha/blob/master/src/ReCaptcha/RequestMethod/Post.php
-        $peer_key = version_compare(PHP_VERSION, '5.6.0', '<') ? 'CN_name' : 'peer_name';
+        $response = $this->http->request('POST', static::VERIFY_URL, [
+            'form_params' => $query,
+        ]);
 
-        $context = stream_context_create(array(
-            'http' => array(
-                'header' => "Content-type: application/x-www-form-urlencoded\r\n",
-                'method' => 'POST',
-                'content' => http_build_query($query, '', '&'),
-                'verify_peer' => true,
-                $peer_key => 'www.google.com',
-            ),
-        ));
-
-        $response = file_get_contents(static::VERIFY_URL, false, $context);
-
-        return json_decode($response, true);
+        return json_decode($response->getBody(), true);
     }
 
     /**
